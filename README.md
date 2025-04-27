@@ -1,7 +1,7 @@
 Engineering materials
 =====
 
-This repository contains engineering materials of a self-driven vehicle's model participating in the WRO Future Engineers competition in the season 2022.
+This repository contains engineering materials of a self-driven vehicle's model participating in the WRO Future Engineers competition in the season 2025.
 
 ## Content
 
@@ -25,7 +25,7 @@ The WRO 2025 Future Engineers Self-Driving Cars Challenge tasks teams with desig
 
 Objective: The vehicle must autonomously complete three laps on a racetrack that varies in layout for each round.
 
-Key Elements:
+**Key Elements:**
 
 The track includes randomized corridor widths (narrow or wide sections) and changes in starting positions.
 
@@ -35,7 +35,7 @@ Adaptability is critical, as the track configuration (e.g., wall placements, sta
 
 Objective: The vehicle must complete three laps on a track with randomly placed traffic signs and then perform a parallel parking maneuver in a designated area.
 
-Key Elements:
+**Key Elements:**
 
 Traffic Signs: Red and green pillars indicate required driving lanes (red \= keep right, green \= keep left). The vehicle must obey these rules without displacing the signs.
 
