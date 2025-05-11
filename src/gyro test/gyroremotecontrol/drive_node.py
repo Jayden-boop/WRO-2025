@@ -86,7 +86,7 @@ class DriveNode(Node):
         )
 
         # Set the steering angle
-        self.s = self.mid + steering_adjustment
+        self.s = self.mid - steering_adjustment
 
         # Update servo position
         pw = self.pwm(self.s)
