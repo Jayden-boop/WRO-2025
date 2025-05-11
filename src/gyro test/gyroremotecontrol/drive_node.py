@@ -52,7 +52,7 @@ class DriveNode(Node):
         )
 
         # PID constants (only P for now)
-        self.Kp = 20.0  # Proportional gain - adjust as needed
+        self.Kp = 11.5  # Proportional gain - adjust as needed
 
     def pwm(self, degree):
         return round(degree * 11.1 + 500)
