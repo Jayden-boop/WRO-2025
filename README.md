@@ -7,7 +7,7 @@ This repository contains engineering materials of a self-driven vehicle's model 
 
 ## Table of Contents
 =====
-* Team Introduction
+* [Team Introduction] https://github.com/Jayden-boop/WRO-2025/blob/main/README.md#task
 * Challenge Introduction
 * Robot Photos
 
