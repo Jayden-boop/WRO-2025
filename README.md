@@ -7,9 +7,9 @@ This repository contains engineering materials of a self-driven vehicle's model 
 
 ## Table of Contents
 =====
-Team Introduction
-Challenge Introduction
-Robot Photos
+* Team Introduction
+* Challenge Introduction
+* Robot Photos
 
 
 ## Content
