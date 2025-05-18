@@ -1,15 +1,20 @@
+Table of Contents
+=====
+- [Introduction](#introduction)
+- [Engineering Materials](#engineering-materials)
+  - [1. Raspberry Pi 5](#1-raspberry-pi-5)
+  - [2. Raspberry Pi 5 Expansion Board](#2-raspberry-pi-5-expansion-board)
+  - [3. Micro Servo 99 SG90](#3-micro-servo-99-sg90)
+  - [4. K989 1/28 WL Toys Chassis](#4-k989-128-wl-toys-chassis)
+  - [5. Furitek Micro Komodo Motor](#5-furitek-micro-komodo-motor)
+- [Assembly](#assembly)
+- [Conclusion](#conclusion)
+
+
 Engineering materials
 =====
 
 This repository contains engineering materials of a self-driven vehicle's model participating in the WRO Future Engineers competition in the season 2025.
-
-
-
-## Table of Contents
-=====
-* Team Introduction [https://github.com/Jayden-boop/WRO-2025/blob/main/README.md#task]
-* Challenge Introduction
-* Robot Photos
 
 
 ## Content
