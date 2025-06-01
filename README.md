@@ -7,7 +7,7 @@ Table of Contents
   - [3. Micro Servo 99 SG90](#3-micro-servo-99-sg90)
   - [4. K989 1/28 WL Toys Chassis](#4-k989-128-wl-toys-chassis)
   - [5. Furitek Micro Komodo Motor](#5-furitek-micro-komodo-motor)
-  - [Cost Report](#Cost Report)
+  - [Cost Report](#Cost)
 - [Assembly](#assembly)
 - [Conclusion](#conclusion)
 
