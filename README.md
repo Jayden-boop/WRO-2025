@@ -7,6 +7,7 @@ Table of Contents
   - [3. Micro Servo 99 SG90](#3-micro-servo-99-sg90)
   - [4. K989 1/28 WL Toys Chassis](#4-k989-128-wl-toys-chassis)
   - [5. Furitek Micro Komodo Motor](#5-furitek-micro-komodo-motor)
+  - [Cost Report](#Cost Report)
 - [Assembly](#assembly)
 - [Conclusion](#conclusion)
 
@@ -135,8 +136,7 @@ The K989 chassis’ agility helps maximize points for lap completion and parking
 
 The Furitek motor’s efficiency reduces the risk of overheating during repairs (Rule 9.18).
 
-## Cost Report
-Engineering Materials:
+
 ## Cost Report
 
 | Component                                              | Quantity | Unit Price (CAD) | Total Cost (CAD) |
