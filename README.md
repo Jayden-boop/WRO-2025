@@ -17,7 +17,7 @@ The WRO 2025 Future Engineers Self-Driving Cars Challenge tasks teams with desig
 
 ### Challenge Descriptions:
 
-#### 1\. [Open Challenge]()
+#### 1\. [Open Challenge](OpenChallenge)
 
 Objective: The vehicle must autonomously complete three laps on a racetrack that varies in layout for each round.
 
