@@ -1,7 +1,21 @@
+Table of Contents
+=====
+- [Introduction](#introduction)
+- [Engineering Materials](#engineering-materials)
+  - [1. Raspberry Pi 5](#1-raspberry-pi-5)
+  - [2. Raspberry Pi 5 Expansion Board](#2-raspberry-pi-5-expansion-board)
+  - [3. Micro Servo 99 SG90](#3-micro-servo-99-sg90)
+  - [4. K989 1/28 WL Toys Chassis](#4-k989-128-wl-toys-chassis)
+  - [5. Furitek Micro Komodo Motor](#5-furitek-micro-komodo-motor)
+- [Assembly](#assembly)
+- [Conclusion](#conclusion)
+
+
 Engineering materials
 =====
 
 This repository contains engineering materials of a self-driven vehicle's model participating in the WRO Future Engineers competition in the season 2025.
+
 
 ## Content
 
@@ -120,6 +134,12 @@ Scoring Optimization:
 The K989 chassis’ agility helps maximize points for lap completion and parking accuracy (Appendix A.6).
 
 The Furitek motor’s efficiency reduces the risk of overheating during repairs (Rule 9.18).
+
+## Cost Report
+Engineering Materials:
+
+![{2CD7E615-B639-4794-ABBD-50CD4FDE2D77}](https://github.com/user-attachments/assets/6a230cb4-8837-4a89-86f1-f490a453be0c)
+
 
 ## Assembly
 
