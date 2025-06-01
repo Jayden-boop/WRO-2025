@@ -136,7 +136,8 @@ The K989 chassis’ agility helps maximize points for lap completion and parking
 The Furitek motor’s efficiency reduces the risk of overheating during repairs (Rule 9.18).
 
 ## Cost Report
-![Chart](![{2CD7E615-B639-4794-ABBD-50CD4FDE2D77}](https://github.com/user-attachments/assets/6a230cb4-8837-4a89-86f1-f490a453be0c)
+Engineering Materials
+(![{2CD7E615-B639-4794-ABBD-50CD4FDE2D77}](https://github.com/user-attachments/assets/6a230cb4-8837-4a89-86f1-f490a453be0c)
 
 
 ## Assembly
