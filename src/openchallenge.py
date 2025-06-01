@@ -10,7 +10,7 @@ import RPi.GPIO as GPIO
 
 board = rrc.Board()
 # movement constants
-MID_SERVO = 63
+MID_SERVO = 56.5
 MAX_TURN_DEGREE = 20
 DC_SPEED = 1376
 
@@ -307,7 +307,7 @@ while True:
 
     # set the last current_difference equal to the current current_difference for derivative steering
     last_difference = current_difference
-    print(turn_counter)
+    print(turn_dir)
 
     # if the steering variable is higher than the max turn degree for the servo, set it to the max turn degree
     if (servo_angle) > MID_SERVO + MAX_TURN_DEGREE:

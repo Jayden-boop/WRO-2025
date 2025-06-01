@@ -18,7 +18,7 @@ class RectangularPathNode(Node):
 
         self.board = rrc.Board()
 
-        self.mid = 63
+        self.mid = 56.5
         self.max_turn_degree = 30
 
         self.board.pwm_servo_set_position(0.1, [[1, self.pwm(self.mid)]])
