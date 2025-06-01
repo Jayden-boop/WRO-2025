@@ -10,14 +10,14 @@ import RPi.GPIO as GPIO
 
 board = rrc.Board()
 # movement constants
-MID_SERVO = 56.5
+MID_SERVO = 65
 MAX_TURN_DEGREE = 20
-DC_SPEED = 1376
+DC_SPEED = 1370
 
 
 # proportion constants for the servo motor angle (PID steering)
-PD = 0.0015
-PG = 0.0025
+PD = 0.02
+PG = 0.0018
 # no integral value
 
 
@@ -56,7 +56,7 @@ POINTS = [(115, 200), (525, 200), (640, 370), (0, 370)]
 
 # limiting constants
 MAX_TURNS = 4
-ACTIONS_TO_STRAIGHT = 80
+ACTIONS_TO_STRAIGHT = 120
 WALL_THRESHOLD = 50
 NO_WALL_THRESHOLD = 25
 TURN_ITER_LIMIT = 30
@@ -277,14 +277,14 @@ while True:
     if left_area < NO_WALL_THRESHOLD and turn_dir == None and not track_dir == "right":
         track_dir = "left"
 
-        tufn_dir = "left"
+        turn_dir = "left"
 
     elif (
         right_area < NO_WALL_THRESHOLD and turn_dir == None and not track_dir == "left"
     ):
         track_dir = "right"
 
-        tufn_dir = "right"
+        turn_dir = "right"
 
     elif turn_dir == None:
 
@@ -307,7 +307,6 @@ while True:
 
     # set the last current_difference equal to the current current_difference for derivative steering
     last_difference = current_difference
-    print(turn_dir)
 
     # if the steering variable is higher than the max turn degree for the servo, set it to the max turn degree
     if (servo_angle) > MID_SERVO + MAX_TURN_DEGREE:
@@ -315,11 +314,9 @@ while True:
     if (servo_angle) < MID_SERVO - MAX_TURN_DEGREE:
         servo_angle = MID_SERVO - MAX_TURN_DEGREE
     if turn_dir == "right":  # calculate the servo angle for the current turn
-        servo_angle = MID_SERVO + (MAX_TURN_DEGREE / 1.8)
-        print(turn_dir)
+        servo_angle = MID_SERVO + (MAX_TURN_DEGREE / 1.5)
     elif turn_dir == "left":  # calculate the servo angle for the current turn
-        servo_angle = MID_SERVO - (MAX_TURN_DEGREE / 1.8)
-        print(turn_dir)
+        servo_angle = MID_SERVO - (MAX_TURN_DEGREE / 1.5)
     # move the motors using the variables
     pw = pwm(servo_angle)
     board.pwm_servo_set_position(0.1, [[2, DC_SPEED]])
@@ -332,7 +329,7 @@ while True:
     drawROI(ROI4)
 
     # display the camera
-
+    print(turn_dir)
     cv2.imshow("Camera", im)
 
     # if the number of actions to the straight section has been met, stop the car
