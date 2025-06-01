@@ -149,7 +149,7 @@ Engineering Materials:
 | LDRobot D500 LiDAR Kit                                 | 1        | $99.60           | $99.60           |
 | Texas Instruments TPS22918DBVR Power Switch ICs        | 1        | $0.64            | $0.64            |
 | Battery Pack (2S LiPo 7.4V ~2000mAh)                    | 2        | $80.35           | $160.70          |
-| Diyenei Zero Module Camera (5MB, 1080p HD)             | 1        | $46.85           | $46.85           |
+| Diyeeni Zero Module Camera (5MB, 1080p HD)             | 1        | $46.85           | $46.85           |
 
 
 
