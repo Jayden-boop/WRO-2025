@@ -137,8 +137,21 @@ The Furitek motor’s efficiency reduces the risk of overheating during repairs 
 
 ## Cost Report
 Engineering Materials:
+## Cost Report
 
-![{2CD7E615-B639-4794-ABBD-50CD4FDE2D77}](https://github.com/user-attachments/assets/6a230cb4-8837-4a89-86f1-f490a453be0c)
+| Component                                              | Quantity | Unit Price (CAD) | Total Cost (CAD) |
+|--------------------------------------------------------|----------|------------------|------------------|
+| Raspberry Pi 5 (8GB)                                   | 1        | $139.99          | $139.99          |
+| Pi 5 Expansion Board                                   | 1        | $55.87           | $55.87           |
+| HS-5055MG Servo                                        | 1        | $34.91           | $34.91           |
+| K989 1/28 WL Toys Chassis                              | 1        | $105.68          | $105.68          |
+| Furitek Micro Komodo Motor                             | 1        | $48.88           | $48.88           |
+| LDRobot D500 LiDAR Kit                                 | 1        | $99.60           | $99.60           |
+| Texas Instruments TPS22918DBVR Power Switch ICs        | 1        | $0.64            | $0.64            |
+| Battery Pack (2S LiPo 7.4V ~2000mAh)                    | 2        | $80.35           | $160.70          |
+| Diyenei Zero Module Camera (5MB, 1080p HD)             | 1        | $46.85           | $46.85           |
+
+
 
 
 ## Assembly
