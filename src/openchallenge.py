@@ -12,18 +12,18 @@ board = rrc.Board()
 # movement constants
 MID_SERVO = 65
 MAX_TURN_DEGREE = 20
-DC_SPEED = 1370
+DC_SPEED = 1375
 
 
 # proportion constants for the servo motor angle (PID steering)
-PD = 0.02
-PG = 0.0018
+PD = 0.01
+PG = 0.0014
 # no integral value
 
 
 # ROI constants
-ROI_LEFT_BOT = [0, 220, 100, 300]
-ROI_RIGHT_BOT = [540, 220, 640, 300]
+ROI_LEFT_BOT = [0, 180, 100, 300]
+ROI_RIGHT_BOT = [540, 180, 640, 300]
 
 ROI4 = [270, 330, 370, 370]
 
@@ -41,8 +41,10 @@ UPPER_ORANGE1 = np.array([180, 255, 255])
 LOWER_ORANGE2 = np.array([0, 80, 80])
 UPPER_ORANGE2 = np.array([20, 255, 255])
 
-LOWER_BLUE = np.array([101, 20, 30])
-UPPER_BLUE = np.array([125, 255, 255])
+
+LOWER_BLUE = np.array([108, 45, 75])
+UPPER_BLUE = np.array([130, 255, 170])
+
 
 LOWER_BLACK_THRESHOLD = np.array([0, 0, 0])
 UPPER_BLACK_THRESHOLD = np.array([180, 255, 80])
