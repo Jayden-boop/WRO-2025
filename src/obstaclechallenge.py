@@ -19,7 +19,7 @@ PG = 0.0017
 
 ROI_LEFT = [0, 200, 100, 420]
 ROI_RIGHT = [540, 200, 640, 420]
-ROI4 = [270, 340, 370, 380]
+ROI_LINE = [270, 340, 370, 380]
 ROI_MIDDLE = [0, 140, 640, 400]
 ROI_PARKING_LEFT = [0, 225, 320, 445]
 ROI_PARKING_RIGHT = [320, 225, 640, 445]
@@ -27,11 +27,11 @@ ROI_FRONT = [140, 175, 500, 215]
 
 
 LOWER_BLACK_THRESHOLD = np.array([0, 0, 0])
-UPPER_BLACK_THRESHOLD = np.array([180, 255, 80])
+UPPER_BLACK_THRESHOLD = np.array([180, 255, 70])
 
 LOWER_RED_THRESHOLD1 = np.array([0, 154, 70])
 UPPER_RED_THRESHOLD1 = np.array([4, 255, 255])
-LOWER_RED_THRESHOLD2 = np.array([174, 180, 70])
+LOWER_RED_THRESHOLD2 = np.array([176, 180, 70])
 UPPER_RED_THRESHOLD2 = np.array([180, 255, 255])
 
 LOWER_GREEN_THRESHOLD = np.array([65, 85, 45])
@@ -60,12 +60,12 @@ ACTIONS_TO_STRAIGHT = 120
 WALL_THRESHOLD = 400
 NO_WALL_THRESHOLD = 50
 TURN_ITER_LIMIT = 30
-LINE_THRESHOLD = 10
-
+LINE_THRESHOLD = 100
 action_counter = 0
 turn_counter = 0
 turn_length_counter = 0
 
+start = True
 track_dir = None
 done_turning = False
 turn_dir = None
@@ -75,7 +75,12 @@ prev_pillar_error = 0
 seen_line = False
 line_end = False
 servo_angle = 0
-
+exit_parking_lot = False
+exit_parking_lot_right = False
+exit_parking_lot_left = False
+exit_parking_lot_red = False
+exit_parking_lot_green = False
+avoid_phase = False
 im = None
 image = None
 
@@ -106,6 +111,7 @@ def drawROI(ROI):
 
 
 def stop():
+
     time.sleep(0.02)
     board.pwm_servo_set_position(0.1, [[2, 1500]])
     board.pwm_servo_set_position(0.1, [[1, pwm(MID_SERVO)]])
@@ -124,7 +130,19 @@ board.pwm_servo_set_position(0.1, [[1, pwm(MID_SERVO)]])
 board.pwm_servo_set_position(0.1, [[2, 1500]])
 time.sleep(0.5)
 
+
 while True:
+
+    if (
+        exit_parking_lot_green
+        or exit_parking_lot_red
+        or exit_parking_lot_left
+        or exit_parking_lot_right
+    ):
+        exit_parking_lot = True
+    else:
+        exit_parking_lot = False
+
     im = picam2.capture_array()
     input = np.float32(POINTS)
     output = np.float32(
@@ -212,13 +230,13 @@ while True:
     )
 
     contours_blue, _ = cv2.findContours(
-        img_thresh_blue[ROI4[1] : ROI4[3], ROI4[0] : ROI4[2]],
+        img_thresh_blue[ROI_LINE[1] : ROI_LINE[3], ROI_LINE[0] : ROI_LINE[2]],
         cv2.RETR_EXTERNAL,
         cv2.CHAIN_APPROX_SIMPLE,
     )
 
     contours_orange, _ = cv2.findContours(
-        img_thresh_orange[ROI4[1] : ROI4[3], ROI4[0] : ROI4[2]],
+        img_thresh_orange[ROI_LINE[1] : ROI_LINE[3], ROI_LINE[0] : ROI_LINE[2]],
         cv2.RETR_EXTERNAL,
         cv2.CHAIN_APPROX_SIMPLE,
     )
@@ -235,7 +253,7 @@ while True:
     )
 
     middle_contours_black, hierarchy = cv2.findContours(
-        img_thresh_black[ROI4[1] : ROI4[3], ROI4[0] : ROI4[2]],
+        img_thresh_black[ROI_LINE[1] : ROI_LINE[3], ROI_LINE[0] : ROI_LINE[2]],
         cv2.RETR_EXTERNAL,
         cv2.CHAIN_APPROX_NONE,
     )
@@ -261,8 +279,8 @@ while True:
         (contours_red, (0, 0, 255), 1, ROI_MIDDLE),
         (contours_green, (0, 255, 0), 1, ROI_MIDDLE),
         (contours, (0, 255, 255), 1, (0, 0)),
-        (contours_orange, (52, 140, 235), 0, ROI4),
-        (contours_blue, (235, 67, 52), 0, ROI4),
+        (contours_orange, (52, 140, 235), 0, ROI_LINE),
+        (contours_blue, (235, 67, 52), 0, ROI_LINE),
         (left_contours_magenta, (255, 0, 255), 0, ROI_PARKING_LEFT),
         (right_contours_magenta, (255, 0, 255), 0, ROI_PARKING_RIGHT),
     ]
@@ -277,15 +295,15 @@ while True:
     for i in range(len(contours_orange)):
         cnt = contours_orange[i]
         orange_line_area = max(cv2.contourArea(cnt), orange_line_area)
-        cnt[:, :, 0] += ROI4[0]
-        cnt[:, :, 1] += ROI4[1]
+        cnt[:, :, 0] += ROI_LINE[0]
+        cnt[:, :, 1] += ROI_LINE[1]
         cv2.drawContours(im, contours_orange, i, (255, 255, 0), 1)
 
     for i in range(len(contours_blue)):
         cnt = contours_blue[i]
         blue_line_area = max(cv2.contourArea(cnt), blue_line_area)
-        cnt[:, :, 0] += ROI4[0]
-        cnt[:, :, 1] += ROI4[1]
+        cnt[:, :, 0] += ROI_LINE[0]
+        cnt[:, :, 1] += ROI_LINE[1]
 
         cv2.drawContours(im, contours_blue, i, (255, 255, 0), 1)
 
@@ -305,6 +323,97 @@ while True:
                 cnt[:, :, 0] += ROIROI[0]
                 cnt[:, :, 1] += ROIROI[1]
                 cv2.drawContours(im, [cnt], -1, colour, 2)
+    if start:
+        print("fajf " + str(right_area) + " " + str(left_area))
+        if right_area > 1500:
+            track_dir = "left"
+            exit_parking_lot_left = True
+            start = False
+        elif left_area > 1500:
+            track_dir = "right"
+
+            exit_parking_lot_right = True
+            start = False
+
+    if exit_parking_lot_left:
+        pw = pwm(MID_SERVO - 25)
+        print("hello left i am turning " + str(MID_SERVO - 30))
+        board.pwm_servo_set_position(0.1, [[2, 1400]])
+        board.pwm_servo_set_position(0.1, [[1, pw]])
+        time.sleep(1)
+        exit_parking_lot_left = False
+        turn_dir = None
+        closest_pillar_distance = 10000
+        closest_pillar_colour = None
+        for i in contours_green:
+            area = cv2.contourArea(i)
+
+            if area > PILLAR_SIZE:
+                approx = cv2.approxPolyDP(i, 0.01 * cv2.arcLength(i, True), True)
+                x, y, w, h = cv2.boundingRect(approx)
+
+                pillar_distance = math.dist([x + w // 2, y], [320, 480])
+
+                if pillar_distance < 600:
+                    image = cv2.line(im, (x, y), (x + w, y), (0, 255, 255), 1)
+                    image = cv2.line(im, (x, y), ((x, h + y)), (0, 255, 255), 1)
+                    image = cv2.line(im, (x + w, y), (x + w, y + h), (0, 255, 255), 1)
+                    image = cv2.line(im, (x, y + h), (x + w, y + h), (0, 255, 255), 1)
+                    cv2.circle(im, (int(x + (w / 2)), y), 5, (255, 255, 0), 1, -1)
+
+                    if pillar_distance < closest_pillar_distance:
+                        if y + h > 500 and (x + (w // 2) > green_target):
+                            pass
+                        elif y + h < 125:
+                            pass
+                        else:
+                            closest_pillar_distance = pillar_distance
+                            closest_pillar_colour = "green"
+        if closest_pillar_colour == "green":
+            board.pwm_servo_set_position(0.1, [[2, 1400]])
+            board.pwm_servo_set_position(0.1, [[1, pw]])
+            time.sleep(2.5)
+            exit_parking_lot_green = True
+
+    if exit_parking_lot_right:
+        pw = pwm(MID_SERVO + 25)
+        print("hello i am turning " + str(MID_SERVO + 30))
+
+        board.pwm_servo_set_position(0.1, [[2, 1400]])
+        board.pwm_servo_set_position(0.1, [[1, pw]])
+        time.sleep(0.4)
+        exit_parking_lot_right = False
+        turn_dir = None
+
+        closest_pillar_distance = 10000
+        closest_pillar_colour = None
+        for i in contours_red:
+            area = cv2.contourArea(i)
+
+            if area > PILLAR_SIZE:
+                approx = cv2.approxPolyDP(i, 0.01 * cv2.arcLength(i, True), True)
+                x, y, w, h = cv2.boundingRect(approx)
+
+                pillar_distance = math.dist([x + w // 2, y], [320, 480])
+
+                if pillar_distance < 600:
+                    image = cv2.line(im, (x, y), (x + w, y), (0, 255, 255), 1)
+                    image = cv2.line(im, (x, y), ((x, h + y)), (0, 255, 255), 1)
+                    image = cv2.line(im, (x + w, y), (x + w, y + h), (0, 255, 255), 1)
+                    image = cv2.line(im, (x, y + h), (x + w, y + h), (0, 255, 255), 1)
+                    cv2.circle(im, (int(x + (w / 2)), y), 5, (255, 255, 0), 1, -1)
+
+                    if pillar_distance < closest_pillar_distance:
+                        if y + h > 500 and x + (w // 2) < red_target:
+                            pass
+                        elif y + h < 125:
+                            pass
+                        else:
+                            closest_pillar_distance = pillar_distance
+                            closest_pillar_colour = "red"
+
+        if closest_pillar_colour == "red":
+            exit_parking_lot_red = True
 
     num_pillars_r = 0
     num_pillars_g = 0
@@ -397,8 +506,6 @@ while True:
         turn_dir = "right"
         seen_line = True
 
-        print("here")
-
     if turn_dir == "left":
         if orange_line_area >= LINE_THRESHOLD:
             line_end = True
@@ -425,8 +532,41 @@ while True:
         prev_pillar_error = error
         if closest_pillar_colour == "green":
             servo_angle -= closest_pillar_y * YAXISPG
+
+            if (
+                # if the pillar is too close to the robot and not on the right side, reverse the robot
+                closest_pillar_area > 6000
+                and (closest_pillar_x) < 390
+                and closest_pillar_distance < 300
+                and not exit_parking_lot
+            ):
+                servo_angle = MID_SERVO  # set the servo to straight
+                pw = pwm(servo_angle)
+
+                board.pwm_servo_set_position(0.1, [[2, 1500]])
+                board.pwm_servo_set_position(0.1, [[1, pw]])
+
+                board.pwm_servo_set_position(0.1, [[2, 1620]])
+                time.sleep(1)
+
         if closest_pillar_colour == "red":
             servo_angle += closest_pillar_y * YAXISPG
+
+            if (
+                # if the pillar is too close to the robot and not on the right side, reverse the robot
+                closest_pillar_area > 6000
+                and (closest_pillar_x) > 250
+                and closest_pillar_distance < 300
+                and not exit_parking_lot
+            ):
+                servo_angle = MID_SERVO  # set the servo to straight
+                pw = pwm(servo_angle)
+
+                board.pwm_servo_set_position(0.1, [[2, 1500]])
+                board.pwm_servo_set_position(0.1, [[1, pw]])
+
+                board.pwm_servo_set_position(0.1, [[2, 1620]])
+                time.sleep(1)
 
     else:
         if (
@@ -467,9 +607,9 @@ while True:
                 seen_line = False
 
         if turn_dir == "right":
-            servo_angle = MID_SERVO + (MAX_TURN_DEGREE)
+            servo_angle = MID_SERVO + (MAX_TURN_DEGREE * 0.8)
         elif turn_dir == "left":
-            servo_angle = MID_SERVO - (MAX_TURN_DEGREE)
+            servo_angle = MID_SERVO - (MAX_TURN_DEGREE * 0.8)
         elif turn_dir == None:
             current_difference = left_area - right_area
 
@@ -479,9 +619,9 @@ while True:
 
     last_difference = current_difference
     if turn_dir == None or target != None:
-        if left_area > 16000:
+        if left_area > 12000:
             servo_angle = MID_SERVO + MAX_TURN_DEGREE
-        if right_area > 16000:
+        if right_area > 12000:
             servo_angle = MID_SERVO - MAX_TURN_DEGREE
 
     print(
@@ -496,6 +636,8 @@ while True:
         + str(left_area)
         + " "
         + str(right_area)
+        + " "
+        + str(closest_pillar_distance)
     )
 
     if (
@@ -507,6 +649,14 @@ while True:
         servo_angle = MID_SERVO - MAX_TURN_DEGREE
 
     if (
+        track_dir == "right"
+        and right_area == 0
+        and left_area > WALL_THRESHOLD
+        and target == None
+    ):
+        servo_angle = MID_SERVO + MAX_TURN_DEGREE
+
+    if (
         turn_dir == "left"
         and target == red_target
         and front_area_black >= 600
@@ -514,14 +664,131 @@ while True:
     ):
         servo_angle = MID_SERVO - MAX_TURN_DEGREE
 
+    if (
+        turn_dir == "right"
+        and target == green_target
+        and front_area_black >= 600
+        and right_area > WALL_THRESHOLD
+    ):
+        servo_angle = MID_SERVO + MAX_TURN_DEGREE
+
     if (servo_angle) > MID_SERVO + MAX_TURN_DEGREE:
         servo_angle = MID_SERVO + MAX_TURN_DEGREE
     elif (servo_angle) < MID_SERVO - MAX_TURN_DEGREE:
         servo_angle = MID_SERVO - MAX_TURN_DEGREE
 
-    pw = pwm(servo_angle)
-    board.pwm_servo_set_position(0.1, [[2, DC_SPEED]])
-    board.pwm_servo_set_position(0.1, [[1, pw]])
+    if (
+        left_area < NO_WALL_THRESHOLD
+        and right_area < NO_WALL_THRESHOLD
+        and front_area_black >= 200
+    ):
+
+        if track_dir == "left":
+            if target == None:
+                servo_angle = MID_SERVO - MAX_TURN_DEGREE
+        elif track_dir == "right":
+
+            if target == None:
+                servo_angle = MID_SERVO + MAX_TURN_DEGREE
+
+    if exit_parking_lot_red:
+
+        if front_area_black < 3000:
+            pw = pwm(MID_SERVO + 4)
+
+            board.pwm_servo_set_position(0.1, [[1, pw]])
+            board.pwm_servo_set_position(0.1, [[2, DC_SPEED + 10]])
+
+        else:
+
+            pw = pwm(MID_SERVO - MAX_TURN_DEGREE)
+
+            board.pwm_servo_set_position(0.1, [[2, DC_SPEED]])
+            board.pwm_servo_set_position(0.1, [[1, pw]])
+            time.sleep(1.5)
+            exit_parking_lot_red = False
+            turn_dir = None
+    print(exit_parking_lot_green)
+    if exit_parking_lot_green:
+
+        if not avoid_phase:
+            print(closest_pillar_area)
+
+            if closest_pillar_area != None:
+
+                if (
+                    # if the pillar is too close to the robot and not on the right side, reverse the robot
+                    closest_pillar_area > 4000
+                    and (closest_pillar_x) > 250
+                    and closest_pillar_distance < 350
+                ):
+                    servo_angle = (
+                        MID_SERVO - MAX_TURN_DEGREE / 2
+                    )  # set the servo to straight
+                    pw = pwm(servo_angle)
+
+                    board.pwm_servo_set_position(0.1, [[2, 1500]])
+                    board.pwm_servo_set_position(0.1, [[1, pw]])
+
+                    board.pwm_servo_set_position(0.1, [[2, 1610]])
+                    time.sleep(2)
+
+                    avoid_phase = True
+
+                else:
+                    servo_angle = (
+                        MID_SERVO + MAX_TURN_DEGREE
+                    )  # set the servo to straight
+                    pw = pwm(servo_angle)
+
+                    board.pwm_servo_set_position(0.1, [[2, 1500]])
+                    board.pwm_servo_set_position(0.1, [[1, pw]])
+
+                    board.pwm_servo_set_position(0.1, [[2, DC_SPEED + 20]])
+
+            else:
+                servo_angle = MID_SERVO + MAX_TURN_DEGREE  # set the servo to straight
+                pw = pwm(servo_angle)
+
+                board.pwm_servo_set_position(0.1, [[2, 1500]])
+                board.pwm_servo_set_position(0.1, [[1, pw]])
+
+                board.pwm_servo_set_position(0.1, [[2, DC_SPEED]])
+        else:
+
+            if front_area_black < 2000:
+
+                servo_angle = (
+                    MID_SERVO - MAX_TURN_DEGREE / 10
+                )  # set the servo to straight
+                pw = pwm(servo_angle)
+
+                board.pwm_servo_set_position(0.1, [[2, 1500]])
+                board.pwm_servo_set_position(0.1, [[1, pw]])
+
+                board.pwm_servo_set_position(0.1, [[2, DC_SPEED + 5]])
+                time.sleep(1.5)
+
+            else:
+
+                servo_angle = MID_SERVO + MAX_TURN_DEGREE
+                pw = pwm(servo_angle)
+
+                board.pwm_servo_set_position(0.1, [[2, 1500]])
+                board.pwm_servo_set_position(0.1, [[1, pw]])
+
+                board.pwm_servo_set_position(0.1, [[2, DC_SPEED + 10]])
+                time.sleep(1.5)
+                turn_dir = "left"
+                exit_parking_lot_green = False
+
+    if servo_angle > MID_SERVO:
+        servo_angle = MID_SERVO + (servo_angle - MID_SERVO) * 0.9
+
+    if not exit_parking_lot_green or exit_parking_lot_red:
+        pw = pwm(servo_angle)
+        board.pwm_servo_set_position(0.1, [[2, DC_SPEED]])
+        board.pwm_servo_set_position(0.1, [[1, pw]])
 
     if target != None:
         image = cv2.line(im, (target, 0), (target, 520), (255, 255, 0), 1)
@@ -529,7 +796,7 @@ while True:
     drawROI(ROI_LEFT)
     drawROI(ROI_RIGHT)
     drawROI(ROI_MIDDLE)
-    drawROI(ROI4)
+    drawROI(ROI_LINE)
     drawROI(ROI_FRONT)
     fps_counter += 1
     current_time = time.time()
