@@ -336,7 +336,7 @@ while True:
             start = False
 
     if exit_parking_lot_left:
-        pw = pwm(MID_SERVO - 25)
+        pw = pwm(MID_SERVO - 28)
         print("hello left i am turning " + str(MID_SERVO - 30))
         board.pwm_servo_set_position(0.1, [[2, 1400]])
         board.pwm_servo_set_position(0.1, [[1, pw]])
@@ -345,6 +345,7 @@ while True:
         turn_dir = None
         closest_pillar_distance = 10000
         closest_pillar_colour = None
+        closest_pillar_area = -1
         for i in contours_green:
             area = cv2.contourArea(i)
 
@@ -369,7 +370,15 @@ while True:
                         else:
                             closest_pillar_distance = pillar_distance
                             closest_pillar_colour = "green"
-        if closest_pillar_colour == "green":
+                            closest_pillar_area = h * w
+
+        print("aaaa" + str(closest_pillar_area) + " " + str(closest_pillar_distance))
+        if (
+            closest_pillar_colour == "green"
+            and closest_pillar_area > 2000
+            and closest_pillar_distance < 480
+        ):
+
             board.pwm_servo_set_position(0.1, [[2, 1400]])
             board.pwm_servo_set_position(0.1, [[1, pw]])
             time.sleep(2.5)
@@ -387,6 +396,8 @@ while True:
 
         closest_pillar_distance = 10000
         closest_pillar_colour = None
+        closest_pillar_area = -1
+
         for i in contours_red:
             area = cv2.contourArea(i)
 
@@ -411,6 +422,7 @@ while True:
                         else:
                             closest_pillar_distance = pillar_distance
                             closest_pillar_colour = "red"
+                            closest_pillar_area = h * w
 
         if closest_pillar_colour == "red":
             exit_parking_lot_red = True
@@ -711,41 +723,52 @@ while True:
     print(exit_parking_lot_green)
     if exit_parking_lot_green:
 
-        if not avoid_phase:
-            print(closest_pillar_area)
+        if closest_pillar_area != None:
 
-            if closest_pillar_area != None:
+            if (
+                # if the pillar is too close to the robot and not on the right side, reverse the robot
+                closest_pillar_area > 4000
+                and (closest_pillar_x) > 250
+                and closest_pillar_distance < 350
+            ):
+                servo_angle = MID_SERVO - MAX_TURN_DEGREE  # set the servo to straight
+                pw = pwm(servo_angle)
 
-                if (
-                    # if the pillar is too close to the robot and not on the right side, reverse the robot
-                    closest_pillar_area > 4000
-                    and (closest_pillar_x) > 250
-                    and closest_pillar_distance < 350
-                ):
-                    servo_angle = (
-                        MID_SERVO - MAX_TURN_DEGREE / 2
-                    )  # set the servo to straight
-                    pw = pwm(servo_angle)
+                board.pwm_servo_set_position(0.1, [[2, 1500]])
+                board.pwm_servo_set_position(0.1, [[1, pw]])
 
-                    board.pwm_servo_set_position(0.1, [[2, 1500]])
-                    board.pwm_servo_set_position(0.1, [[1, pw]])
+                board.pwm_servo_set_position(0.1, [[2, 1615]])
+                time.sleep(1.3)
 
-                    board.pwm_servo_set_position(0.1, [[2, 1610]])
-                    time.sleep(2)
+                board.pwm_servo_set_position(0.1, [[2, 1500]])
 
-                    avoid_phase = True
+                time.sleep(1)
 
-                else:
-                    servo_angle = (
-                        MID_SERVO + MAX_TURN_DEGREE
-                    )  # set the servo to straight
-                    pw = pwm(servo_angle)
+                servo_angle = MID_SERVO  # set the servo to straight
+                pw = pwm(servo_angle)
+                board.pwm_servo_set_position(0.1, [[1, pw]])
 
-                    board.pwm_servo_set_position(0.1, [[2, 1500]])
-                    board.pwm_servo_set_position(0.1, [[1, pw]])
+                board.pwm_servo_set_position(0.1, [[2, DC_SPEED]])
 
-                    board.pwm_servo_set_position(0.1, [[2, DC_SPEED + 20]])
+                time.sleep(1.5)
 
+                servo_angle = MID_SERVO - (MAX_TURN_DEGREE)  # set the servo to straight
+                pw = pwm(servo_angle)
+                board.pwm_servo_set_position(0.1, [[2, 1500]])
+                board.pwm_servo_set_position(0.1, [[1, pw]])
+
+                board.pwm_servo_set_position(0.1, [[2, 1620]])
+                time.sleep(1.5)
+
+                servo_angle = MID_SERVO  # set the servo to straight
+                pw = pwm(servo_angle)
+                board.pwm_servo_set_position(0.1, [[2, 1500]])
+                board.pwm_servo_set_position(0.1, [[1, pw]])
+
+                board.pwm_servo_set_position(0.1, [[2, 1620]])
+                time.sleep(1.5)
+
+                exit_parking_lot_green = False
             else:
                 servo_angle = MID_SERVO + MAX_TURN_DEGREE  # set the servo to straight
                 pw = pwm(servo_angle)
@@ -753,34 +776,7 @@ while True:
                 board.pwm_servo_set_position(0.1, [[2, 1500]])
                 board.pwm_servo_set_position(0.1, [[1, pw]])
 
-                board.pwm_servo_set_position(0.1, [[2, DC_SPEED]])
-        else:
-
-            if front_area_black < 2000:
-
-                servo_angle = (
-                    MID_SERVO - MAX_TURN_DEGREE / 10
-                )  # set the servo to straight
-                pw = pwm(servo_angle)
-
-                board.pwm_servo_set_position(0.1, [[2, 1500]])
-                board.pwm_servo_set_position(0.1, [[1, pw]])
-
-                board.pwm_servo_set_position(0.1, [[2, DC_SPEED + 5]])
-                time.sleep(1.5)
-
-            else:
-
-                servo_angle = MID_SERVO + MAX_TURN_DEGREE
-                pw = pwm(servo_angle)
-
-                board.pwm_servo_set_position(0.1, [[2, 1500]])
-                board.pwm_servo_set_position(0.1, [[1, pw]])
-
-                board.pwm_servo_set_position(0.1, [[2, DC_SPEED + 10]])
-                time.sleep(1.5)
-                turn_dir = "left"
-                exit_parking_lot_green = False
+                board.pwm_servo_set_position(0.1, [[2, DC_SPEED + 20]])
 
     if servo_angle > MID_SERVO:
         servo_angle = MID_SERVO + (servo_angle - MID_SERVO) * 0.9
