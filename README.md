@@ -145,6 +145,43 @@ This brushless motor delivers high torque and smooth speed control in a compact 
 
 ## Assembly
 
+Assembly
+
+To prepare the vehicle for the WRO Future Engineers challenge, begin by modifying the K989 1/28 RC chassis to comply with the standards of the competition. The original steering system and internal electronics were removed to make space for components with precise control.
+
+Printing Parts
+3D printable parts can be found in GitHub's 3d-models folder. The parts were printed using — with the following guidelines.
+Material: PLA
+Layer Height: 
+Infill: 20%
+Infill Pattern: Cubic
+Supports: Yes
+
+
+
+
+Steering system
+Disassemble the stock steering motor from the K989 chassis. Replace with a Micro Servo 99 SG90 mounted to the front of the chassis taped and screwed into the mount.
+
+
+A 2mm metal rod was used to connect the steering axle to the servo
+Servo mount attached 
+
+
+3: Assemble powertrain
+Furitek micro Komodo Motor was mounted to the 3D-printed mount, secured with double sided tape?????
+
+
+4: Attaching Electronics
+ A raspberry Pi expansion board(PCB?) was mounted to the 3d printed 
+Battery Pack was placed in front of the 
+The camera module was mounted tilted over the top of the car to increase visibility.
+
+[camera holder 2 Drawing.pdf](https://github.com/user-attachments/files/21092656/camera.holder.2.Drawing.pdf)
+
+
+
+
 ## Conclusion
 
 
