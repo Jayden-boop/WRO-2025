@@ -177,10 +177,7 @@ Furitek micro Komodo Motor was mounted to the 3D-printed mount, secured with dou
 Battery Pack was placed in front of the 
 The camera module was mounted tilted over the top of the car to increase visibility.
 
-[camera holder 2 Drawing.pdf](https://github.com/user-attachments/files/21092656/camera.holder.2.Drawing.pdf)
-
-
-
+![Camera holder 2 Drawing](other/readme-images/cameraholder2Drawing.jpg)
 
 ## Conclusion
 
