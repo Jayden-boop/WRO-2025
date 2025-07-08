@@ -179,6 +179,9 @@ The camera module was mounted tilted over the top of the car to increase visibil
 
 ![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
 
+![Platform Drawing](other/readme-images/platform-drawing.jpg) 
+
+
 ## Conclusion
 
 
