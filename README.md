@@ -108,10 +108,11 @@ The expansion board simplifies wiring, ensuring stable power distribution and mo
 
 
 
-### 3\. Micro Servo 99 SG90
+### 3\.3. HS-5055MG Servo
+Why:
 
-Why:  
-The SG90 is a lightweight, precise servo for steering control. Its 180° range and torque (1.8 kg/cm) allow accurate turns while adhering to the vehicle’s size/weight limits (Rule 11.1: ≤300x200mm, ≤1.5kg).
+The HS-5055MG servo was chosen for its efficient performance in our robotics project. The expansion board simplifies wiring, ensuring stable power distribution and modular integration of sensors and motors. This design reduces electrical noise and minimizes debugging time during high-pressure rounds, enhancing overall reliability
+The HS-5055MG is a lightweight, precise servo for steering control. Its 180° range and torque (1.8 kg/cm) allow accurate turns while adhering to the vehicle’s size/weight limits (Rule 11.1: ≤300x200mm, ≤1.5kg).
 
 
 <img src="other/readme-images/HS-5055MG-Servo.jpg" alt="HS-5055MG Servo" width="250"/>
