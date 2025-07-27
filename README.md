@@ -96,6 +96,11 @@ The Raspberry Pi 5 serves as the vehicle’s "brain," providing the computationa
 
 
 
+
+
+<img src="other/readme-images/Raspberry-Pi-5.png" width="500">
+
+
 ### 2\. Raspberry Pi 5 Expansion Board
 
 Why:  
@@ -109,6 +114,8 @@ Why:
 The SG90 is a lightweight, precise servo for steering control. Its 180° range and torque (1.8 kg/cm) allow accurate turns while adhering to the vehicle’s size/weight limits (Rule 11.1: ≤300x200mm, ≤1.5kg).
 
 
+<img src="other/readme-images/HS-5055MG-Servo.jpg" alt="HS-5055MG Servo" width="250"/>
+
 ### 4\. K989 1/28 WL Toys Chassis
 
 Why:  
@@ -117,7 +124,7 @@ This modular RC chassis provides a pre-built 4-wheeled platform with a different
 
 
 ### 5\. Furitek Micro Komodo Motor
-
+<img src="other/readme-images/Furitek-Micro-Komodo-Motor.jpg" alt="Furitek Micro Komodo Motor" width="300"/>
 Why:  
 This brushless motor delivers high torque and smooth speed control in a compact package. It powers the drive axle via a gear system, ensuring efficient navigation of variable track widths (600–1000mm) and slopes.
 
