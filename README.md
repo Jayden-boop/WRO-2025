@@ -114,8 +114,29 @@ Why:
 The HS-5055MG servo was chosen for its efficient performance in our robotics project. The expansion board simplifies wiring, ensuring stable power distribution and modular integration of sensors and motors. This design reduces electrical noise and minimizes debugging time during high-pressure rounds, enhancing overall reliability
 The HS-5055MG is a lightweight, precise servo for steering control. Its 180° range and torque (1.8 kg/cm) allow accurate turns while adhering to the vehicle’s size/weight limits (Rule 11.1: ≤300x200mm, ≤1.5kg).
 
+<table>
+  <tr>
+    <td width="50%" style="text-align: left;">
+     <img src="other/readme-images/HS-5055MG-Servo.jpg" alt="HS-5055MG Servo" width="350"/>
+    </td>
+    <td width="50%" style="text-align: left; vertical-align: top;">
+      <h3>Specifications:</h3>
+      <ul>
+        <li>KV: 3450 RPM/Volt</li>
+        <li>No-load current @ 10V: 0.7A</li>
+        <li>Power: 120W</li>
+        <li>Battery: 2–3S LiPo</li>
+        <li>Resistance: 0.16 Ω</li>
+        <li>Max Current: 10A</li>
+        <li>Motor Size: 15.5 × 20.6 mm</li>
+        <li>Shaft Size: 1.5 × 6 mm</li>
+        <li>Weight: 17.5 g</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
-<img src="other/readme-images/HS-5055MG-Servo.jpg" alt="HS-5055MG Servo" width="250"/>
+
 
 ### 4\. K989 1/28 WL Toys Chassis
 
@@ -125,10 +146,31 @@ This modular RC chassis provides a pre-built 4-wheeled platform with a different
 
 
 ### 5\. Furitek Micro Komodo Motor
-<img src="other/readme-images/Furitek-Micro-Komodo-Motor.jpg" alt="Furitek Micro Komodo Motor" width="300"/>
+
 Why:  
 This brushless motor delivers high torque and smooth speed control in a compact package. It powers the drive axle via a gear system, ensuring efficient navigation of variable track widths (600–1000mm) and slopes.
 
+<table>
+  <tr>
+    <td width="60%" style="text-align: left;">
+     <img src="other/readme-images/Furitek-Micro-Komodo-Motor.jpg" alt="Furitek Micro Komodo Motor" width="500"/>
+    </td>
+    <td width="40%" style="text-align: left; vertical-align: top;">
+      <h3>Specifications:</h3>
+      <ul>
+        <li>KV: 3450 RPM/Volt</li>
+        <li>No-load current @ 10V: 0.7A</li>
+        <li>Power: 120W</li>
+        <li>Battery: 2–3S LiPo</li>
+        <li>Resistance: 0.16 Ω</li>
+        <li>Max Current: 10A</li>
+        <li>Motor Size: 15.5 × 20.6 mm</li>
+        <li>Shaft Size: 1.5 × 6 mm</li>
+        <li>Weight: 17.5 g</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 
 
