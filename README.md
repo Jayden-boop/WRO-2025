@@ -195,7 +195,7 @@ This brushless motor delivers high torque and smooth speed control in a compact 
 
 ## Assembly
 
-**To prepare the vehicle for the WRO Future Engineers challenge, begin by modifying the K989 1/28 RC chassis to comply with the standards of the competition. The original steering system and internal electronics were removed to make space for components with precise control.**
+*To prepare the vehicle for the WRO Future Engineers challenge, begin by modifying the K989 1/28 RC chassis to comply with the standards of the competition. The original steering system and internal electronics were removed to make space for components with precise control.*
 
 Printing Parts
 3D printable parts can be found in GitHub's 3d-models folder. The parts were printed using — with the following guidelines.
@@ -217,14 +217,14 @@ The servo mount was attached to the chassis using screws, securing the servo fir
 
 
 3: Assemble powertrain
-Mount the Furitek micro Komodo to the 3D-printed motor mount. 
-Secure the mount with double-sided tape or small screws.
-Align the pinion gear with the drivetrain gear to ensure a smooth rotation.
+- Mount the Furitek micro Komodo to the 3D-printed motor mount. 
+- Secure the mount with double-sided tape or small screws.
+- Align the pinion gear with the drivetrain gear to ensure a smooth rotation.
 
 4: Attaching Electronics
- A Raspberry Pi expansion board(PCB?) was mounted to the 3d printed 
-The Battery Pack was placed in front of the 
-The camera module was mounted at an angle over the top of the car to increase visibility.
+- A Raspberry Pi expansion board(PCB?) was mounted to the 3d printed
+- The Battery Pack was placed in front of the 
+- The camera module was mounted at an angle over the top of the car to increase visibility.
 
 
 ![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
