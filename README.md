@@ -198,12 +198,12 @@ This brushless motor delivers high torque and smooth speed control in a compact 
 *To prepare the vehicle for the WRO Future Engineers challenge, begin by modifying the K989 1/28 RC chassis to comply with the standards of the competition. The original steering system and internal electronics were removed to make space for components with precise control.*
 
 Printing Parts
-3D printable parts can be found in GitHub's 3d-models folder. The parts were printed using — with the following guidelines.
-Material: PLA
-Layer Height: ------------
-Infill: 20%
-Infill Pattern: Cubic
-Supports: Yes
+- 3D printable parts can be found in GitHub's 3d-models folder. The parts were printed using — with the following guidelines.
+- Material: PLA
+- Layer Height: ------------
+- Infill: 20%
+- Infill Pattern: Cubic
+- Supports: Yes
 
 
 
