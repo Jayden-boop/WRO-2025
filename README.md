@@ -17,33 +17,38 @@ The WRO 2025 Future Engineers Self-Driving Cars Challenge tasks teams with desig
 
 ### Challenge Descriptions:
 
-#### 1\. [Open Challenge](OpenChallenge)
-
-Objective: The vehicle must autonomously complete three laps on a racetrack that varies in layout for each round.
+#### 1\. Open Challenge 
+Objective: The vehicle must autonomously complete three laps on a racetrack whose layout randomizes each round.
 
 **Key Elements:**
 
-The track includes randomized corridor widths (narrow or wide sections) and changes in starting positions.
+- **Randomized Layouts:** The track may feature randomized corridor widths (narrow or wide sections) and varying starting positions.
+Dynamic configurations:  The track configuration (e.g., wall placements, starting zones) is determined by a randomization process (e.g., coin tosses, dice rolls) before each round.
 
-Adaptability is critical, as the track configuration (e.g., wall placements, starting zones) is determined by a randomization process (e.g., coin tosses, dice rolls) before each round.
+- **Adaptability requirement:** The navigation algorithms of the vehicle are critical, having to adapt in real time to an unseen wall and course arrangement without human intervention.
 
-#### 2\. [Obstacle Challenge]()
+**Performance Goal:**
+Maximize the consistency and speed of laps under unknown track conditions.
 
+
+
+#### 2\. Obstacle Challenge
 Objective: The vehicle must complete three laps on a track with randomly placed traffic signs and then perform a parallel parking maneuver in a designated area.
 
 **Key Elements:**
 
-Traffic Signs: Red and green pillars indicate required driving lanes (red \= keep right, green \= keep left). The vehicle must obey these rules without displacing the signs.
+- **Traffic Signs:** Red and green pillars indicate required driving lanes (red = keep right, green = keep left). The vehicle must obey these rules without displacing the signs.
+- **Parking Task:** After completing laps, the vehicle must park within a narrow, variable-sized parking space. Starting inside the parking lot and achieving parallel alignment earns bonus points.
 
-Parking Task: After completing laps, the vehicle must park within a narrow, variable-sized parking space. Starting inside the parking lot and achieving parallel alignment earns bonus points.
+**Randomization factors:**
+- Traffic sign positions
+- Parking lot placement
+- Driving direction (clockwise/counterclockwise)
 
-Randomization affects traffic sign positions, parking lot placement, and driving direction (clockwise/counterclockwise).
+**Performance Goal:**
+Complete the 3 laps without faults and complete a precise parallel parking maneuver whilst adapting to randomized factors.
 
-# 
-
-
-
-
+#
 
 
 
