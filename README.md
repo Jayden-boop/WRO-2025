@@ -218,6 +218,16 @@ Precision ball joints from the K989 system ensure smooth steering operation with
 | Battery Pack (2S LiPo 7.4V ~2000mAh)            | 2        | $80.35           | $160.70          |
 | Diyeeni Zero Module Camera (5MB, 1080p HD)      | 1        | $46.85           | $46.85           |
 
+## Measurements
+
+| Part                      | Measurment | Rule Comp        |
+| --------------------------|------------| ---------------- |
+| Vehicle Length            | 18.2cm     |    30cm          | 
+| Vehicle Width             | 10.0cm     |    20cm          | 
+| Vehicle Height            | 22.4cm     |    30cm          | 
+| Weight                    | WEIGHT     |    1.5kg         | 
+
+
 # Assembly Guide
 
 ## Overview
