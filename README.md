@@ -78,8 +78,7 @@ This section details the specific components and materials selected for our WRO 
 The Raspberry Pi 5 serves as the main computing unit for our robot. I selected this platform for several key reasons: its robust processing power handles real-time computer vision and sensor fusion simultaneously, the extensive GPIO interface provides direct control over all actuators and sensors, and the mature Python ecosystem allows for rapid development of autonomous driving algorithms. The Pi 5's improved performance over previous generations ensures smooth operation of multiple concurrent processes including LIDAR data processing, camera image analysis, and motor control loops.
 
 
-
-![](other/readme-images/Raspberry-Pi-5.png)
+<img src="other/readme-images/Raspberry-Pi-5.png" width="300">
 
 ### Hiwonder Raspberry Pi 5 Expansion Board
 
