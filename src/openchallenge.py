@@ -10,22 +10,22 @@ import RPi.GPIO as GPIO
 
 board = rrc.Board()
 # movement constants
-MID_SERVO = 65
-MAX_TURN_DEGREE = 20
+MID_SERVO = 64
+MAX_TURN_DEGREE = 25
 DC_SPEED = 1375
 
 
 # proportion constants for the servo motor angle (PID steering)
 PD = 0.01
-PG = 0.0014
+PG = 0.002
 # no integral value
 
 
 # ROI constants
-ROI_LEFT_BOT = [0, 180, 100, 300]
-ROI_RIGHT_BOT = [540, 180, 640, 300]
+ROI_LEFT_BOT = [0, 180, 100, 450]
+ROI_RIGHT_BOT = [540, 180, 640, 450]
 
-ROI4 = [270, 330, 370, 370]
+ROI4 = [270, 400, 370, 440]
 
 
 # color threshold constants (in HSV)
@@ -260,33 +260,27 @@ while True:
         track_dir = "left"
         turn_counter += 1
         seen_line = True
+        track_dir = "left"
+
+        turn_dir = "left"
+
     if max_orange_area >= LINE_THRESHOLD and track_dir != "left" and seen_line == False:
         track_dir = "right"
         turn_counter += 1
         seen_line = True
+        track_dir = "right"
+
+        turn_dir = "right"
 
     if turn_dir == "left" and not max_blue_area >= LINE_THRESHOLD:
         if left_area > WALL_THRESHOLD:
             turn_dir = None
             seen_line = False
 
-            last_turn_count = turn_counter
-
     if turn_dir == "right" and not max_orange_area >= LINE_THRESHOLD:
         if right_area > WALL_THRESHOLD:
             turn_dir = None
             seen_line = False
-    if left_area < NO_WALL_THRESHOLD and turn_dir == None and not track_dir == "right":
-        track_dir = "left"
-
-        turn_dir = "left"
-
-    elif (
-        right_area < NO_WALL_THRESHOLD and turn_dir == None and not track_dir == "left"
-    ):
-        track_dir = "right"
-
-        turn_dir = "right"
 
     elif turn_dir == None:
 
@@ -319,6 +313,12 @@ while True:
         servo_angle = MID_SERVO + (MAX_TURN_DEGREE / 1.5)
     elif turn_dir == "left":  # calculate the servo angle for the current turn
         servo_angle = MID_SERVO - (MAX_TURN_DEGREE / 1.5)
+
+    if left_area < NO_WALL_THRESHOLD:
+        servo_angle = MID_SERVO - (MAX_TURN_DEGREE / 1.5)
+    if right_area < NO_WALL_THRESHOLD:
+        servo_angle = MID_SERVO + (MAX_TURN_DEGREE / 1.5)
+
     # move the motors using the variables
     pw = pwm(servo_angle)
     board.pwm_servo_set_position(0.1, [[2, DC_SPEED]])
@@ -332,6 +332,8 @@ while True:
 
     # display the camera
     print(turn_dir)
+    print("a" + str(max_blue_area))
+    print("b" + str(seen_line))
     cv2.imshow("Camera", im)
 
     # if the number of actions to the straight section has been met, stop the car
