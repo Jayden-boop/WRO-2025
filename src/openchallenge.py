@@ -10,22 +10,21 @@ import RPi.GPIO as GPIO
 
 board = rrc.Board()
 # movement constants
-MID_SERVO = 64
-MAX_TURN_DEGREE = 25
-DC_SPEED = 1375
+MID_SERVO = 61
+MAX_TURN_DEGREE = 28
+DC_SPEED = 1374
 
 
 # proportion constants for the servo motor angle (PID steering)
-PD = 0.01
-PG = 0.002
+PD = 0.0025
+PG = 0.0025
 # no integral value
 
 
-# ROI constants
-ROI_LEFT_BOT = [0, 180, 100, 450]
-ROI_RIGHT_BOT = [540, 180, 640, 450]
+ROI_LEFT_BOT = [0, 245, 100, 480]
+ROI_RIGHT_BOT = [540, 245, 640, 480]
 
-ROI4 = [270, 400, 370, 440]
+ROI4 = [270, 370, 370, 390]
 
 
 # color threshold constants (in HSV)
@@ -38,16 +37,15 @@ ROI4 = [270, 400, 370, 440]
 
 LOWER_ORANGE1 = np.array([180, 100, 100])
 UPPER_ORANGE1 = np.array([180, 255, 255])
-LOWER_ORANGE2 = np.array([0, 80, 80])
+LOWER_ORANGE2 = np.array([5, 156, 120])
 UPPER_ORANGE2 = np.array([20, 255, 255])
 
-
-LOWER_BLUE = np.array([108, 45, 75])
-UPPER_BLUE = np.array([130, 255, 170])
+LOWER_BLUE = np.array([105, 45, 70])
+UPPER_BLUE = np.array([130, 255, 200])
 
 
 LOWER_BLACK_THRESHOLD = np.array([0, 0, 0])
-UPPER_BLACK_THRESHOLD = np.array([180, 255, 80])
+UPPER_BLACK_THRESHOLD = np.array([180, 255, 65])
 
 
 # camera settings
@@ -57,7 +55,7 @@ POINTS = [(115, 200), (525, 200), (640, 370), (0, 370)]
 
 
 # limiting constants
-MAX_TURNS = 4
+MAX_TURNS = 12
 ACTIONS_TO_STRAIGHT = 120
 WALL_THRESHOLD = 50
 NO_WALL_THRESHOLD = 25
@@ -314,10 +312,8 @@ while True:
     elif turn_dir == "left":  # calculate the servo angle for the current turn
         servo_angle = MID_SERVO - (MAX_TURN_DEGREE / 1.5)
 
-    if left_area < NO_WALL_THRESHOLD:
-        servo_angle = MID_SERVO - (MAX_TURN_DEGREE / 1.5)
-    if right_area < NO_WALL_THRESHOLD:
-        servo_angle = MID_SERVO + (MAX_TURN_DEGREE / 1.5)
+    if servo_angle > MID_SERVO:
+        servo_angle = MID_SERVO + (servo_angle - MID_SERVO) * 0.9
 
     # move the motors using the variables
     pw = pwm(servo_angle)
@@ -331,9 +327,18 @@ while True:
     drawROI(ROI4)
 
     # display the camera
-    print(turn_dir)
-    print("a" + str(max_blue_area))
-    print("b" + str(seen_line))
+    print(
+        str(turn_dir)
+        + " "
+        + str(servo_angle)
+        + " "
+        + str(turn_counter)
+        + " "
+        + str(left_area)
+        + " "
+        + str(right_area)
+    )
+
     cv2.imshow("Camera", im)
 
     # if the number of actions to the straight section has been met, stop the car
