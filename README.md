@@ -154,14 +154,16 @@ The Pi Camera provides the primary vision system for line detection and traffic 
 
 <table>
   <tr>
-    <td>
-      <img src="other/readme-images/LD19-D500-LIDAR.jpg" width="10000">
-    </td>
-    <td style="width: 30px;">
+    <td style="width: 300px;">
 This LIDAR unit delivers 360-degree environmental mapping crucial for obstacle detection and wall following. This model was selected for its excellent price-to-performance ratio, reliable UART communication interface, and compact size that fits well within the robot's footprint. The sensor's range and accuracy specifications perfectly match the WRO competition environment requirements.
+    </td>
+    <td>
+      <img src="other/readme-images/LD19-D500-LIDAR.jpg" width="1250">
     </td>
   </tr>
 </table>
+
+
 
 
 ![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
