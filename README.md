@@ -197,7 +197,7 @@ The HS-5055MG servo was chosen for its precise position control and sufficient t
     <td width="50%" style="text-align: left;">
      <img src="other/readme-images/HS-5055MG-Servo.jpg" alt="HS-5055MG Servo" width="350"/>
     </td>
-    <td width="50%" style="text-align: left; vertical-align: top; padding: 0px;">
+    <td width="50%" style="text-align: left; vertical-align: top; padding: 0;">
       <h3>Specifications:</h3>
       <ul>
         <li>KV: 3450 RPM/Volt</li>
