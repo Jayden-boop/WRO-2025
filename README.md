@@ -8,6 +8,20 @@
 * `models` is for the files for models used by 3D printers, laser cutting machines and CNC machines to produce the vehicle elements. If there is nothing to add to this location, the directory can be removed.
 * `other` is for other files which can be used to understand how to prepare the vehicle for the competition. It may include documentation how to connect to a SBC/SBM and upload files there, datasets, hardware specifications, communication protocols descriptions etc. If there is nothing to add to this location, the directory can be removed.
 
+Table of Contents
+=====
+
+- [Introduction](#introduction)
+- [Engineering Materials](#engineering-materials)
+  - [1. Raspberry Pi 5](#1-raspberry-pi-5)
+  - [2. Raspberry Pi 5 Expansion Board](#2-raspberry-pi-5-expansion-board)
+  - [3. Micro Servo 99 SG90](#3-micro-servo-99-sg90)
+  - [4. K989 1/28 WL Toys Chassis](#4-k989-128-wl-toys-chassis)
+  - [5. Furitek Micro Komodo Motor](#5-furitek-micro-komodo-motor)
+  - [Cost Report](https://github.com/Jayden-boop/WRO-2025/blob/main/README.md#cost-report)
+- [Assembly](#assembly)
+- [Conclusion](#conclusion)
+
 # JAT | WRO \- Documentation |
 
 ## Task
@@ -50,19 +64,6 @@ Complete the 3 laps without faults and complete a precise parallel parking maneu
 
 # 
 
-Table of Contents
-=====
-
-- [Introduction](#introduction)
-- [Engineering Materials](#engineering-materials)
-  - [1. Raspberry Pi 5](#1-raspberry-pi-5)
-  - [2. Raspberry Pi 5 Expansion Board](#2-raspberry-pi-5-expansion-board)
-  - [3. Micro Servo 99 SG90](#3-micro-servo-99-sg90)
-  - [4. K989 1/28 WL Toys Chassis](#4-k989-128-wl-toys-chassis)
-  - [5. Furitek Micro Komodo Motor](#5-furitek-micro-komodo-motor)
-  - [Cost Report](https://github.com/Jayden-boop/WRO-2025/blob/main/README.md#cost-report)
-- [Assembly](#assembly)
-- [Conclusion](#conclusion)
 
 Engineering materials
 =====
