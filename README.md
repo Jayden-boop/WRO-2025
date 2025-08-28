@@ -138,6 +138,8 @@ The Pi Camera provides the primary vision system for line detection and traffic 
 </table
 
 
+![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
+
 
 ### LD19 D500 LIDAR
 
@@ -496,6 +498,4 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 
 - **Wheel alignment**: Check axle nut tightness; verify rim installation on axles
 - **Electronics mounting**: Ensure mounting pins are properly inserted through board holes
-- **Battery fit**: Adjust platform wall spacing if battery is loose or too tight![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
-
-
+- **Battery fit**: Adjust platform wall spacing if battery is loose or too tight
