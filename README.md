@@ -126,13 +126,31 @@ To streamline connections and improve reliability, the Raspberry Pi 5 Expansion 
 
 ### Pi Camera Module
 
+<table>
+  <tr>
+    <td>
+      <img src="other/readme-images/Diyeeni-Zero-Module-Camera.jpg" width="1000">
+    </td>
+    <td style="width: 30px;">
 The Pi Camera provides the primary vision system for line detection and traffic sign recognition. Its direct CSI interface to the Raspberry Pi ensures low latency image capture essential for real-time autonomous navigation. The compact form factor allows optimal mounting height for field of view while maintaining the robot's low center of gravity.
+    </td>
+  </tr>
+</table
 
 
 
 ### LD19 D500 LIDAR
 
+<table>
+  <tr>
+    <td>
+      <img src="other/readme-images/LD19-D500-LIDAR.jpg" width="10000">
+    </td>
+    <td style="width: 30px;">
 This LIDAR unit delivers 360-degree environmental mapping crucial for obstacle detection and wall following. This model was selected for its excellent price-to-performance ratio, reliable UART communication interface, and compact size that fits well within the robot's footprint. The sensor's range and accuracy specifications perfectly match the WRO competition environment requirements.
+    </td>
+  </tr>
+</table>
 
 ## Structural Materials
 
@@ -188,7 +206,7 @@ The HS-5055MG servo was chosen for its precise position control and sufficient t
     <td width="50%" style="text-align: left;">
      <img src="other/readme-images/HS-5055MG-Servo.jpg" alt="HS-5055MG Servo" width="350"/>
     </td>
-    <td width="50%" style="text-align: left; vertical-align: top;">
+    <td width="50%" style="text-align: left; vertical-align: top; padding: 0;">
       <h3>Specifications:</h3>
       <ul>
         <li>KV: 3450 RPM/Volt</li>
@@ -212,7 +230,7 @@ This brushless motor controller was chosen for its precise speed control capabil
 <table>
   <tr>
     <td width="60%" style="text-align: left;">
-     <img src="other/readme-images/Furitek-Micro-Komodo-Motor.jpg" alt="Furitek Micro Komodo Motor" width="500"/>
+     <img src="other/readme-images/Furitek-Micro-Komodo-Motor.png" alt="Furitek Micro Komodo Motor" width="500"/>
     </td>
     <td width="40%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
