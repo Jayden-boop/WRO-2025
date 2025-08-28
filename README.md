@@ -148,7 +148,6 @@ The Pi Camera provides the primary vision system for line detection and traffic 
 </table
 
 
-![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
 
 
 ### LD19 D500 LIDAR
@@ -163,6 +162,9 @@ This LIDAR unit delivers 360-degree environmental mapping crucial for obstacle d
     </td>
   </tr>
 </table>
+
+
+![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
 
 ## Structural Materials
 
