@@ -99,8 +99,6 @@ ADD VIDEO EMBED
 Engineering Materials
 =====
 
-## Overview
-
 This section details the specific components and materials selected for our WRO Future Engineers autonomous vehicle, along with the engineering rationale behind each choice.
 
 ## Computing and Control Platform
