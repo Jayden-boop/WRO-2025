@@ -45,7 +45,7 @@ UPPER_ORANGE_THRESHOLD1 = np.array([180, 255, 255])
 LOWER_ORANGE_THRESHOLD2 = np.array([5, 156, 120])
 UPPER_ORANGE_THRESHOLD2 = np.array([20, 255, 255])
 
-LOWER_BLUE_THRESHOLD = np.array([105, 45, 70])
+LOWER_BLUE_THRESHOLD = np.array([105, 45, 60])
 UPPER_BLUE_THRESHOLD = np.array([130, 255, 200])
 
 
@@ -445,7 +445,7 @@ while True:
         time.sleep(0.4)
         board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 5]])
 
-        time.sleep(0.7)
+        time.sleep(0.8)
         """
         pw = pwm(MID_SERVO)
 
@@ -491,7 +491,7 @@ while True:
         pw = pwm(MID_SERVO)
         board.pwm_servo_set_position(0.04, [[1, pw]])
         board.pwm_servo_set_position(0.04, [[2, DC_SPEED]])
-        time.sleep(0.7)
+        time.sleep(0.5)
 
         exit_parking_lot_right = False
         turn_dir = None
@@ -1105,7 +1105,7 @@ while True:
                                     x = dist * math.cos(angle_rad) / 10.0
                                     y = dist * math.sin(angle_rad) / 10.0
 
-                                    if y < -21 and y > -23 and x < 24 and x > 10:
+                                    if y < -20 and y > -22 and x < 24 and x > 10:
                                         print(
                                             f"RIGHT SIDE DETECTION: x={x:.1f}, y={y:.1f}, right_reading updated from {right_reading} to {x}"
                                         )
@@ -1268,7 +1268,7 @@ while True:
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
             board.pwm_servo_set_position(0.04, [[2, 1600]])
 
-            time.sleep(2.2)
+            time.sleep(2.15)
 
             stopMove = True
     """
@@ -1591,7 +1591,7 @@ while True:
                                     x = dist * math.cos(angle_rad) / 10.0
                                     y = dist * math.sin(angle_rad) / 10.0
 
-                                    if y < -11 and y > -13 and x > -22 and x < -10:
+                                    if y < -12 and y > -14 and x > -22 and x < -10:
                                         print(
                                             f"RIGHT SIDE DETECTION: x={x:.1f}, y={y:.1f}, right_reading updated from {right_reading} to {x}"
                                         )
