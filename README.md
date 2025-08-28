@@ -126,7 +126,16 @@ To streamline connections and improve reliability, the Raspberry Pi 5 Expansion 
 
 ### Pi Camera Module
 
+<table>
+  <tr>
+    <td>
+      <img src="other/readme-images/Diyeeni-Zero-Module-Camera.jpg" width="1000">
+    </td>
+    <td style="width: 30px;">
 The Pi Camera provides the primary vision system for line detection and traffic sign recognition. Its direct CSI interface to the Raspberry Pi ensures low latency image capture essential for real-time autonomous navigation. The compact form factor allows optimal mounting height for field of view while maintaining the robot's low center of gravity.
+    </td>
+  </tr>
+</table
 
 
 
