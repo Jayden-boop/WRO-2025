@@ -12,6 +12,10 @@ Table of Contents
 =====
 
 - [Introduction](#introduction)
+- [The Team](#the-team)
+- [Task](##Task)
+  - [Obstacle Challenge](#OpenChallenge)
+  - [Obstacle Challenge](#ObstacleChallenge)
 - [Engineering Materials](#engineering-materials)
   - [1. Raspberry Pi 5](#1-raspberry-pi-5)
   - [2. Raspberry Pi 5 Expansion Board](#2-raspberry-pi-5-expansion-board)
@@ -92,7 +96,7 @@ ADD PHOTOS
 ADD VIDEO EMBED
 
 
-Engineering materials
+Engineering Materials
 =====
 
 ## Overview
