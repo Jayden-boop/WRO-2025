@@ -161,15 +161,13 @@ Key printed components include:
     <td width="50%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
       <ul>
-        <li>KV: 3450 RPM/Volt</li>
-        <li>No-load current @ 10V: 0.7A</li>
-        <li>Power: 120W</li>
-        <li>Battery: 2–3S LiPo</li>
-        <li>Resistance: 0.16 Ω</li>
-        <li>Max Current: 10A</li>
-        <li>Motor Size: 15.5 × 20.6 mm</li>
-        <li>Shaft Size: 1.5 × 6 mm</li>
-        <li>Weight: 17.5 g</li>
+         <li>Capacity: 1300mAh</li>
+        <li>Voltage: 7.4V (2S1P)</li>
+        <li>Discharge Rate: 45C</li>
+        <li>Connector Type: Deans</li>
+        <li>Balancer Connector Type: G-tech-3P</li>
+        <li>Dimensions (L × W × H): 70.87 × 35.24 × 14.5 mm</li>
+        <li>Weight: 90 g (±20 g)</li>
       </ul>
     </td>
   </tr>
