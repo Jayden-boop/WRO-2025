@@ -221,7 +221,7 @@ This brushless motor controller was chosen for its precise speed control capabil
 <table>
   <tr>
     <td width="60%" style="text-align: left;">
-     <img src="other/readme-images/Furitek-Micro-Komodo-Motor.jpg" alt="Furitek Micro Komodo Motor" width="500"/>
+     <img src="other/readme-images/Furitek-Micro-Komodo-Motor.png" alt="Furitek Micro Komodo Motor" width="500"/>
     </td>
     <td width="40%" style="text-align: left; vertical-align: top;">
       <h3>Specifications:</h3>
