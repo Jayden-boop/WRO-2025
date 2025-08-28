@@ -161,30 +161,6 @@ This LIDAR unit delivers 360-degree environmental mapping crucial for obstacle d
   </tr>
 </table>
 
-
-
-
-
-
-## Structural Materials
-
-### Custom 3D Printed Chassis (PLA)
-
-The main chassis and structural components are 3D printed in PLA plastic. PLA was selected for its excellent dimensional stability, ease of printing complex geometries, and sufficient strength for the application. The material allows for rapid prototyping iterations during development while providing the precision needed for proper component mounting and alignment.
-
-![Platform Drawing](other/readme-images/platform-drawing.jpg) 
-
-Key printed components include:
-
-- Main chassis baseplate with integrated mounting features
-- Electronics platform with built-in component positioning
-- Camera mount tower optimized for field of view
-- Custom steering linkages designed for precise geometry
-- Front wheel rims sized specifically for our tire selection
-
-### Custom 3D Printed Camera Holder (PLA)
-![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
-
 ## Power System
 
 ### Gens Ace 2S1P 1300mAh 7.4V battery
@@ -265,6 +241,25 @@ This brushless motor controller was chosen for its precise speed control capabil
     </td>
   </tr>
 </table>
+
+## Structural Materials
+
+### Custom 3D Printed Chassis (PLA)
+
+The main chassis and structural components are 3D printed in PLA plastic. PLA was selected for its excellent dimensional stability, ease of printing complex geometries, and sufficient strength for the application. The material allows for rapid prototyping iterations during development while providing the precision needed for proper component mounting and alignment.
+
+![Platform Drawing](other/readme-images/platform-drawing.jpg) 
+
+Key printed components include:
+
+- Main chassis baseplate with integrated mounting features
+- Electronics platform with built-in component positioning
+- Camera mount tower optimized for field of view
+- Custom steering linkages designed for precise geometry
+- Front wheel rims sized specifically for our tire selection
+
+### Custom 3D Printed Camera Holder (PLA)
+![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
 
 ### FURITEK LIZARD Pro ESC
 
