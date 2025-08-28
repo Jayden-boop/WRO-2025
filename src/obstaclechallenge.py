@@ -53,7 +53,7 @@ WIDTH = 640
 HEIGHT = 480
 POINTS = [(115, 200), (525, 200), (640, 370), (0, 370)]
 
-MAX_TURNS = 4
+MAX_TURNS = 12
 ACTIONS_TO_STRAIGHT = 120
 WALL_THRESHOLD = 200
 NO_WALL_THRESHOLD = 200
@@ -1268,7 +1268,7 @@ while True:
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
             board.pwm_servo_set_position(0.04, [[2, 1600]])
 
-            time.sleep(2.15)
+            time.sleep(2.2)
 
             stopMove = True
     """
