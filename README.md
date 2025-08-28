@@ -499,5 +499,3 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 - **Battery fit**: Adjust platform wall spacing if battery is loose or too tight![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
 
 
-
-## Conclusion
