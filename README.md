@@ -166,7 +166,7 @@ This LIDAR unit delivers 360-degree environmental mapping crucial for obstacle d
 
 
 
-![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
+
 
 ## Structural Materials
 
@@ -183,6 +183,9 @@ Key printed components include:
 - Camera mount tower optimized for field of view
 - Custom steering linkages designed for precise geometry
 - Front wheel rims sized specifically for our tire selection
+
+### Custom 3D Printed Camera Holder (PLA)
+![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
 
 ## Power System
 
