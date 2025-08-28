@@ -153,6 +153,29 @@ Key printed components include:
 ## Power System
 
 ### Gens Ace 2S1P 1300mAh 7.4V battery
+<table>
+  <tr>
+    <td width="50%" style="text-align: left;">
+     <img src="other/readme-images/Gens-Ace-2S1P-1300mAh-7.4V-battery.jpg" alt="Gens Ace 2S1P 1300mAh 7.4V battery" width="350"/>
+    </td>
+    <td width="50%" style="text-align: left; vertical-align: top;">
+      <h3>Specifications:</h3>
+      <ul>
+        <li>KV: 3450 RPM/Volt</li>
+        <li>No-load current @ 10V: 0.7A</li>
+        <li>Power: 120W</li>
+        <li>Battery: 2–3S LiPo</li>
+        <li>Resistance: 0.16 Ω</li>
+        <li>Max Current: 10A</li>
+        <li>Motor Size: 15.5 × 20.6 mm</li>
+        <li>Shaft Size: 1.5 × 6 mm</li>
+        <li>Weight: 17.5 g</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+
 
 A lithium polymer battery provides reliable power for extended operation periods. The specific capacity and voltage were selected to balance runtime requirements with size constraints.
 
