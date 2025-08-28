@@ -8,6 +8,45 @@
 * `models` is for the files for models used by 3D printers, laser cutting machines and CNC machines to produce the vehicle elements. If there is nothing to add to this location, the directory can be removed.
 * `other` is for other files which can be used to understand how to prepare the vehicle for the competition. It may include documentation how to connect to a SBC/SBM and upload files there, datasets, hardware specifications, communication protocols descriptions etc. If there is nothing to add to this location, the directory can be removed.
 
+Table of Contents
+=====
+
+- [Introduction](#introduction)
+- [The Team](#the-team)
+- [Task](##Task)
+  - [Obstacle Challenge](#OpenChallenge)
+  - [Obstacle Challenge](#ObstacleChallenge)
+- [Engineering Materials](#engineering-materials)
+  - [1. Raspberry Pi 5](#1-raspberry-pi-5)
+  - [2. Raspberry Pi 5 Expansion Board](#2-raspberry-pi-5-expansion-board)
+  - [3. Micro Servo 99 SG90](#3-micro-servo-99-sg90)
+  - [4. K989 1/28 WL Toys Chassis](#4-k989-128-wl-toys-chassis)
+  - [5. Furitek Micro Komodo Motor](#5-furitek-micro-komodo-motor)
+  - [Cost Report](https://github.com/Jayden-boop/WRO-2025/blob/main/README.md#cost-report)
+- [Assembly](#assembly)
+- [Conclusion](#conclusion)
+
+
+
+# The Team
+
+### Jayden
+Highschool: Anderson CVI
+
+Description: WAAWAAW
+#
+### Arham
+Highschool: Anderson CVI
+
+Description: Syed Arham Wasti is a Junior at Anderson CVI involved in computer science, machine learnin. His ambition drives him to use technology to impact issues he cares aboutWAWAAS
+#
+### Trevor 
+Highschool: Anderson CVI
+
+Description: WA WA WA
+#
+
+
 # JAT | WRO \- Documentation |
 
 ## Task
@@ -50,21 +89,14 @@ Complete the 3 laps without faults and complete a precise parallel parking maneu
 
 # 
 
-Table of Contents
+Our Robot 
 =====
+ADD PHOTOS
 
-- [Introduction](#introduction)
-- [Engineering Materials](#engineering-materials)
-  - [1. Raspberry Pi 5](#1-raspberry-pi-5)
-  - [2. Raspberry Pi 5 Expansion Board](#2-raspberry-pi-5-expansion-board)
-  - [3. Micro Servo 99 SG90](#3-micro-servo-99-sg90)
-  - [4. K989 1/28 WL Toys Chassis](#4-k989-128-wl-toys-chassis)
-  - [5. Furitek Micro Komodo Motor](#5-furitek-micro-komodo-motor)
-  - [Cost Report](https://github.com/Jayden-boop/WRO-2025/blob/main/README.md#cost-report)
-- [Assembly](#assembly)
-- [Conclusion](#conclusion)
+ADD VIDEO EMBED
 
-Engineering materials
+
+Engineering Materials
 =====
 
 ## Overview
@@ -73,12 +105,18 @@ This section details the specific components and materials selected for our WRO 
 
 ## Computing and Control Platform
 
-### Raspberry Pi 5
+###  Raspberry Pi 5
 
-The Raspberry Pi 5 serves as the main computing unit for our robot. I selected this platform for several key reasons: its robust processing power handles real-time computer vision and sensor fusion simultaneously, the extensive GPIO interface provides direct control over all actuators and sensors, and the mature Python ecosystem allows for rapid development of autonomous driving algorithms. The Pi 5's improved performance over previous generations ensures smooth operation of multiple concurrent processes including LIDAR data processing, camera image analysis, and motor control loops.
-
-
-<img src="other/readme-images/Raspberry-Pi-5.png" width="300">
+<table>
+  <tr>
+    <td>
+      <img src="other/readme-images/Raspberry-Pi-5.png" width="100000">
+    </td>
+    <td style="width: 30px;">
+The Raspberry Pi 5 serves as the main computing unit for our robot. I selected this platform for several key reasons: its robust processing power handles real-time computer vision and sensor fusion simultaneously, the extensive GPIO interface provides direct control over all actuators and sensors, and the mature Python ecosystem allows for rapid development of autonomous driving algorithms. The Pi 5's improved performance over previous generations ensures smooth operation of multiple concurrent processes including LIDAR data processing, camera image analysis, and motor control loops. 
+    </td>
+  </tr>
+</table>
 
 ### Hiwonder Raspberry Pi 5 Expansion Board
 
@@ -101,6 +139,8 @@ This LIDAR unit delivers 360-degree environmental mapping crucial for obstacle d
 ### Custom 3D Printed Chassis (PLA)
 
 The main chassis and structural components are 3D printed in PLA plastic. PLA was selected for its excellent dimensional stability, ease of printing complex geometries, and sufficient strength for the application. The material allows for rapid prototyping iterations during development while providing the precision needed for proper component mounting and alignment.
+
+![Platform Drawing](other/readme-images/platform-drawing.jpg) 
 
 Key printed components include:
 
@@ -211,6 +251,17 @@ Precision ball joints from the K989 system ensure smooth steering operation with
 | Texas Instruments TPS22918DBVR Power Switch ICs | 1        | $0.64            | $0.64            |
 | Battery Pack (2S LiPo 7.4V ~2000mAh)            | 2        | $80.35           | $160.70          |
 | Diyeeni Zero Module Camera (5MB, 1080p HD)      | 1        | $46.85           | $46.85           |
+| GT24 M-Sport 2022 Hybrid Rally Wheels & Tires   | 1        | $22.00           | $22.00           |
+
+## Measurements
+
+| Part                      | Measurment | Rule Comp        |
+| --------------------------|------------| ---------------- |
+| Vehicle Length            | 18.2cm     |    30cm          | 
+| Vehicle Width             | 10.0cm     |    20cm          | 
+| Vehicle Height            | 22.4cm     |    30cm          | 
+| Weight                    | WEIGHT     |    1.5kg         | 
+
 
 # Assembly Guide
 
@@ -408,6 +459,6 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 - **Electronics mounting**: Ensure mounting pins are properly inserted through board holes
 - **Battery fit**: Adjust platform wall spacing if battery is loose or too tight![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
 
-![Platform Drawing](other/readme-images/platform-drawing.jpg) 
+
 
 ## Conclusion
