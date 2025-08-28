@@ -260,7 +260,7 @@ Precision ball joints from the K989 system ensure smooth steering operation with
 | Vehicle Length            | 18.2cm     |    30cm          | 
 | Vehicle Width             | 10.0cm     |    20cm          | 
 | Vehicle Height            | 22.4cm     |    30cm          | 
-| Weight                    | WEIGHT     |    1.5kg         | 
+| Weight                    | 397g       |    1.5kg         | 
 
 
 # Assembly Guide
