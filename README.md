@@ -85,6 +85,12 @@ Complete the 3 laps without faults and complete a precise parallel parking maneu
 
 # 
 
+Our Robot 
+=====
+ADD PHOTOS
+
+ADD VIDEO EMBED
+
 
 Engineering materials
 =====
@@ -129,6 +135,8 @@ This LIDAR unit delivers 360-degree environmental mapping crucial for obstacle d
 ### Custom 3D Printed Chassis (PLA)
 
 The main chassis and structural components are 3D printed in PLA plastic. PLA was selected for its excellent dimensional stability, ease of printing complex geometries, and sufficient strength for the application. The material allows for rapid prototyping iterations during development while providing the precision needed for proper component mounting and alignment.
+
+![Platform Drawing](other/readme-images/platform-drawing.jpg) 
 
 Key printed components include:
 
@@ -447,6 +455,6 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 - **Electronics mounting**: Ensure mounting pins are properly inserted through board holes
 - **Battery fit**: Adjust platform wall spacing if battery is loose or too tight![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
 
-![Platform Drawing](other/readme-images/platform-drawing.jpg) 
+
 
 ## Conclusion
