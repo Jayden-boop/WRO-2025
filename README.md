@@ -22,6 +22,27 @@ Table of Contents
 - [Assembly](#assembly)
 - [Conclusion](#conclusion)
 
+
+
+# The Team
+
+### Jayden
+Highschool: Anderson CVI
+
+Description: WAAWAAW
+#
+### Arham
+Highschool: Anderson CVI
+
+Description: Syed Arham Wasti is a Junior at Anderson CVI involved in computer science, machine learnin. His ambition drives him to use technology to impact issues he cares aboutWAWAAS
+#
+### Trevor 
+Highschool: Anderson CVI
+
+Description: WA WA WA
+#
+
+
 # JAT | WRO \- Documentation |
 
 ## Task
