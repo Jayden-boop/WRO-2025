@@ -120,7 +120,17 @@ The Raspberry Pi 5 serves as the main computing unit for our robot. I selected t
 
 ### Hiwonder Raspberry Pi 5 Expansion Board
 
+<table>
+  <tr>
+    <td style="width: 300px;">
 To streamline connections and improve reliability, the Raspberry Pi 5 Expansion Board  connects and provides power to the Raspberry Pi. This board provides organized PWM outputs for servo control, regulated power distribution to sensors, and proper signal conditioning for the LIDAR interface. The expansion board design eliminates breadboard connections that could fail during competition runs.
+    </td>
+    <td>
+      <img src="other/readme-images/rrclitecontroller.jpg" width="1250">
+    </td>
+  </tr>
+</table>
+
 
 ## Sensors and Perception
 
