@@ -59,7 +59,7 @@ WALL_THRESHOLD = 200
 NO_WALL_THRESHOLD = 200
 TURN_ITER_LIMIT = 30
 LINE_THRESHOLD = 100
-SHOW_CONTOURS = True
+SHOW_CONTOURS = False
 action_counter = 0
 turn_counter = 0
 turn_length_counter = 0
@@ -764,11 +764,12 @@ while True:
             servo_angle = MID_SERVO - MAX_TURN_DEGREE
         elif left_area > 1500:
             servo_angle = MID_SERVO + MAX_TURN_DEGREE
+
     if (
         track_dir == "left"
         and target == green_target
-        and left_area > 6500
-        and closest_pillar_distance > 300
+        and left_area > 10000
+        and closest_pillar_distance > 315
     ):
         servo_angle = MID_SERVO + MAX_TURN_DEGREE
 
@@ -776,7 +777,7 @@ while True:
         track_dir == "right"
         and target == red_target
         and right_area > 6500
-        and closest_pillar_distance > 300
+        and closest_pillar_distance > 330
     ):
         servo_angle = MID_SERVO - MAX_TURN_DEGREE
 
@@ -1105,7 +1106,7 @@ while True:
                                     x = dist * math.cos(angle_rad) / 10.0
                                     y = dist * math.sin(angle_rad) / 10.0
 
-                                    if y < -19 and y > -21 and x < 24 and x > 10:
+                                    if y < -20 and y > -22 and x < 24 and x > 10:
                                         print(
                                             f"RIGHT SIDE DETECTION: x={x:.1f}, y={y:.1f}, right_reading updated from {right_reading} to {x}"
                                         )
