@@ -373,15 +373,19 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 
 ### Step 1: Chassis Foundation Assembly
 
-1. **Prepare the main chassis baseplate**
+1. **Print 3D parts**
+   - Retrieve STL files found in the `models` folder
+   - Print parts on any accesible supported 3D printer
+   - Utilize the print settings specificied in the *Assembly Config Guide*
+2. **Prepare the main chassis baseplate**
    - Ensure all mounting points are clear of support material
    - Test fit all major components before permanent installation
-2. **Install rear gearbox assembly**
+3. **Install rear gearbox assembly**
    - Position K989 rear gearbox in chassis mounting location
    - Secure using double-sided tape for primary attachment
    - Install custom 3D-printed platform holders onto K989 body mounting points
    - Connect platform holders to chassis using vertical M3 screws
-3. **Install custom front gearbox housing**
+4. **Install custom front gearbox housing**
    - Mount front gearbox assembly to chassis front section
    - Ensure proper alignment with steering geometry
    - Secure with double-sided tape and mechanical fasteners
