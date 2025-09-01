@@ -3,32 +3,31 @@ import numpy as np
 import time
 import ros_robot_controller_sdk as rrc
 import math
-import json
 import os
 from picamera2 import Picamera2
 import RPi.GPIO as GPIO
+import subprocess
+import threading
 
 # Imports for LD19 LIDAR parsing
 import serial
 import struct
 
 board = rrc.Board()
-
+BUTTON_ID_1 = 1
+BUTTON_ID_2 = 2
 MID_SERVO = 63
 MAX_TURN_DEGREE = 33
 DC_SPEED = 1375
 PILLAR_SIZE = 400
 PD = 0.0025
 PG = 0.0025
-GYROPG = 1
+LIDARPG = 1
 ROI_LEFT = [0, 210, 100, 470]
 ROI_RIGHT = [540, 210, 640, 470]
 ROI_LINE = [240, 370, 400, 400]
 ROI_MIDDLE = [0, 200, 640, 400]
-
 ROI_FRONT = [280, 240, 360, 280]
-
-
 LOWER_BLACK_THRESHOLD = np.array([0, 0, 0])
 UPPER_BLACK_THRESHOLD = np.array([180, 255, 90])
 
@@ -53,17 +52,19 @@ WIDTH = 640
 HEIGHT = 480
 POINTS = [(115, 200), (525, 200), (640, 370), (0, 370)]
 
-MAX_TURNS = 8
+MAX_TURNS = 4
 ACTIONS_TO_STRAIGHT = 120
 WALL_THRESHOLD = 200
 NO_WALL_THRESHOLD = 200
 TURN_ITER_LIMIT = 30
 LINE_THRESHOLD = 100
-SHOW_CONTOURS = False
+SHOW_CONTOURS = True
+
+
 action_counter = 0
 turn_counter = 0
 turn_length_counter = 0
-
+button_pressed = False
 close_to_wall = False
 right_reading = True
 right_reading_2 = True
@@ -97,6 +98,10 @@ running = True
 forward = True
 parking_right = False
 passed_wall = False
+last_green_left_track = False
+last_red_right_track = False
+stop_after_laps = False
+parallel = False
 
 # Add these with your other global variables
 
@@ -130,6 +135,71 @@ PACKET_LEN = 47
 # Initialize serial for LD19
 ser = serial.Serial(PORT, BAUD, timeout=0.01)  # Reduced timeout for non-blocking read
 buffer = bytearray()
+
+
+def listen_to_button_events():
+    global button_pressed
+    command = (
+        "source /home/ubuntu/.zshrc && ros2 topic echo /ros_robot_controller/button"
+    )
+    process = subprocess.Popen(
+        [
+            "docker",
+            "exec",
+            "-u",
+            "ubuntu",
+            "-w",
+            "/home/ubuntu",
+            "MentorPi",
+            "/bin/zsh",
+            "-c",
+            command,
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+
+    while True:
+        output = process.stdout.readline()
+        if output:
+            line = output.strip()
+            if line.startswith("id:"):
+                button_id = int(line.split(":")[1].strip())
+            elif line.startswith("state:"):
+                state = int(line.split(":")[1].strip())
+
+                if button_id == 1:
+                    if state == 1:
+                        button_pressed = True
+                        print("Button 1 pressed")
+                elif button_id == 2:
+                    if state == 1:
+                        print("Button 2 pressed")
+        else:
+            continue
+
+
+def check_node_status():
+    command = "source /home/ubuntu/.zshrc && ros2 topic list"
+    result = subprocess.run(
+        [
+            "docker",
+            "exec",
+            "-u",
+            "ubuntu",
+            "-w",
+            "/home/ubuntu",
+            "MentorPi",
+            "/bin/zsh",
+            "-c",
+            command,
+        ],
+        capture_output=True,
+        text=True,
+    )
+    res = result.stdout
+    return "/ros_robot_controller/button" in res
 
 
 def find_packet_start(buffer):
@@ -241,48 +311,27 @@ def filter_wall_points(points, x_min=20, x_max=100, y_min=-25, y_max=0):
     return wall_points
 
 
-def imuData():
-    global last_modified
-    try:
-        # Check if file exists and was updated
-        if os.path.exists(filepath):
-            current_modified = os.path.getmtime(filepath)
-
-            if current_modified > last_modified:
-                with open(filepath, "r") as f:
-                    imu_data = json.load(f)
-
-                # Process your data
-                rpy_deg = imu_data["rpy_degrees"]
-                angle = rpy_deg["yaw"]
-                if angle < 0:
-                    angle += 360
-
-                last_modified = current_modified
-                return angle
-
-        else:
-            return None
-
-    except FileNotFoundError:
-        return None
-    except json.JSONDecodeError:
-        return None
-    except Exception as e:
-        return None
+board.pwm_servo_set_position(0.04, [[2, 1500]])
 
 
 board.pwm_servo_set_position(0.04, [[1, pwm(MID_SERVO)]])
 board.pwm_servo_set_position(0.04, [[2, 1500]])
-time.sleep(0.5)
-starting_angle = None
-while starting_angle == None:
-    starting_angle = imuData()
+time.sleep(1)
 
-print(starting_angle)
+
+if check_node_status():
+    print("ROS2 node detected")
+    listener_thread = threading.Thread(target=listen_to_button_events, daemon=True)
+    listener_thread.start()
+    while not button_pressed:
+        pass
+
+time.sleep(1)
 if not startFromParkingLot:
     board.pwm_servo_set_position(0.04, [[2, DC_SPEED]])
 a = False
+
+
 while True:
 
     if (
@@ -446,29 +495,6 @@ while True:
         board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 5]])
 
         time.sleep(0.8)
-        """
-        pw = pwm(MID_SERVO)
-
-        board.pwm_servo_set_position(0.04, [[1, pw]])
-
-        board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 5]])
-
-        time.sleep(1)
-
-        pw = pwm(0)
-
-        board.pwm_servo_set_position(0.04, [[1, pw]])
-
-        board.pwm_servo_set_position(0.04, [[2, 1620]])
-
-        time.sleep(2.5)
-
-        pw = pwm(MID_SERVO)
-        board.pwm_servo_set_position(0.04, [[1, pw]])
-        time.sleep(0.5)
-        
-        
-        """
 
         exit_parking_lot_left = False
 
@@ -486,12 +512,12 @@ while True:
         board.pwm_servo_set_position(0.04, [[1, pw]])
 
         board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 7]])
-        time.sleep(0.9)
+        time.sleep(1.2)
 
         pw = pwm(MID_SERVO)
         board.pwm_servo_set_position(0.04, [[1, pw]])
         board.pwm_servo_set_position(0.04, [[2, DC_SPEED]])
-        time.sleep(0.8)
+        time.sleep(0.7)
 
         exit_parking_lot_right = False
         turn_dir = None
@@ -510,6 +536,10 @@ while True:
     OBSTACLEPG = 0.0013
     OBSTACLEPD = 0.0013
     YAXISPG = 0
+
+    if turn_counter == 0 and track_dir == "left":
+        OBSTACLEPG *= 2
+
     x, y, w, h = 0, 0, 0, 0
 
     closest_pillar_distance = 100000
@@ -587,11 +617,74 @@ while True:
                         closest_pillar_y = y
                         closest_pillar_area = h * w
 
-    if turn_counter >= MAX_TURNS:
-        if track_dir == "left":
-            parking_left = True
-        if track_dir == "right":
+    if turn_counter >= MAX_TURNS and not parking_left or parking_right:
+        if track_dir == "left" and not last_green_left_track:
+            if closest_pillar_y != None:
+                if target == green_target and closest_pillar_y < 300:
+                    last_green_left_track = True
+                else:
+                    parking_left = True
+            else:
+                parking_left = True
+        if track_dir == "right" and not last_red_right_track:
+            print("a")
+            if closest_pillar_y != None:
+                if target == red_target and closest_pillar_y < 300:
+                    last_red_right_track = True
+                    print("c")
+
+                else:
+                    parking_right = True
+            else:
+                parking_right = True
+
+    if last_green_left_track and not parking_left:
+        if target == green_target:
+            if closest_pillar_y > 300:
+                # move forward
+                board.pwm_servo_set_position(0.04, [[1, pwm(MID_SERVO)]])
+                board.pwm_servo_set_position(0.1, [[2, DC_SPEED + 10]])
+                time.sleep(1)
+                """
+                not required
+                board.pwm_servo_set_position(0.1, [[2, 1500]])
+
+                time.sleep(3)
+                # stop for 3 seconds
+                """
+
+                # turn into right wall
+                board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 15]])
+                servo_angle = MID_SERVO + MAX_TURN_DEGREE
+                board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
+                time.sleep(1.5)
+
+                servo_angle = MID_SERVO
+                board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
+                time.sleep(0.8)
+
+                """
+                
+                
+                board.pwm_servo_set_position(0.1, [[2, 1620]])
+                board.pwm_servo_set_position(0.04, [[1, pwm(MID_SERVO)]])
+                time.sleep(1.5)
+                
+                """
+                # back up
+
+                board.pwm_servo_set_position(0.04, [[2, 1500]])
+
+                parking_left = True
+
+    if last_red_right_track and not parking_right:
+        print(closest_pillar_y)
+        if closest_pillar_y > 250:
+            board.pwm_servo_set_position(0.04, [[1, pwm(MID_SERVO)]])
+            board.pwm_servo_set_position(0.1, [[2, DC_SPEED + 10]])
+            time.sleep(1)
             parking_right = True
+
     if blue_line_area >= LINE_THRESHOLD and track_dir != "right" and seen_line == False:
         track_dir = "left"
         turn_dir = "left"
@@ -749,9 +842,11 @@ while True:
         and target == None
         and left_area > 0
     ):
+
         if turn_counter == 0:
             servo_angle = MID_SERVO + MAX_TURN_DEGREE + 10
-        elif right_area > 1500:
+
+        if right_area > 1500:
             servo_angle = MID_SERVO - MAX_TURN_DEGREE
 
     if (
@@ -776,22 +871,22 @@ while True:
     if (
         track_dir == "right"
         and target == red_target
-        and right_area > 6500
-        and closest_pillar_distance > 330
+        and right_area > 10000
+        and closest_pillar_distance > 315
     ):
         servo_angle = MID_SERVO - MAX_TURN_DEGREE
 
     if parking_left:
         print("parking")
-        if clear == False:
+        if clear == False and not last_green_left_track:
             servo_angle = MID_SERVO + (MAX_TURN_DEGREE)
             board.pwm_servo_set_position(0.04, [[2, DC_SPEED]])
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
-            time.sleep(0.3)
+            time.sleep(0.2)
             servo_angle = MID_SERVO
             board.pwm_servo_set_position(0.04, [[2, DC_SPEED]])
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
-            time.sleep(1)
+            time.sleep(0.8)
 
             clear = True
             board.pwm_servo_set_position(0.04, [[2, DC_SPEED]])
@@ -855,7 +950,7 @@ while True:
                                             )
                                             print(slope)
                                             servo_angle = MID_SERVO + (
-                                                angle_error * GYROPG
+                                                angle_error * LIDARPG
                                             )
 
                                         else:
@@ -874,7 +969,7 @@ while True:
                                 x = dist * math.cos(angle_rad) / 10.0
                                 y = dist * math.sin(angle_rad) / 10.0
 
-                                if y > -21 and y < -19 and x > -3 and x < 3:
+                                if y > -16 and y < -14 and x > -3 and x < 3:
                                     close_to_wall = True
 
                                 current_scan_points.append((x, y))
@@ -907,11 +1002,11 @@ while True:
 
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
             time.sleep(0.5)
-            servo_angle = MID_SERVO + MAX_TURN_DEGREE
-            board.pwm_servo_set_position(0.04, [[2, 1620]])
+            servo_angle = MID_SERVO + MAX_TURN_DEGREE - 5
+            board.pwm_servo_set_position(0.04, [[2, 1625]])
 
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
-            time.sleep(1.8)
+            time.sleep(0.9)
             board.pwm_servo_set_position(0.04, [[2, 1500]])
 
             turn_to_parking_section = True
@@ -974,6 +1069,8 @@ while True:
                                                     wall_points
                                                 )
                                             )
+                                            if angle_error != None:
+                                                angle_error += 4
                                             if slope is not None:
                                                 # This is the main output for the test
                                                 print(
@@ -981,7 +1078,7 @@ while True:
                                                 )
                                                 print(servo_angle)
                                                 servo_angle = MID_SERVO - (
-                                                    angle_error * GYROPG
+                                                    angle_error * LIDARPG
                                                 )
 
                                             else:
@@ -998,7 +1095,7 @@ while True:
                                                 current_scan_points,
                                                 x_min=5,
                                                 x_max=100,
-                                                y_min=-8,
+                                                y_min=-10,
                                                 y_max=-1,
                                             )
 
@@ -1015,7 +1112,7 @@ while True:
                                                     )
                                                     print(servo_angle)
                                                     servo_angle = MID_SERVO - (
-                                                        angle_error * GYROPG
+                                                        angle_error * LIDARPG
                                                     )
 
                                                 else:
@@ -1038,6 +1135,30 @@ while True:
                                         )
                                         right_reading = False
                                         servo_angle = MID_SERVO
+
+                                    """
+                                    not required
+                                    
+                                    if (
+                                        y < 0
+                                        and y > -40
+                                        and x < 25
+                                        and x > 10
+                                        and not stop_after_laps
+                                        and not last_green_left_track
+                                    ):
+                                        print(f"stop for three seconds")
+                                        stop_after_laps = True
+                                        board.pwm_servo_set_position(
+                                            0.04, [[1, pwm(MID_SERVO)]]
+                                        )
+                                        board.pwm_servo_set_position(0.04, [[2, 1500]])
+                                        time.sleep(3)
+                                        board.pwm_servo_set_position(
+                                            0.04, [[2, DC_SPEED + 25]]
+                                        )
+                                    
+                                    """
 
                                     current_scan_points.append((x, y))
 
@@ -1088,6 +1209,7 @@ while True:
                                 parsed["start_angle"], parsed["end_angle"], 12
                             )
                             for (dist, conf), angle in zip(parsed["points"], angles):
+
                                 if detect_angle_reset(angle, previous_angle):
                                     if len(current_scan_points) > 50:
                                         rotation_count += 1
@@ -1106,7 +1228,7 @@ while True:
                                     x = dist * math.cos(angle_rad) / 10.0
                                     y = dist * math.sin(angle_rad) / 10.0
 
-                                    if y < -20 and y > -22 and x < 24 and x > 10:
+                                    if y < -19 and y > -21 and x < 24 and x > 10:
                                         print(
                                             f"RIGHT SIDE DETECTION: x={x:.1f}, y={y:.1f}, right_reading updated from {right_reading} to {x}"
                                         )
@@ -1138,17 +1260,12 @@ while True:
                     break
             time.sleep(0.2)
             at_parking_lot = True
-            board.pwm_servo_set_position(0.04, [[1, pwm(MID_SERVO)]])
-            board.pwm_servo_set_position(0.04, [[2, 1500]])
-            time.sleep(3)
 
-            board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 10]])
+            board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 15]])
 
             servo_angle = 0
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
-            time.sleep(2)
-            board.pwm_servo_set_position(0.04, [[1, pwm(MID_SERVO)]])
-            time.sleep(0.5)
+            time.sleep(2.8)
 
             board.pwm_servo_set_position(0.04, [[2, 1595]])
 
@@ -1211,7 +1328,7 @@ while True:
                                                 )
                                                 print(servo_angle)
                                                 servo_angle = MID_SERVO - (
-                                                    angle_error * GYROPG
+                                                    angle_error * (LIDARPG / 3)
                                                 )
 
                                             else:
@@ -1269,7 +1386,7 @@ while True:
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
             board.pwm_servo_set_position(0.04, [[2, 1600]])
 
-            time.sleep(2.1)
+            time.sleep(2.2)
 
             stopMove = True
     """
@@ -1302,7 +1419,7 @@ while True:
     """
     if parking_right:
         print("parking right")
-        if clear == False:
+        if clear == False and not last_red_right_track:
 
             servo_angle = MID_SERVO - (MAX_TURN_DEGREE)
             board.pwm_servo_set_position(0.04, [[2, DC_SPEED]])
@@ -1352,19 +1469,69 @@ while True:
                             if detect_angle_reset(angle, previous_angle):
                                 if len(current_scan_points) > 50:
                                     rotation_count += 1
+                                    if last_red_right_track:
 
-                                    wall_points = filter_wall_points(
-                                        current_scan_points,
-                                        x_min=-70,
-                                        x_max=-1,
-                                        y_min=-8,
-                                        y_max=-1,
-                                    )
+                                        wall_points = filter_wall_points(
+                                            current_scan_points,
+                                            x_min=5,
+                                            x_max=90,
+                                            y_min=-15,
+                                            y_max=-1,
+                                        )
+                                    else:
+
+                                        wall_points = filter_wall_points(
+                                            current_scan_points,
+                                            x_min=-70,
+                                            x_max=-1,
+                                            y_min=-8,
+                                            y_max=-1,
+                                        )
 
                                     if len(wall_points) >= 8:
                                         slope, angle_error, status = (
                                             calculate_wall_slope_and_error(wall_points)
                                         )
+                                        if last_red_right_track:
+                                            angle_error += 4
+                                        if (
+                                            last_red_right_track
+                                            and angle_error > -2
+                                            and angle_error < 2
+                                        ):
+                                            board.pwm_servo_set_position(
+                                                0.04, [[1, pwm(MID_SERVO - 10)]]
+                                            )
+                                            time.sleep(0.4)
+                                            board.pwm_servo_set_position(
+                                                0.04, [[2, 1500]]
+                                            )
+
+                                            board.pwm_servo_set_position(
+                                                0.1, [[2, 1620]]
+                                            )
+                                            board.pwm_servo_set_position(
+                                                0.04, [[1, pwm(MID_SERVO)]]
+                                            )
+                                            time.sleep(3.8)
+                                            board.pwm_servo_set_position(
+                                                0.04, [[2, 1500]]
+                                            )
+
+                                            board.pwm_servo_set_position(
+                                                0.1, [[2, DC_SPEED]]
+                                            )
+                                            board.pwm_servo_set_position(
+                                                0.04,
+                                                [[1, pwm(MID_SERVO - MAX_TURN_DEGREE)]],
+                                            )
+                                            time.sleep(1.4)
+
+                                            board.pwm_servo_set_position(
+                                                0.1, [[2, DC_SPEED + 25]]
+                                            )
+
+                                            last_red_right_track = False
 
                                         if slope is not None:
                                             # This is the main output for the test
@@ -1373,7 +1540,7 @@ while True:
                                             )
                                             print(slope)
                                             servo_angle = MID_SERVO - (
-                                                angle_error * GYROPG
+                                                angle_error * LIDARPG
                                             )
 
                                         else:
@@ -1392,7 +1559,7 @@ while True:
                                 x = dist * math.cos(angle_rad) / 10.0
                                 y = dist * math.sin(angle_rad) / 10.0
 
-                                if y > -11 and y < -9 and x > -3 and x < 3:
+                                if y > -13 and y < -11 and x > -3 and x < 3:
                                     close_to_wall = True
 
                                 current_scan_points.append((x, y))
@@ -1430,7 +1597,7 @@ while True:
             board.pwm_servo_set_position(0.04, [[2, 1620]])
 
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
-            time.sleep(1.8)
+            time.sleep(1.6)
             servo_angle = MID_SERVO
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
 
@@ -1483,7 +1650,7 @@ while True:
                                         wall_points = filter_wall_points(
                                             current_scan_points,
                                             x_min=-100,
-                                            x_max=-20,
+                                            x_max=-10,
                                             y_min=-7,
                                             y_max=0,
                                         )
@@ -1501,7 +1668,7 @@ while True:
                                                 )
                                                 print(servo_angle)
                                                 servo_angle = MID_SERVO - (
-                                                    angle_error * GYROPG
+                                                    angle_error * LIDARPG
                                                 )
 
                                             else:
@@ -1592,7 +1759,7 @@ while True:
                                     x = dist * math.cos(angle_rad) / 10.0
                                     y = dist * math.sin(angle_rad) / 10.0
 
-                                    if y < -12 and y > -14 and x > -22 and x < -10:
+                                    if y < -11 and y > -13 and x > -22 and x < -10:
                                         print(
                                             f"RIGHT SIDE DETECTION: x={x:.1f}, y={y:.1f}, right_reading updated from {right_reading} to {x}"
                                         )
@@ -1624,8 +1791,6 @@ while True:
                     break
 
             at_parking_lot = True
-            board.pwm_servo_set_position(0.04, [[2, 1500]])
-            time.sleep(3)
 
             board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 25]])
             servo_angle = MID_SERVO + MAX_TURN_DEGREE
@@ -1634,7 +1799,16 @@ while True:
 
             servo_angle = MID_SERVO
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
-            time.sleep(0.5)
+            time.sleep(0.1)
+
+            board.pwm_servo_set_position(0.04, [[2, 1500]])
+
+            """
+            not required
+            time.sleep(3)
+
+            
+            """
 
             board.pwm_servo_set_position(0.04, [[2, 1595]])
 
@@ -1673,7 +1847,7 @@ while True:
                                         rotation_count += 1
                                         wall_points = filter_wall_points(
                                             current_scan_points,
-                                            x_min=-10,
+                                            x_min=-15,
                                             x_max=0,
                                             y_min=-70,
                                             y_max=-10,
@@ -1697,7 +1871,7 @@ while True:
                                                 )
                                                 print(servo_angle)
                                                 servo_angle = MID_SERVO - (
-                                                    angle_error * GYROPG
+                                                    angle_error * (LIDARPG)
                                                 )
 
                                             else:
@@ -1753,7 +1927,7 @@ while True:
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
             board.pwm_servo_set_position(0.04, [[2, 1600]])
 
-            time.sleep(2.2)
+            time.sleep(2.15)
 
             stopMove = True
 
