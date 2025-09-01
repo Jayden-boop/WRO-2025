@@ -96,7 +96,7 @@ Our Robot
 | *Front* | *Back* |
 | <img src="v-photos/Car_Left.jpg" width="90%" /> | <img src="v-photos/Car_Right.jpg" width="85%" /> | 
 | *Left* | *Right* |
-| <img src="v-photos/Car_Left.jpg" width="90%" /> | <img src="./robot-photos/bottom.png" width="85%" /> | 
+| <img src="v-photos/Car_Top.jpg" width="90%" /> | <img src="v-photos/Car_Bottom.jpg" width="85%" /> | 
 | *Top* | *Bottom* |
 
 <br>
