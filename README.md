@@ -91,9 +91,15 @@ Complete the 3 laps without faults and complete a precise parallel parking maneu
 
 Our Robot 
 =====
-ADD PHOTOS
+| <img src="v-photos/Car_Front.jpg" width="90%" /> | <img src="v-photos/Car_Back.jpg" width="85%" /> | 
+| :--: | :--: | 
+| *Front* | *Back* |
+| <img src="v-photos/Car_Left.jpg" width="90%" /> | <img src="v-photos/Car_Right.jpg" width="85%" /> | 
+| *Left* | *Right* |
+| <img src="v-photos/Car_Left.jpg" width="90%" /> | <img src="./robot-photos/bottom.png" width="85%" /> | 
+| *Top* | *Bottom* |
 
-ADD VIDEO EMBED
+<br>
 
 
 Engineering Materials
