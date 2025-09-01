@@ -33,19 +33,34 @@ Table of Contents
 ### Jayden
 Highschool: Anderson CVI
 
+<p align="center">
+  <img src="t-photos/Jayden_WRO.jpg" width="80%">
+</p> 
+
+
 Description: WAAWAAW
-#
+---
+
+
 ### Arham
 Highschool: Anderson CVI
-
+<p align="center">
+  <img src="t-photos/Arham_WRO.jpg" width="80%">
+</p> 
 Description: Syed Arham Wasti is a Junior at Anderson CVI involved in computer science, machine learnin. His ambition drives him to use technology to impact issues he cares aboutWAWAAS
-#
+
+---
+
+
+
 ### Trevor 
 Highschool: Anderson CVI
-
+<p align="center">
+  <img src="t-photos/Trevor_WRO.jpg" width="80%">
+</p> 
 Description: WA WA WA
-#
 
+---
 
 # JAT | WRO \- Documentation |
 
