@@ -121,171 +121,52 @@ Our Robot
 <br>
 
 # Engineering Design & Strategy
-
 This section outlines the core engineering principles and strategic decisions that guided the development of our autonomous vehicle. We have broken down our design process into the key categories evaluated in the competition: Mobility, Power & Sensing, and Obstacle Management.
 
 ## Mobility Management
-
 Effective mobility is central to navigating the course quickly and accurately. Our design focuses on a responsive drivetrain with precise steering control.
 
 ### Motor Selection and Implementation
 
-<table>
-<tr>
-<td width="60%" style="text-align: left;">
-<img src="other/readme-images/Furitek-Micro-Komodo-Motor.png" alt="Furitek Micro Komodo Motor" width="500"/>
-</td>
-<td width="40%" style="text-align: left; vertical-align: top;">
-<h3>Furitek Micro Komodo Motor</h3>
-<ul>
-<li><b>KV:</b> 3450 RPM/Volt</li>
-<li><b>Power:</b> 120W</li>
-<li><b>Battery:</b> 2–3S LiPo</li>
-<li><b>Type:</b> Brushless</li>
-<li><b>Weight:</b> 17.5 g</li>
-</ul>
-</td>
-</tr>
-</table>
+<table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/Furitek-Micro-Komodo-Motor.png" alt="Furitek Micro Komodo Motor" width="100%"/> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>Furitek Micro Komodo Motor</h3> <ul> <li><b>KV:</b> 3450 RPM/Volt</li> <li><b>Power:</b> 120W</li> <li><b>Battery:</b> 2–3S LiPo</li> <li><b>Type:</b> Brushless</li> <li><b>Weight:</b> 17.5 g</li> </ul> </td> </tr> </table>
 
-The Furitek Micro Komodo was selected for its exceptional power-to-weight ratio and precise speed control. As a brushless motor, it offers higher efficiency, a longer lifespan, and superior performance compared to brushed alternatives.
+The Furitek Micro Komodo was selected for its exceptional power-to-weight ratio and precise speed control. As a brushless motor, it offers higher efficiency, a longer lifespan, and superior performance compared to brushed alternatives. Its ability to operate smoothly at both high and very low speeds is a significant advantage, providing the raw acceleration needed for fast laps and the delicate, slow-speed control required for the parallel parking maneuver.
 
-Its ability to operate smoothly at both high and very low speeds is a significant advantage, providing the raw acceleration needed for fast laps and the delicate, slow-speed control required for the parallel parking maneuver.
+<table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/HS-5055MG-Servo.png" alt="HS-5055MG Servo" width="100%"/> </td> <td width="400px" style="text-align: left; vertical-align: top; padding: 0;"> <h3>HS-5055MG Servo</h3> <ul> <li><b>Torque (6.0V):</b> 1.4 kg/cm</li> <li><b>Speed (6.0V):</b> 0.14 sec/60°</li> <li><b>Gears:</b> Metal</li> <li><b>Type:</b> Digital</li> <li><b>Weight:</b> 9.5 g</li> </ul> </td> </tr> </table>
 
-<table>
-<tr>
-<td width="50%" style="text-align: left;">
-<img src="other/readme-images/HS-5055MG-Servo.png" alt="HS-5055MG Servo" width="350"/>
-</td>
-<td width="50%" style="text-align: left; vertical-align: top; padding: 0;">
-<h3>HS-5055MG Servo</h3>
-<ul>
-<li><b>Torque (6.0V):</b> 1.4 kg/cm</li>
-<li><b>Speed (6.0V):</b> 0.14 sec/60°</li>
-<li><b>Gears:</b> Metal</li>
-<li><b>Type:</b> Digital</li>
-<li><b>Weight:</b> 9.5 g</li>
-</ul>
-</td>
-</tr>
-</table>
-
-Accurate path following is managed by a PID controller, which requires a steering servo capable of making small, precise, and rapid adjustments. 
-
-The HS-5055MG was chosen for its digital precision and metal gear construction, providing the durability and responsiveness needed to translate the PID controller's outputs into exact steering angles. This ensures the vehicle can hold its line with minimal error.
+Accurate path following is managed by a PID controller, which requires a steering servo capable of making small, precise, and rapid adjustments. The HS-5055MG was chosen for its digital precision and metal gear construction, providing the durability and responsiveness needed to translate the PID controller's outputs into exact steering angles. This ensures the vehicle can hold its line with minimal error.
 
 ### Wheels and Drivetrain Rationale
-
-- We use **GT24 Carisma Wheels and Tires** for their traction characteristics, ensuring consistent grip and power delivery.
-
-- Other 1/24 Wheels and Tires can be substituted 
+We use GT24 Carisma Wheels and Tires for their traction characteristics, ensuring consistent grip and power delivery. Other 1/24 scale RC car wheels and tires can be substituted.
 
 ## Power and Sense Management
-
 A reliable power system and an accurate sensor suite are the foundation of any autonomous system. Our strategy was to choose components that provide clean power and rich, low-latency data to our control system.
 
 ### Power Source and Distribution
 
-<table>
-<tr>
-<td width="50%" style="text-align: left;">
-<img src="other/readme-images/Gens-Ace-2S1P-1300mAh-7.4V-battery.png" alt="Gens Ace 2S1P 1300mAh 7.4V battery" width="350"/>
-</td>
-<td width="50%" style="text-align: left; vertical-align: top;">
-<h3>Gens Ace 2S LiPo Battery</h3>
-<ul>
-<li><b>Capacity:</b> 1300mAh</li>
-<li><b>Voltage:</b> 7.4V (2S)</li>
-<li><b>Discharge Rate:</b> 45C</li>
-<li><b>Weight:</b> 90 g</li>
-</ul>
-</td>
-</tr>
-</table>
+<table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/Gens-Ace-2S1P-1300mAh-7.4V-battery.png" alt="Gens Ace 2S1P 1300mAh 7.4V battery" width="100%"/> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>Gens Ace 2S LiPo Battery</h3> <ul> <li><b>Capacity:</b> 1300mAh</li> <li><b>Voltage:</b> 7.4V (2S)</li> <li><b>Discharge Rate:</b> 45C</li> <li><b>Weight:</b> 90 g</li> </ul> </td> </tr> </table>
 
 The Gens Ace 1300mAh LiPo was selected for its optimal balance of capacity, weight, and size. On a full charge, this battery provides approximately 45 minutes of continuous runtime, which is more than sufficient to complete all competition rounds and practice runs without needing a battery swap or experiencing performance degradation.
 
-<table>
-<tr>
-<td style="width: 300px;">
-<h3>Hiwonder Raspberry Pi 5 Expansion Board</h3>
-<ul>
-<li>Centralized Power Distribution</li>
-<li>Organized PWM Outputs</li>
-<li>Regulated Voltage for Sensors</li>
-<li>Direct Pi 5 Connectivity</li>
-</ul>
-</td>
-<td>
-<img src="other/readme-images/rrclitecontroller.png" width="1250">
-</td>
-</tr>
-</table>
+<table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>Hiwonder Raspberry Pi 5 Expansion Board</h3> <ul> <li>Centralized Power Distribution</li> <li>Organized PWM Outputs</li> <li>Regulated Voltage for Sensors</li> <li>Direct Pi 5 Connectivity</li> </ul> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/rrclitecontroller.png" alt="Hiwonder Raspberry Pi 5 Expansion Board" width="100%"> </td> </tr> </table>
 
 To eliminate the reliability issues of breadboards and loose wiring, we integrated the Hiwonder Expansion Board. It serves as a centralized hub for power management and signal distribution, providing stable, regulated power to the Pi, sensors, and servos. This simplifies the wiring harness, reduces potential failure points, and ensures consistent performance from all electronic components.
 
 ### Wiring Diagram
-
-*(Placeholder for Wiring Diagram Image)*
+(Placeholder for Wiring Diagram Image)
 
 ### Sensor Selection and Rationale
 
-<table>
-<tr>
-<td>
-<img src="other/readme-images/Raspberry-Pi-5.png" width="1000">
-</td>
-<td style="width: 20px;">
-<h3>Raspberry Pi 5</h3>
-<ul>
-<li><b>CPU:</b> Quad-core 64-bit Arm Cortex-A76 @ 2.4GHz</li>
-<li><b>RAM:</b> 8GB LPDDR4X</li>
-<li><b>Connectivity:</b> Wi-Fi, Bluetooth 5.0, Gigabit Ethernet</li>
-<li><b>I/O:</b> 40-pin GPIO, 2x MIPI DSI/CSI</li>
-</ul>
-</td>
-</tr>
-</table>
+<table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/Raspberry-Pi-5.png" alt="Raspberry Pi 5" width="100%"> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>Raspberry Pi 5</h3> <ul> <li><b>CPU:</b> Quad-core 64-bit Arm Cortex-A76 @ 2.4GHz</li> <li><b>RAM:</b> 8GB LPDDR4X</li> <li><b>Connectivity:</b> Wi-Fi, Bluetooth 5.0, Gigabit Ethernet</li> <li><b>I/O:</b> 40-pin GPIO, 2x MIPI DSI/CSI</li> </ul> </td> </tr> </table>
+The Raspberry Pi 5 serves as the central processing unit, chosen for its powerful quad-core processor that can simultaneously handle real-time data streams from the camera and LiDAR without performance bottlenecks. The mature Python ecosystem and extensive GPIO interface were ideal for rapid algorithm development and direct control over all hardware.
 
- The Raspberry Pi 5 serves as the central processing unit, chosen for its powerful quad-core processor that can simultaneously handle real-time data streams from the camera and LiDAR without performance bottlenecks. The mature Python ecosystem and extensive GPIO interface were ideal for rapid algorithm development and direct control over all hardware.
-
-<table>
-<tr>
-<td>
-<img src="other/readme-images/Diyeeni-Zero-Module-Camera.png" width="700">
-</td>
-<td style="width: 30px;">
-<h3>Pi Camera Module</h3>
-<ul>
-<li><b>Resolution:</b> 5 Megapixels</li>
-<li><b>Video:</b> 1080p HD</li>
-<li><b>Interface:</b> Direct CSI</li>
-<li><b>Features:</b> Color Sensing</li>
-</ul>
-</td>
-</tr>
-</table>
-
+<table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/Diyeeni-Zero-Module-Camera.png" alt="Pi Camera Module" width="100%"> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>Pi Camera Module</h3> <ul> <li><b>Resolution:</b> 5 Megapixels</li> <li><b>Video:</b> 1080p HD</li> <li><b>Interface:</b> Direct CSI</li> <li><b>Features:</b> Color Sensing</li> </ul> </td> </tr> </table>
 The Pi Camera is our primary sensor for the Obstacle Challenge. Its direct CSI interface provides a low-latency video feed essential for high-speed decision-making. We rely entirely on its color-sensing capabilities and OpenCV-based contour detection to accurately identify the pillars and boundary walls. The 175° wide angle lens, combined with a high mounting position on the chassis allows the camera to have an extremely large field of view throughout the challenge.
 
-<table>
-<tr>
-<td style="width: 10px;">
-<h3>LD19 D500 LIDAR</h3>
-<ul>
-<li><b>Range:</b> 0.02 - 12m</li>
-<li><b>Scan Rate:</b> 5-15 Hz</li>
-<li><b>Angular Resolution:</b> 0.5°</li>
-<li><b>Interface:</b> UART</li>
-</ul>
-</td>
-<td>
-<img src="other/readme-images/LD19-D500-LIDAR.png" width="1000">
-</td>
-</tr>
-</table>
+<table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>LD19 D500 LIDAR</h3> <ul> <li><b>Range:</b> 0.02 - 12m</li> <li><b>Scan Rate:</b> 5-15 Hz</li> <li><b>Angular Resolution:</b> 0.5°</li> <li><b>Interface:</b> UART</li> </ul> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/LD19-D500-LIDAR.png" alt="LD19 D500 LIDAR" width="100%"> </td> </tr> </table>
+For navigation tasks where precision distance measurement is needed, we use the LD19 LIDAR. It is the sole sensor for the parallel parking maneuver. Once the parking sequence is initiated, color data is no longer needed, and the LIDAR's high-accuracy spatial data allows us to precisely detect the parking space and execute the multiple turns required to park.
 
-For navigation tasks where precision distance measurement is needed, we use the LD19 LIDAR. It sole sensor for the parallel parking maneuver. Once the parking sequence is initiated, color data is no longer needed, and the LIDAR's high-accuracy spatial data allows us to precisely detect the parking space and execute the multiple turns required to park.
+
 
 ## Structural Materials
 
