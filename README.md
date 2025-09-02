@@ -30,6 +30,10 @@ Table of Contents
 
 # The Team
 
+<p align="center">
+  <img src="t-photos/TeamPhoto_WRO.jpg" width="80%">
+</p> 
+
 ### Jayden
 Highschool: Anderson CVI
 
