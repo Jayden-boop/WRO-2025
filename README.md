@@ -26,28 +26,27 @@ Table of Contents
 - [Assembly](#assembly)
 - [Conclusion](#conclusion)
 
-
-
 # The Team
 
 <p align="center">
   <img src="t-photos/TeamPhoto_WRO.jpg" width="80%">
-</p> 
+</p>
 
 ### Jayden
+
 Highschool: Anderson CVI
 
 <p align="center">
   <img src="t-photos/Jayden_WRO.jpg" width="80%">
-</p> 
-
+</p>
 
 Description: WAAWAAW
 ---
 
-
 ### Arham
+
 Highschool: Anderson CVI
+
 <p align="center">
   <img src="t-photos/Arham_WRO.jpg" width="80%">
 </p> 
@@ -55,10 +54,10 @@ Description: Syed Arham Wasti is a Junior at Anderson CVI involved in computer s
 
 ---
 
+### Trevor
 
-
-### Trevor 
 Highschool: Anderson CVI
+
 <p align="center">
   <img src="t-photos/Trevor_WRO.jpg" width="80%">
 </p> 
@@ -108,164 +107,187 @@ Complete the 3 laps without faults and complete a precise parallel parking maneu
 
 # 
 
-Our Robot 
+Our Robot
 =====
-| <img src="v-photos/Car_Front.jpg" width="90%" /> | <img src="v-photos/Car_Back.jpg" width="85%" /> | 
-| :--: | :--: | 
-| *Front* | *Back* |
-| <img src="v-photos/Car_Left.jpg" width="90%" /> | <img src="v-photos/Car_Right.jpg" width="85%" /> | 
-| *Left* | *Right* |
-| <img src="v-photos/Car_Top.jpg" width="90%" /> | <img src="v-photos/Car_Bottom.jpg" width="85%" /> | 
-| *Top* | *Bottom* |
+
+| <img src="v-photos/Car_Front.jpg" width="90%" /> | <img src="v-photos/Car_Back.jpg" width="85%" />   |
+|:------------------------------------------------:|:-------------------------------------------------:|
+| *Front*                                          | *Back*                                            |
+| <img src="v-photos/Car_Left.jpg" width="90%" />  | <img src="v-photos/Car_Right.jpg" width="85%" />  |
+| *Left*                                           | *Right*                                           |
+| <img src="v-photos/Car_Top.jpg" width="90%" />   | <img src="v-photos/Car_Bottom.jpg" width="85%" /> |
+| *Top*                                            | *Bottom*                                          |
 
 <br>
 
+# Engineering Design & Strategy
 
-Engineering Materials
-=====
+This section outlines the core engineering principles and strategic decisions that guided the development of our autonomous vehicle. We have broken down our design process into the key categories evaluated in the competition: Mobility, Power & Sensing, and Obstacle Management.
 
-This section details the specific components and materials selected for our WRO Future Engineers autonomous vehicle, along with the engineering rationale behind each choice.
+## Mobility Management
 
-## Computing and Control Platform
+Effective mobility is central to navigating the course quickly and accurately. Our design focuses on a responsive drivetrain with precise steering control.
 
-###  Raspberry Pi 5
-
-<table>
-  <tr>
-    <td>
-      <img src="other/readme-images/Raspberry-Pi-5.png" width="100000">
-    </td>
-    <td style="width: 30px;">
-The Raspberry Pi 5 serves as the main computing unit for our robot. I selected this platform for several key reasons: its robust processing power handles real-time computer vision and sensor fusion simultaneously, the extensive GPIO interface provides direct control over all actuators and sensors, and the mature Python ecosystem allows for rapid development of autonomous driving algorithms. The Pi 5's improved performance over previous generations ensures smooth operation of multiple concurrent processes including LIDAR data processing, camera image analysis, and motor control loops. 
-    </td>
-  </tr>
-</table>
-
-### Hiwonder Raspberry Pi 5 Expansion Board
+### Motor Selection and Implementation
 
 <table>
-  <tr>
-    <td style="width: 300px;">
-To streamline connections and improve reliability, the Raspberry Pi 5 Expansion Board  connects and provides power to the Raspberry Pi. This board provides organized PWM outputs for servo control, regulated power distribution to sensors, and proper signal conditioning for the LIDAR interface. The expansion board design eliminates breadboard connections that could fail during competition runs.
-    </td>
-    <td>
-      <img src="other/readme-images/rrclitecontroller.jpg" width="1250">
-    </td>
-  </tr>
+<tr>
+<td width="60%" style="text-align: left;">
+<img src="other/readme-images/Furitek-Micro-Komodo-Motor.png" alt="Furitek Micro Komodo Motor" width="500"/>
+</td>
+<td width="40%" style="text-align: left; vertical-align: top;">
+<h3>Furitek Micro Komodo Motor</h3>
+<ul>
+<li><b>KV:</b> 3450 RPM/Volt</li>
+<li><b>Power:</b> 120W</li>
+<li><b>Battery:</b> 2–3S LiPo</li>
+<li><b>Type:</b> Brushless</li>
+<li><b>Weight:</b> 17.5 g</li>
+</ul>
+</td>
+</tr>
 </table>
 
+The Furitek Micro Komodo was selected for its exceptional power-to-weight ratio and precise speed control. As a brushless motor, it offers higher efficiency, a longer lifespan, and superior performance compared to brushed alternatives.
 
-## Sensors and Perception
-
-### Pi Camera Module
+Its ability to operate smoothly at both high and very low speeds is a significant advantage, providing the raw acceleration needed for fast laps and the delicate, slow-speed control required for the parallel parking maneuver.
 
 <table>
-  <tr>
-    <td>
-      <img src="other/readme-images/Diyeeni-Zero-Module-Camera.jpg" width="1000">
-    </td>
-    <td style="width: 30px;">
-The Pi Camera provides the primary vision system for line detection and traffic sign recognition. Its direct CSI interface to the Raspberry Pi ensures low latency image capture essential for real-time autonomous navigation. The compact form factor allows optimal mounting height for field of view while maintaining the robot's low center of gravity.
-    </td>
-  </tr>
+<tr>
+<td width="50%" style="text-align: left;">
+<img src="other/readme-images/HS-5055MG-Servo.jpg" alt="HS-5055MG Servo" width="350"/>
+</td>
+<td width="50%" style="text-align: left; vertical-align: top; padding: 0;">
+<h3>HS-5055MG Servo</h3>
+<ul>
+<li><b>Torque (6.0V):</b> 1.4 kg/cm</li>
+<li><b>Speed (6.0V):</b> 0.14 sec/60°</li>
+<li><b>Gears:</b> Metal</li>
+<li><b>Type:</b> Digital</li>
+<li><b>Weight:</b> 9.5 g</li>
+</ul>
+</td>
+</tr>
 </table>
 
+Accurate path following is managed by a PID controller, which requires a steering servo capable of making small, precise, and rapid adjustments. 
 
+The HS-5055MG was chosen for its digital precision and metal gear construction, providing the durability and responsiveness needed to translate the PID controller's outputs into exact steering angles. This ensures the vehicle can hold its line with minimal error.
 
+### Wheels and Drivetrain Rationale
 
-### LD19 D500 LIDAR
+- We use **GT24 Carisma Wheels and Tires** for their traction characteristics, ensuring consistent grip and power delivery.
+
+- Other 1/24 Wheels and Tires can be substituted 
+
+## Power and Sense Management
+
+A reliable power system and an accurate sensor suite are the foundation of any autonomous system. Our strategy was to choose components that provide clean power and rich, low-latency data to our control system.
+
+### Power Source and Distribution
 
 <table>
-  <tr>
-    <td style="width: 300px;">
-This LIDAR unit delivers 360-degree environmental mapping crucial for obstacle detection and wall following. This model was selected for its excellent price-to-performance ratio, reliable UART communication interface, and compact size that fits well within the robot's footprint. The sensor's range and accuracy specifications perfectly match the WRO competition environment requirements.
-    </td>
-    <td>
-      <img src="other/readme-images/LD19-D500-LIDAR.jpg" width="1250">
-    </td>
-  </tr>
+<tr>
+<td width="50%" style="text-align: left;">
+<img src="other/readme-images/Gens-Ace-2S1P-1300mAh-7.4V-battery.jpg" alt="Gens Ace 2S1P 1300mAh 7.4V battery" width="350"/>
+</td>
+<td width="50%" style="text-align: left; vertical-align: top;">
+<h3>Gens Ace 2S LiPo Battery</h3>
+<ul>
+<li><b>Capacity:</b> 1300mAh</li>
+<li><b>Voltage:</b> 7.4V (2S)</li>
+<li><b>Discharge Rate:</b> 45C</li>
+<li><b>Weight:</b> 90 g</li>
+</ul>
+</td>
+</tr>
 </table>
 
-## Power System
-
-### Gens Ace 2S1P 1300mAh 7.4V battery
-<table>
-  <tr>
-    <td width="50%" style="text-align: left;">
-     <img src="other/readme-images/Gens-Ace-2S1P-1300mAh-7.4V-battery.jpg" alt="Gens Ace 2S1P 1300mAh 7.4V battery" width="350"/>
-    </td>
-    <td width="50%" style="text-align: left; vertical-align: top;">
-      <h3>Specifications:</h3>
-      <ul>
-         <li>Capacity: 1300mAh</li>
-        <li>Voltage: 7.4V (2S1P)</li>
-        <li>Discharge Rate: 45C</li>
-        <li>Connector Type: Deans</li>
-        <li>Balancer Connector Type: G-tech-3P</li>
-        <li>Dimensions (L × W × H): 70.87 × 35.24 × 14.5 mm</li>
-        <li>Weight: 90 g (±20 g)</li>
-      </ul>
-    </td>
-  </tr>
-</table>
-
-
-
-A lithium polymer battery provides reliable power for extended operation periods. The specific capacity and voltage were selected to balance runtime requirements with size constraints.
-
-## Drive and Actuation Components
-
-### HS-5055MG Servo
-
-The HS-5055MG servo was chosen for its precise position control and sufficient torque to overcome tire friction during sharp turns.
+The Gens Ace 1300mAh LiPo was selected for its optimal balance of capacity, weight, and size. On a full charge, this battery provides approximately 45 minutes of continuous runtime, which is more than sufficient to complete all competition rounds and practice runs without needing a battery swap or experiencing performance degradation.
 
 <table>
-  <tr>
-    <td width="50%" style="text-align: left;">
-     <img src="other/readme-images/HS-5055MG-Servo.jpg" alt="HS-5055MG Servo" width="350"/>
-    </td>
-    <td width="50%" style="text-align: left; vertical-align: top; padding: 0;">
-      <h3>Specifications:</h3>
-      <ul>
-        <li>KV: 3450 RPM/Volt</li>
-        <li>No-load current @ 10V: 0.7A</li>
-        <li>Power: 120W</li>
-        <li>Battery: 2–3S LiPo</li>
-        <li>Resistance: 0.16 Ω</li>
-        <li>Max Current: 10A</li>
-        <li>Motor Size: 15.5 × 20.6 mm</li>
-        <li>Shaft Size: 1.5 × 6 mm</li>
-        <li>Weight: 17.5 g</li>
-      </ul>
-    </td>
-  </tr>
+<tr>
+<td style="width: 300px;">
+<h3>Hiwonder Raspberry Pi 5 Expansion Board</h3>
+<ul>
+<li>Centralized Power Distribution</li>
+<li>Organized PWM Outputs</li>
+<li>Regulated Voltage for Sensors</li>
+<li>Direct Pi 5 Connectivity</li>
+</ul>
+</td>
+<td>
+<img src="other/readme-images/rrclitecontroller.jpg" width="1250">
+</td>
+</tr>
 </table>
 
-## Furitek Micro Komodo Motor
+To eliminate the reliability issues of breadboards and loose wiring, we integrated the Hiwonder Expansion Board. It serves as a centralized hub for power management and signal distribution, providing stable, regulated power to the Pi, sensors, and servos. This simplifies the wiring harness, reduces potential failure points, and ensures consistent performance from all electronic components.
 
-This brushless motor controller was chosen for its precise speed control capabilities and compact form factor that fits within our chassis constraints.
+### Wiring Diagram
+
+*(Placeholder for Wiring Diagram Image)*
+
+### Sensor Selection and Rationale
 
 <table>
-  <tr>
-    <td width="60%" style="text-align: left;">
-     <img src="other/readme-images/Furitek-Micro-Komodo-Motor.png" alt="Furitek Micro Komodo Motor" width="500"/>
-    </td>
-    <td width="40%" style="text-align: left; vertical-align: top;">
-      <h3>Specifications:</h3>
-      <ul>
-        <li>KV: 3450 RPM/Volt</li>
-        <li>No-load current @ 10V: 0.7A</li>
-        <li>Power: 120W</li>
-        <li>Battery: 2–3S LiPo</li>
-        <li>Resistance: 0.16 Ω</li>
-        <li>Max Current: 10A</li>
-        <li>Motor Size: 15.5 × 20.6 mm</li>
-        <li>Shaft Size: 1.5 × 6 mm</li>
-        <li>Weight: 17.5 g</li>
-      </ul>
-    </td>
-  </tr>
+<tr>
+<td>
+<img src="other/readme-images/Raspberry-Pi-5.png" width="1000">
+</td>
+<td style="width: 20px;">
+<h3>Raspberry Pi 5</h3>
+<ul>
+<li><b>CPU:</b> Quad-core 64-bit Arm Cortex-A76 @ 2.4GHz</li>
+<li><b>RAM:</b> 8GB LPDDR4X</li>
+<li><b>Connectivity:</b> Wi-Fi, Bluetooth 5.0, Gigabit Ethernet</li>
+<li><b>I/O:</b> 40-pin GPIO, 2x MIPI DSI/CSI</li>
+</ul>
+</td>
+</tr>
 </table>
+
+ The Raspberry Pi 5 serves as the central processing unit, chosen for its powerful quad-core processor that can simultaneously handle real-time data streams from the camera and LiDAR without performance bottlenecks. The mature Python ecosystem and extensive GPIO interface were ideal for rapid algorithm development and direct control over all hardware.
+
+<table>
+<tr>
+<td>
+<img src="other/readme-images/Diyeeni-Zero-Module-Camera.jpg" width="700">
+</td>
+<td style="width: 30px;">
+<h3>Pi Camera Module</h3>
+<ul>
+<li><b>Resolution:</b> 5 Megapixels</li>
+<li><b>Video:</b> 1080p HD</li>
+<li><b>Interface:</b> Direct CSI</li>
+<li><b>Features:</b> Color Sensing</li>
+</ul>
+</td>
+</tr>
+</table>
+
+The Pi Camera is our primary sensor for the Obstacle Challenge. Its direct CSI interface provides a low-latency video feed essential for high-speed decision-making. We rely entirely on its color-sensing capabilities and OpenCV-based contour detection to accurately identify the pillars and boundary walls. The 175° wide angle lens, combined with a high mounting position on the chassis allows the camera to have an extremely large field of view throughout the challenge.
+
+<table>
+<tr>
+<td style="width: 100px;">
+<h3>LD19 D500 LIDAR</h3>
+<ul>
+<li><b>Range:</b> 0.02 - 12m</li>
+<li><b>Scan Rate:</b> 5-15 Hz</li>
+<li><b>Angular Resolution:</b> 0.5°</li>
+<li><b>Interface:</b> UART</li>
+</ul>
+</td>
+<td>
+<img src="other/readme-images/LD19-D500-LIDAR.jpg" width="1250">
+</td>
+</tr>
+</table>
+
+For navigation tasks where precision distance measurement is needed, we use the LD19 LIDAR. It sole sensor for the parallel parking maneuver. Once the parking sequence is initiated, color data is no longer needed, and the LIDAR's high-accuracy spatial data allows us to precisely detect the parking space and execute the multiple turns required to park.
+
+
 
 ## Structural Materials
 
@@ -284,6 +306,7 @@ Key printed components include:
 - Front wheel rims sized specifically for our tire selection
 
 ### Custom 3D Printed Camera Holder (PLA)
+
 ![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
 
 ### FURITEK LIZARD Pro ESC
@@ -295,10 +318,6 @@ The ESC provides the interface between our control system and the drive motor, s
 ### K989 Drivetrain Components
 
 The design adapted select components from the K989 platform including the rear gearbox assembly and steering linkage ball joints. These parts provide proven reliability and appropriate gear ratios for the scale and performance requirements while maintaining cost effectiveness.
-
-### GT24 Carisma Wheels and Tires
-
-The rear wheels utilize standard 1/24 scale components for their proven traction characteristics and availability. Any compatible 1/24 scale tires can be substituted based on surface conditions.
 
 ### Custom Front Wheels
 
@@ -331,13 +350,12 @@ Precision ball joints from the K989 system ensure smooth steering operation with
 
 ## Measurements
 
-| Part                      | Measurment | Rule Comp        |
-| --------------------------|------------| ---------------- |
-| Vehicle Length            | 18.2cm     |    30cm          | 
-| Vehicle Width             | 10.0cm     |    20cm          | 
-| Vehicle Height            | 22.4cm     |    30cm          | 
-| Weight                    | 397g       |    1.5kg         | 
-
+| Part           | Measurment | Rule Comp |
+| -------------- | ---------- | --------- |
+| Vehicle Length | 18.2cm     | 30cm      |
+| Vehicle Width  | 10.0cm     | 20cm      |
+| Vehicle Height | 22.4cm     | 30cm      |
+| Weight         | 397g       | 1.5kg     |
 
 # Assembly Guide
 
