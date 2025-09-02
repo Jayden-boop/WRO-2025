@@ -155,7 +155,7 @@ Its ability to operate smoothly at both high and very low speeds is a significan
 <table>
 <tr>
 <td width="50%" style="text-align: left;">
-<img src="other/readme-images/HS-5055MG-Servo.jpg" alt="HS-5055MG Servo" width="350"/>
+<img src="other/readme-images/HS-5055MG-Servo.png" alt="HS-5055MG Servo" width="350"/>
 </td>
 <td width="50%" style="text-align: left; vertical-align: top; padding: 0;">
 <h3>HS-5055MG Servo</h3>
@@ -189,7 +189,7 @@ A reliable power system and an accurate sensor suite are the foundation of any a
 <table>
 <tr>
 <td width="50%" style="text-align: left;">
-<img src="other/readme-images/Gens-Ace-2S1P-1300mAh-7.4V-battery.jpg" alt="Gens Ace 2S1P 1300mAh 7.4V battery" width="350"/>
+<img src="other/readme-images/Gens-Ace-2S1P-1300mAh-7.4V-battery.png" alt="Gens Ace 2S1P 1300mAh 7.4V battery" width="350"/>
 </td>
 <td width="50%" style="text-align: left; vertical-align: top;">
 <h3>Gens Ace 2S LiPo Battery</h3>
@@ -217,7 +217,7 @@ The Gens Ace 1300mAh LiPo was selected for its optimal balance of capacity, weig
 </ul>
 </td>
 <td>
-<img src="other/readme-images/rrclitecontroller.jpg" width="1250">
+<img src="other/readme-images/rrclitecontroller.png" width="1250">
 </td>
 </tr>
 </table>
@@ -252,7 +252,7 @@ To eliminate the reliability issues of breadboards and loose wiring, we integrat
 <table>
 <tr>
 <td>
-<img src="other/readme-images/Diyeeni-Zero-Module-Camera.jpg" width="700">
+<img src="other/readme-images/Diyeeni-Zero-Module-Camera.png" width="700">
 </td>
 <td style="width: 30px;">
 <h3>Pi Camera Module</h3>
@@ -270,7 +270,7 @@ The Pi Camera is our primary sensor for the Obstacle Challenge. Its direct CSI i
 
 <table>
 <tr>
-<td style="width: 100px;">
+<td style="width: 10px;">
 <h3>LD19 D500 LIDAR</h3>
 <ul>
 <li><b>Range:</b> 0.02 - 12m</li>
@@ -280,14 +280,12 @@ The Pi Camera is our primary sensor for the Obstacle Challenge. Its direct CSI i
 </ul>
 </td>
 <td>
-<img src="other/readme-images/LD19-D500-LIDAR.jpg" width="1250">
+<img src="other/readme-images/LD19-D500-LIDAR.png" width="1000">
 </td>
 </tr>
 </table>
 
 For navigation tasks where precision distance measurement is needed, we use the LD19 LIDAR. It sole sensor for the parallel parking maneuver. Once the parking sequence is initiated, color data is no longer needed, and the LIDAR's high-accuracy spatial data allows us to precisely detect the parking space and execute the multiple turns required to park.
-
-
 
 ## Structural Materials
 
