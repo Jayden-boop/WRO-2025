@@ -118,6 +118,10 @@ Our Robot
 | <img src="v-photos/Car_Top.jpg" width="90%" />   | <img src="v-photos/Car_Bottom.jpg" width="85%" /> |
 | *Top*                                            | *Bottom*                                          |
 
+ 
+ <p align="center">
+ <img src="v-photos/WRO_VehicleDiagram.png" width="50%" />
+   </p>
 <br>
 
 # Engineering Design & Strategy
