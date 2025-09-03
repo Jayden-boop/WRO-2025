@@ -124,6 +124,13 @@ Our Robot
    </p>
 <br>
 
+<br>
+
+## Video of our Open Challenge Demonstration [Here](https://www.youtube.com/watch?v=GPGMuM1HHgo&ab_channel=ArhamWasti) <a class="anchor" id="video"></a>
+## Video of our Obstacle Challenge Demonstration [Here](https://www.youtube.com/watch?v=hhrCKOZkAMQ&ab_channel=ArhamWasti) <a class="anchor" id="video"></a>
+<br>
+
+
 # Engineering Design & Strategy
 This section outlines the core engineering principles and strategic decisions that guided the development of our autonomous vehicle. We have broken down our design process into the key categories evaluated in the competition: Mobility, Power & Sensing, and Obstacle Management.
 
