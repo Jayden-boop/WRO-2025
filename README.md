@@ -118,8 +118,7 @@ Our Robot
 | <img src="v-photos/Car_Top.jpg" width="90%" />   | <img src="v-photos/Car_Bottom.jpg" width="85%" /> |
 | *Top*                                            | *Bottom*                                          |
 
- 
- <p align="center">
+<p align="center">
  <img src="v-photos/WRO_VehicleDiagram.png" width="50%" />
    </p>
 <br>
@@ -127,14 +126,17 @@ Our Robot
 <br>
 
 ## Video of our Open Challenge Demonstration [Here](https://www.youtube.com/watch?v=GPGMuM1HHgo&ab_channel=ArhamWasti) <a class="anchor" id="video"></a>
+
 ## Video of our Obstacle Challenge Demonstration [Here](https://www.youtube.com/watch?v=hhrCKOZkAMQ&ab_channel=ArhamWasti) <a class="anchor" id="video"></a>
+
 <br>
 
-
 # Engineering Design & Strategy
+
 This section outlines the core engineering principles and strategic decisions that guided the development of our autonomous vehicle. We have broken down our design process into the key categories evaluated in the competition: Mobility, Power & Sensing, and Obstacle Management.
 
 ## Mobility Management
+
 Effective mobility is central to navigating the course quickly and accurately. Our design focuses on a responsive drivetrain with precise steering control.
 
 ### Motor Selection and Implementation
@@ -148,9 +150,11 @@ The Furitek Micro Komodo was selected for its exceptional power-to-weight ratio 
 Accurate path following is managed by a PID controller, which requires a steering servo capable of making small, precise, and rapid adjustments. The HS-5055MG was chosen for its digital precision and metal gear construction, providing the durability and responsiveness needed to translate the PID controller's outputs into exact steering angles. This ensures the vehicle can hold its line with minimal error.
 
 ### Wheels and Drivetrain Rationale
+
 We use GT24 Carisma Wheels and Tires for their traction characteristics, ensuring consistent grip and power delivery. Other 1/24 scale RC car wheels and tires can be substituted.
 
 ## Power and Sense Management
+
 A reliable power system and an accurate sensor suite are the foundation of any autonomous system. Our strategy was to choose components that provide clean power and rich, low-latency data to our control system.
 
 ### Power Source and Distribution
@@ -164,6 +168,7 @@ The Gens Ace 1300mAh LiPo was selected for its optimal balance of capacity, weig
 To eliminate the reliability issues of breadboards and loose wiring, we integrated the Hiwonder Expansion Board. It serves as a centralized hub for power management and signal distribution, providing stable, regulated power to the Pi, sensors, and servos. This simplifies the wiring harness, reduces potential failure points, and ensures consistent performance from all electronic components.
 
 ### Wiring Diagram
+
 (Placeholder for Wiring Diagram Image)
 
 ### Sensor Selection and Rationale
@@ -176,8 +181,6 @@ The Pi Camera is our primary sensor for the Obstacle Challenge. Its direct CSI i
 
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>LD19 D500 LIDAR</h3> <ul> <li><b>Range:</b> 0.02 - 12m</li> <li><b>Scan Rate:</b> 5-15 Hz</li> <li><b>Angular Resolution:</b> 0.5°</li> <li><b>Interface:</b> UART</li> </ul> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/LD19-D500-LIDAR.png" alt="LD19 D500 LIDAR" width="100%"> </td> </tr> </table>
 For navigation tasks where precision distance measurement is needed, we use the LD19 LIDAR. It is the sole sensor for the parallel parking maneuver. Once the parking sequence is initiated, color data is no longer needed, and the LIDAR's high-accuracy spatial data allows us to precisely detect the parking space and execute the multiple turns required to park.
-
-
 
 ## Structural Materials
 
@@ -446,3 +449,351 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 - **Wheel alignment**: Check axle nut tightness; verify rim installation on axles
 - **Electronics mounting**: Ensure mounting pins are properly inserted through board holes
 - **Battery fit**: Adjust platform wall spacing if battery is loose or too tight
+
+# Obstacle Avoidance
+
+This section explains the **pillar detection and obstacle avoidance algorithm** implemented for the obstacle challenge. It covers detection, filtering, steering control, emergency handling, edge cases, parking exit logic, and the parallel parking process.
+
+---
+
+## 1. Pillar Detection
+
+### Color Thresholding
+
+The camera frame is converted to HSV and color thresholds are applied to isolate pillar colors. Red uses two hue ranges to handle hue wrap-around and lighting changes; green uses a single calibrated range. The thresholds are tuned to avoid false positives from track lines and printed textures.
+
+```python
+img_hsv = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)
+
+# Green mask (single continuous hue band)
+img_thresh_green = cv2.inRange(img_hsv, LOWER_GREEN_THRESHOLD, UPPER_GREEN_THRESHOLD)
+
+# Red mask (hue wraps near 0 / 180 — use two ranges and OR them)
+img_thresh_red = cv2.bitwise_or(
+    cv2.inRange(img_hsv, LOWER_RED_THRESHOLD1, UPPER_RED_THRESHOLD1),
+    cv2.inRange(img_hsv, LOWER_RED_THRESHOLD2, UPPER_RED_THRESHOLD2)
+)
+```
+
+On many cameras, red hues can be split across the 0/180 boundary in HSV. The two-range approach reduces missed red detections under variable illumination or white balance shifts.
+
+### Contour Extraction & Preprocessing
+
+Contours are found on the thresholded masks. To minimize noisy edges, the code uses `CHAIN_APPROX_NONE` while later smoothing contours.
+
+```python
+contours_red, _ = cv2.findContours(img_thresh_red, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+contours_green, _ = cv2.findContours(img_thresh_green, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+```
+
+`RETR_EXTERNAL` keeps only outer contours — pillars are solid objects with simple silhouettes; nested contours are usually irrelevant. `CHAIN_APPROX_NONE` retains full boundary detail so the subsequent `approxPolyDP` has enough points to create a stable approximation.
+
+### Bounding Rectangles and Simple Distance Proxy
+
+Each contour is approximated and bounded to compute centroid, area and a quick pixel-distance estimate.
+
+```python
+approx = cv2.approxPolyDP(cnt, 0.01 * cv2.arcLength(cnt, True), True)
+x, y, w, h = cv2.boundingRect(approx)
+pillar_cx, pillar_cy = x + w//2, y + h//2
+pillar_area = w * h
+pillar_distance = math.dist([pillar_cx, pillar_cy], [WIDTH//2, HEIGHT])  # e.g., [320,480]
+```
+
+This pixel euclidean distance is not a true metric distance but works well for prioritizing the closest. It is a simplistic measurement that avoids the complexity of depth calculations.
+
+**Debugging helper:** the code draws bounding boxes and a centroid point during development to validate thresholds:
+
+```python
+cv2.rectangle(im, (x,y), (x+w, y+h), (0,255,255), 2)
+cv2.circle(im, (pillar_cx, pillar_cy), 3, (255,0,0), -1)
+```
+
+---
+
+## 2. Pillar Filtering and Prioritization
+
+Detection must be filtered aggressively to avoid misbehavior when the track has textures or reflections.
+
+### Area & Size Filtering
+
+Small contours are discarded early to reduce noise:
+
+```python
+area = cv2.contourArea(cnt)
+if area <= PILLAR_SIZE:
+    continue  # too small to be a pillar
+```
+
+`PILLAR_SIZE` acts as a low-pass filter on contour area. It's tuned so that slivers of printed texture on the mat don't trigger a reaction while still catching genuine pillars at a useful distance.
+
+### Distance Threshold
+
+Very distant detections are ignored so the control logic only reacts to immediate obstacles:
+
+```python
+if pillar_distance >= 500:
+    continue  # pillar is too far to react to reliably
+```
+
+This window balances early reaction with false-trigger reduction. Too large a window causes erratic steering, too small makes the robot late to avoid.
+
+### Top/Bottom Edge Rejection
+
+Exclude contours where bounding box sits too close to the top or bottom of the frame (unreliable zones):
+
+```python
+if y + h > 450 or y + h < 125:
+    continue
+```
+
+- Bottom zone (>450 px) often means the robot has already passed the pillar or the contour is partially out of frame.
+- Top zone (<125 px) indicates the pillar is far and area/centroid estimation is noisy.
+
+### Closest-First Prioritization
+
+From the remaining candidates, the closest pillar by pixel-distance is stored as the active avoidance target:
+
+```python
+if pillar_distance < closest_pillar_distance:
+    closest_pillar_distance = pillar_distance
+    closest_pillar_colour = "red"  # or "green" depending on mask
+    closest_pillar_x = pillar_cx
+    closest_pillar_y = pillar_cy
+    closest_pillar_area = pillar_area
+```
+
+Choosing the closest pillar ensures the robot focuses on imminent obstacles instead of distant ones that will be handled later. This simplifies decision-making in sections with two pillars.
+
+Pillar decision flow:
+
+```mermaid
+flowchart TD
+    A[Raw contours] --> B{Area > PILLAR_SIZE?}
+    B -->|No| Z[Discard]
+    B -->|Yes| C{Distance < 500?}
+    C -->|No| Z
+    C -->|Yes| D{Y bounds OK?}
+    D -->|No| Z
+    D -->|Yes| E[Candidate => compare distance]
+    E --> F[Keep closest pillar]
+```
+
+---
+
+## 3. Steering and Control
+
+This section explains how the chosen pillar is converted to steering commands using a PD controller and how the servo command is converted to PWM for the vehicle.
+
+### Target Alignment — color-specific targets
+
+Targets are fixed X-coordinates that represent where a pillar should appear in the camera frame when the robot will pass it on the correct side:
+
+```python
+red_target = 120   # desired x for red pillars (left side of camera)
+green_target = 520 # desired x for green pillars (right side of camera)
+
+if closest_pillar_colour == "red":
+    target = red_target
+elif closest_pillar_colour == "green":
+    target = green_target
+else:
+    target = None
+```
+
+Using fixed pixel targets is a simple heuristic that ensures the pillar is pushed towards the correct side of the frame. It works well when camera FOV and mounting are consistent.
+
+### Error computation and PD steering
+
+Calculate horizontal error and apply PD control:
+
+```python
+error = target - closest_pillar_x
+p_term = error * OBSTACLEPG * MAX_TURN_DEGREE
+d_term = (error - prev_pillar_error) * OBSTACLEPD
+servo_angle = MID_SERVO - p_term - d_term
+prev_pillar_error = error
+```
+
+- `OBSTACLEPG` controls responsiveness.
+- `OBSTACLEPD` damps oscillations.
+- `MAX_TURN_DEGREE` normalizes pixel error into servo-angle domain.
+
+**Clamp and convert to PWM** (important for safety):
+
+```python
+if servo_angle > MID_SERVO + MAX_TURN_DEGREE:
+    servo_angle = MID_SERVO + MAX_TURN_DEGREE
+if servo_angle < MID_SERVO - MAX_TURN_DEGREE:
+    servo_angle = MID_SERVO - MAX_TURN_DEGREE
+
+pw = pwm(servo_angle)
+board.pwm_servo_set_position(0.04, [[1, pw]])  # send servo command
+```
+
+PD-only control avoids integral windup and is sufficient for steering where steady-state offset is small because the environment provides visual feedback to recentre the pillar. Gains were tuned experimentally on-track; if the robot oscillates, reduce `OBSTACLEPG` or increase `OBSTACLEPD`.
+
+### Optional depth-based gain (Y-axis influence)
+
+The code contains a hook to modify steering intensity based on pillar Y (vertical position = depth proxy):
+
+```python
+# Optional depth-dependent adjustment:
+servo_angle -= closest_pillar_y * YAXISPG  # applied for green pillars
+# YAXISPG is 0 by default; set positive to reduce sensitivity for farther pillars
+```
+
+Enabling `YAXISPG` can make the robot steer more aggressively for near pillars while staying calmer for distant ones — useful when the pillar size-to-distance mapping changes.
+
+---
+
+## 4. Emergency Collision Handling
+
+When a pillar fills the frame (large area) and is very close, the robot must avoid pushing forward into a collision. This triggers an emergency maneuver where the robot reverses in order to avoid the pillar.
+
+```python
+if closest_pillar_area > 7000 and closest_pillar_distance < 300 and not exit_parking_lot:
+    # Straighten and stop, then do a short forward nudge to reposition
+    servo_angle = MID_SERVO
+    board.pwm_servo_set_position(0.04, [[2, 1500]])  # stop ESC
+    board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
+    board.pwm_servo_set_position(0.04, [[2, 1620]])  # small forward nudge
+    time.sleep(1)
+    board.pwm_servo_set_position(0.04, [[2, DC_SPEED]])  # resume driving
+```
+
+The parameters (7000 area, 300 px distance) were chosen to catch very close pillars while avoiding false activations.
+
+---
+
+## 5. Edge Case Handling (detailed)
+
+This section documents several special-case situations the code guards against and includes short code snippets integrated into the relevant logic.
+
+### Interior Wall / Corner Danger
+
+Problem: A pillar might require steering that pushes the robot into an interior wall near corners. The code detects significant wall presence and overrides pillar steering when necessary. This occurs when driving counter-clockwise with an interior green pillar and clockwise with an interior red pillar.
+
+```python
+# If green pillar would push robot left into a wall, override.
+if (track_dir == "left" and target == green_target and left_area > 10000 and
+        closest_pillar_distance > 315):
+    servo_angle = MID_SERVO - MAX_TURN_DEGREE
+```
+
+`left_area` is measured from a left ROI that senses the inner wall. The `closest_pillar_distance > 315` requirement avoids overriding when the pillar is close (where immediate avoidance is the primary focus).
+
+### Front Area Override (Perpendicular Approaches / Parking Exit)
+
+When the robot is approaching a wall head-on (during the parking lot exit), the front black ROI triggers a stronger avoidance:
+
+```python
+if front_area_black > 30000 and turn_counter == 0:
+    servo_angle = MID_SERVO + MAX_TURN_DEGREE
+```
+
+`turn_counter == 0` is used because this scenario is most relevant immediately after leaving the parking lot. The front ROI is tuned to detect large dark areas (the parking lot boundary) and bias the steering away.
+
+---
+
+## 6. Turn Handling, Line Detection, and Lap Counting
+
+This logic transitions the vehicle between straight sections and turns and is essential for lap counting. When there is no pillars that need to be avoided, the logic allows the robot to stay within the middle of each section to prepare for future pillars.
+
+### Blue & Orange Line Detection (turn triggers)
+
+Short ROI-based detections detect corners based on the first coloured line:
+
+```python
+if blue_line_area >= LINE_THRESHOLD and track_dir != "right" and not seen_line:
+    track_dir = "left"
+    turn_dir = "left"
+    seen_line = True
+    turn_counter += 1
+
+if orange_line_area >= LINE_THRESHOLD and track_dir != "left" and not seen_line:
+    track_dir = "right"
+    turn_dir = "right"
+    seen_line = True
+    turn_counter += 1
+```
+
+The `seen_line` flag prevents multiple counts for the same physical line as the robot passes the ROI over several frames.
+
+### End-of-turn detection
+
+During a turn, the code monitors for the opposite color line and wall area thresholds to determine the end of the turn and transition back to straight-line wall following.
+
+```python
+if turn_dir == "left" and orange_line_area >= LINE_THRESHOLD:
+    line_end = True
+if turn_dir == "right" and blue_line_area >= LINE_THRESHOLD:
+    line_end = True
+```
+
+### Wall-based fallback navigation
+
+When no pillar or lines are available, the vehicle uses left/right wall area differences for steering:
+
+```python
+current_difference = left_area - right_area
+servo_angle = MID_SERVO + (current_difference * PG + (current_difference - last_difference) * PD)
+last_difference = current_difference
+```
+
+This PD on areas effectively centers the vehicle between walls. PD avoids long-term drift while being responsive to changes in wall proximity.
+
+No pillar flowchart:
+
+```mermaid
+flowchart TD
+    A[Frame Update] --> B{Blue Line?}
+    B -->|Yes| C["Turn Leftseen_line = Trueturn_counter += 1"]
+    B -->|No| D{Orange Line?}
+    D -->|Yes| E["Turn Rightseen_line = Trueturn_counter += 1"]
+    D -->|No| F["Wall Follow:PD(left_area - right_area)"]
+    C --> G["During Turn:watch for line_end"]
+    E --> G
+    G --> A
+```
+
+---
+
+## 7. Exiting the Parking Lot
+
+The robot must exit the parking lot safely and deterministically. The code sets exit flags at the beginning and executes small routines to clear the lot.
+
+### Deciding Direction
+
+At start, the robot measures left and right wall areas and chooses an exit direction:
+
+```python
+if startFromParkingLot:
+    if left_area > right_area:
+        track_dir = "right"
+        exit_parking_lot_right = True
+    else:
+        track_dir = "left"
+        exit_parking_lot_left = True
+    startFromParkingLot = False
+```
+
+Using the immediate camera observation avoids dependence on any external configuration and adapts to the random configuration.
+
+### Exit routine example
+
+```python
+if exit_parking_lot_left:
+    # steer left for a short burst, apply thrust, straighten
+    board.pwm_servo_set_position(0.04, [[1, pwm(0)]])
+    board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 5]])
+    time.sleep(0.8)
+    board.pwm_servo_set_position(0.04, [[1, pwm(MID_SERVO)]])
+    exit_parking_lot_left = False
+```
+
+The timed DC burst allows the robot to precisely navigate out of the tight parking lot.
+
+---
+
+## 8. Parking Sequence must be done
