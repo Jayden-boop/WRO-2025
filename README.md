@@ -689,24 +689,26 @@ if (track_dir == "left" and target == green_target and left_area > 10000 and
 When the robot is approaching a wall head-on (during the parking lot exit), the front black ROI triggers a stronger avoidance:
 
 ```python
-if front_area_black > 250 and turn_counter == 0:
+if front_area_black > 250 and turn_counter == 0 and target == None:
     servo_angle = MID_SERVO + MAX_TURN_DEGREE
 ```
 
-`turn_counter == 0` is used because this scenario is only relevant immediately after leaving the parking lot. The front ROI is tuned to detect large dark areas (the outer walls) and bias the steering away.
+`turn_counter == 0` is used because this scenario is only relevant immediately after leaving the parking lot. The front ROI is tuned to detect large dark areas (the outer walls) and bias the steering away. This override only occurs if no pillar is in the field of view, as following a visible pillar is ideal. 
 
 ---
 
 ### Front Area Override (Exterior pillar avoidance during turn)
 
-When the robot is approaching a wall head-on (during the parking lot exit), the front black ROI triggers a stronger avoidance:
+![Exterior pillar override](other/readme-images/diagram_exterior.png)
+
+In this pillar combination, the robot must first avoid the green pillar. This results in the position being closer to the interior wall. Then, the robot follows the red pillar target, becoming roughly perpendicular to the exterior wall. As the robot drives forward while attempting to correct the pillar-x, the pillar will leave the camera field of view. In this case, a manual override must be made to avoid the pillar while turning into the next straight section. 
 
 ```python
-if front_area_black > 250 and turn_counter > 0 and left or right wall:
+if front_area_black > 250 and turn_counter > 0 and left_wall > 1000 and target == None:
     servo_angle = MID_SERVO - MAX_TURN_DEGREE
 ```
 
-Add diagram
+The forced correction only occurs if both the left wall ROI and the front ROI detects a black area, allowing the override to selectively occur if the wall is not on the correct side of the robot.
 
 ---
 
