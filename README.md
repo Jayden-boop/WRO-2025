@@ -490,7 +490,7 @@ contours_green, _ = cv2.findContours(img_thresh_green, cv2.RETR_EXTERNAL, cv2.CH
 
 ### Bounding Rectangles and Simple Distance Proxy
 
-Each contour is approximated and bounded to compute centroid, area and a quick pixel-distance estimate.
+Each contour is approximated and bounded to compute the center, area and a quick pixel-distance estimate.
 
 ```python
 approx = cv2.approxPolyDP(cnt, 0.01 * cv2.arcLength(cnt, True), True)
@@ -605,7 +605,7 @@ Using fixed pixel targets is a simple heuristic that ensures the pillar is pushe
 
 ### Error computation and PD steering
 
-Calculate horizontal error and apply PD control:
+Calculate horizontal error based on the target-x and pillar-x and apply PD control:
 
 ```python
 error = target - closest_pillar_x
@@ -617,7 +617,7 @@ prev_pillar_error = error
 
 - `OBSTACLEPG` controls responsiveness.
 - `OBSTACLEPD` damps oscillations.
-- `MAX_TURN_DEGREE` normalizes pixel error into servo-angle domain.
+- `MAX_TURN_DEGREE` normalizes the error into a fraction of the maximum turn.
 
 **Clamp and convert to PWM** (important for safety):
 
@@ -631,7 +631,7 @@ pw = pwm(servo_angle)
 board.pwm_servo_set_position(0.04, [[1, pw]])  # send servo command
 ```
 
-PD-only control avoids integral windup and is sufficient for steering where steady-state offset is small because the environment provides visual feedback to recentre the pillar. Gains were tuned experimentally on-track; if the robot oscillates, reduce `OBSTACLEPG` or increase `OBSTACLEPD`.
+PD-only control avoid is sufficient for steering where the steady-state offset is small because the environment provides visual feedback to recentre the pillar. Gains were tuned experimentally on the track; if the robot oscillates, reduce `OBSTACLEPG` or increase `OBSTACLEPD`.
 
 ### Optional depth-based gain (Y-axis influence)
 
@@ -643,16 +643,17 @@ servo_angle -= closest_pillar_y * YAXISPG  # applied for green pillars
 # YAXISPG is 0 by default; set positive to reduce sensitivity for farther pillars
 ```
 
-Enabling `YAXISPG` can make the robot steer more aggressively for near pillars while staying calmer for distant ones — useful when the pillar size-to-distance mapping changes.
+Enabling `YAXISPG` can make the robot steer more aggressively for near pillars while staying calmer for distant ones. 
 
 ---
 
 ## 4. Emergency Collision Handling
 
-When a pillar fills the frame (large area) and is very close, the robot must avoid pushing forward into a collision. This triggers an emergency maneuver where the robot reverses in order to avoid the pillar.
+When a pillar fills the frame (large area), it means that the pillar is very close. If the pillar is not on the correct side of the robot, we must avoid pushing forward into a collision. This triggers an emergency maneuver where the robot reverses in order to avoid the pillar.
 
+Example red pillar:
 ```python
-if closest_pillar_area > 7000 and closest_pillar_distance < 300 and not exit_parking_lot:
+if closest_pillar_area > 7000 and closest_pillar_distance < 300 and not exit_parking_lot and closest_pillar_x > 250:
     # Straighten and stop, then do a short forward nudge to reposition
     servo_angle = MID_SERVO
     board.pwm_servo_set_position(0.04, [[2, 1500]])  # stop ESC
@@ -662,11 +663,11 @@ if closest_pillar_area > 7000 and closest_pillar_distance < 300 and not exit_par
     board.pwm_servo_set_position(0.04, [[2, DC_SPEED]])  # resume driving
 ```
 
-The parameters (7000 area, 300 px distance) were chosen to catch very close pillars while avoiding false activations.
+The parameters (7000 area,  300 distance, 250 pillar-x) were chosen to catch close pillars while avoiding any false activations.
 
 ---
 
-## 5. Edge Case Handling (detailed)
+## 5. Edge Case Handling
 
 This section documents several special-case situations the code guards against and includes short code snippets integrated into the relevant logic.
 
@@ -688,11 +689,24 @@ if (track_dir == "left" and target == green_target and left_area > 10000 and
 When the robot is approaching a wall head-on (during the parking lot exit), the front black ROI triggers a stronger avoidance:
 
 ```python
-if front_area_black > 30000 and turn_counter == 0:
+if front_area_black > 250 and turn_counter == 0:
     servo_angle = MID_SERVO + MAX_TURN_DEGREE
 ```
 
-`turn_counter == 0` is used because this scenario is most relevant immediately after leaving the parking lot. The front ROI is tuned to detect large dark areas (the parking lot boundary) and bias the steering away.
+`turn_counter == 0` is used because this scenario is only relevant immediately after leaving the parking lot. The front ROI is tuned to detect large dark areas (the outer walls) and bias the steering away.
+
+---
+
+### Front Area Override (Exterior pillar avoidance during turn)
+
+When the robot is approaching a wall head-on (during the parking lot exit), the front black ROI triggers a stronger avoidance:
+
+```python
+if front_area_black > 250 and turn_counter > 0 and left or right wall:
+    servo_angle = MID_SERVO - MAX_TURN_DEGREE
+```
+
+Add diagram
 
 ---
 
@@ -796,4 +810,6 @@ The timed DC burst allows the robot to precisely navigate out of the tight parki
 
 ---
 
-## 8. Parking Sequence must be done
+## 8. Parking Sequence
+
+add diagrams
