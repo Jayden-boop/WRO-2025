@@ -761,14 +761,32 @@ No pillar flowchart:
 
 ```mermaid
 flowchart TD
-    A[Frame Update] --> B{Blue Line?}
-    B -->|Yes| C["Turn Leftseen_line = Trueturn_counter += 1"]
-    B -->|No| D{Orange Line?}
-    D -->|Yes| E["Turn Rightseen_line = Trueturn_counter += 1"]
-    D -->|No| F["Wall Follow:PD(left_area - right_area)"]
-    C --> G["During Turn:watch for line_end"]
-    E --> G
-    G --> A
+    A[Start] --> B{Do we see a blue or orange line ahead?}
+
+    B -->|Blue line & we're not turning right & it's the first time seeing it| C[Start a LEFT turn<br/>Mark line as seen<br/>Increase turn counter]
+    B -->|Orange line & we're not turning left & it's the first time seeing it| D[Start a RIGHT turn<br/>Mark line as seen<br/>Increase turn counter]
+    B -->|No line detected| E[Check if we are currently turning]
+
+    C --> E
+    D --> E
+
+    E -->|Turning LEFT & see an orange line| F[End of the LEFT turn]
+    E -->|Turning RIGHT & see a blue line| F[End of the RIGHT turn]
+    E -->|Still in turn or going straight| G[Keep turning or go straight]
+
+    F --> H[Turn is finished<br/>Reset turn direction<br/>Allow new line detection]
+    H --> I[Resume normal driving]
+
+    G --> I
+
+    I --> J{Are there any pillars to follow?}
+    J -->|Yes| K[Avoid pillars]
+    J -->|No| L[Use wall-following to stay centered]
+
+    L --> M[Compare left and right wall areas]
+    M --> N[Adjust steering to stay in the middle]
+    N --> O[Remember this difference for smoother steering]
+    
 ```
 
 ---
