@@ -123,6 +123,7 @@ Our Robot
 <br>
 
 ## Video of our Open Challenge Demonstration [Here](https://www.youtube.com/watch?v=GPGMuM1HHgo&ab_channel=ArhamWasti) <a class="anchor" id="video"></a>
+<img src="other/readme-images/WRO_openThumbnail.png" width="50%" /> 
 
 ## Video of our Obstacle Challenge Demonstration [Here](https://www.youtube.com/watch?v=hhrCKOZkAMQ&ab_channel=ArhamWasti) <a class="anchor" id="video"></a>
 
