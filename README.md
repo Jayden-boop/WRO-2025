@@ -13,8 +13,8 @@ Table of Contents
 
 - [Introduction](#introduction)
 - [The Team](#the-team)
-- [Task](##Task)
-  - [Obstacle Challenge](#OpenChallenge)
+- [Task](#Task)
+  - [Open Challenge](#OpenChallenge)
   - [Obstacle Challenge](#ObstacleChallenge)
 - [Engineering Materials](#engineering-materials)
   - [1. Raspberry Pi 5](#1-raspberry-pi-5)
@@ -34,29 +34,26 @@ Table of Contents
 
 ### Jayden
 
-Highschool: Anderson CVI
 
 <p align="center">
   <img src="t-photos/Jayden_WRO.jpg" width="80%">
 </p>
 
 Description: WAAWAAW
+
 ---
 
 ### Arham
 
-Highschool: Anderson CVI
 
 <p align="center">
   <img src="t-photos/Arham_WRO.jpg" width="80%">
 </p> 
-Description: Syed Arham Wasti is a Junior at Anderson CVI involved in computer science, machine learnin. His ambition drives him to use technology to impact issues he cares aboutWAWAAS
+Description: Syed Arham Wasti is a Junior at Anderson CVI with a strong interest in computer science and machine learning. His ambition drives him to address issues he deeply cares about.
 
 ---
 
 ### Trevor
-
-Highschool: Anderson CVI
 
 <p align="center">
   <img src="t-photos/Trevor_WRO.jpg" width="80%">
