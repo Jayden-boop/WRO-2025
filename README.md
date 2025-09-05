@@ -126,7 +126,7 @@ Our Robot
 <img src="other/readme-images/WRO_openThumbnail.png" width="50%" /> 
 
 ## Video of our Obstacle Challenge Demonstration [Here](https://www.youtube.com/watch?v=hhrCKOZkAMQ&ab_channel=ArhamWasti) <a class="anchor" id="video"></a>
-
+<img src="other/readme-images/WRO_obstacleThumbnail.png" width="50%" /> 
 <br>
 
 # Engineering Design & Strategy
