@@ -120,14 +120,14 @@ Our Robot
 
 <br>
 
-## Video of our Open Challenge Demonstration [Here](https://www.youtube.com/watch?v=GPGMuM1HHgo&ab_channel=ArhamWasti) <a class="anchor" id="video"></a>
+## Video Demonstrations
 
-<img src="other/readme-images/WRO_openThumbnail.png" width="50%" /> 
+| Open Challenge | Obstacle Challenge |
+|----------------|--------------------|
+| [![Open Challenge](https://img.youtube.com/vi/YOUTUBE_ID1/hqdefault.jpg)](https://www.youtube.com/watch?v=GPGMuM1HHgo) | [![Obstacle Challenge](https://img.youtube.com/vi/hhrCKOZkAMQ/hqdefault.jpg)](https://www.youtube.com/watch?v=hhrCKOZkAMQ) |
 
-## Video of our Obstacle Challenge Demonstration [Here](https://www.youtube.com/watch?v=hhrCKOZkAMQ&ab_channel=ArhamWasti) <a class="anchor" id="video"></a>
 
-<img src="other/readme-images/WRO_obstacleThumbnail.png" width="50%" /> 
-<br>
+
 
 # Engineering Design & Strategy
 
