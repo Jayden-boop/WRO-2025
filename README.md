@@ -846,11 +846,11 @@ servo_angle = MID_SERVO + (angle_error * LIDARPG)
 
 Our algorithm has a different maneuver based on the last pillar of the straight section.
 
-<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/parking_last_pillar_circled.png" alt="">
+<img title="" src="other/readme-images/parking_last_pillar_circled.png" alt="">
 
 In this case, the last pillar (circled) is red. Therefore the robot must pass the pillar on the right. In this case, our robot will follow this procedure:
 
-<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/parking_left_red.png" alt="">
+<img title="" src="other/readme-images/parking_left_red.png" alt="">
 
 1. After the robot detects the blue line, it checks the colour of the last pillar. If the last pillar is red or there is no last pillar, the robot begins to follow the front wall, becoming perpendicular. 
 2. The robot continues following the front wall until it is detected to be within 15 centimeters or less.
@@ -862,12 +862,12 @@ In this case, the last pillar (circled) is red. Therefore the robot must pass th
 
 If the last pillar is green, the robot will first pass the green pillar, then turn into the exterior wall and perform the red pillar sequence.
 
-<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/parking_left_green.png" alt="">
+<img title="" src="other/readme-images/parking_left_green.png" alt="">
 
 This sequence is simply inverted for the opposite track direction if there is no last pillar or it is green. 
 
-<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/parking_right_green.png" alt="">
+<img title="" src="other/readme-images/parking_right_green.png" alt="">
 
 If the last pillar is red, the robot passes the red pillar and follows the interior wall to become parallel. Then it reverses and makes a 90 degree right turn. Then, it uses the normal parking sequence. 
 
-<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/parking_right_red.png" alt="">
+<img title="" src="other/readme-images/parking_right_red.png" alt="">
