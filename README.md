@@ -34,7 +34,6 @@ Table of Contents
 
 ### Jayden
 
-
 <p align="center">
   <img src="t-photos/Jayden_WRO.jpg" width="80%">
 </p>
@@ -44,7 +43,6 @@ Description: WAAWAAW
 ---
 
 ### Arham
-
 
 <p align="center">
   <img src="t-photos/Arham_WRO.jpg" width="80%">
@@ -123,9 +121,11 @@ Our Robot
 <br>
 
 ## Video of our Open Challenge Demonstration [Here](https://www.youtube.com/watch?v=GPGMuM1HHgo&ab_channel=ArhamWasti) <a class="anchor" id="video"></a>
+
 <img src="other/readme-images/WRO_openThumbnail.png" width="50%" /> 
 
 ## Video of our Obstacle Challenge Demonstration [Here](https://www.youtube.com/watch?v=hhrCKOZkAMQ&ab_channel=ArhamWasti) <a class="anchor" id="video"></a>
+
 <img src="other/readme-images/WRO_obstacleThumbnail.png" width="50%" /> 
 <br>
 
@@ -650,6 +650,7 @@ Enabling `YAXISPG` can make the robot steer more aggressively for near pillars w
 When a pillar fills the frame (large area), it means that the pillar is very close. If the pillar is not on the correct side of the robot, we must avoid pushing forward into a collision. This triggers an emergency maneuver where the robot reverses in order to avoid the pillar.
 
 Example red pillar:
+
 ```python
 if closest_pillar_area > 7000 and closest_pillar_distance < 300 and not exit_parking_lot and closest_pillar_x > 250:
     # Straighten and stop, then do a short forward nudge to reposition
@@ -786,7 +787,6 @@ flowchart TD
     L --> M[Compare left and right wall areas]
     M --> N[Adjust steering to stay in the middle]
     N --> O[Remember this difference for smoother steering]
-    
 ```
 
 ---
@@ -830,4 +830,44 @@ The timed DC burst allows the robot to precisely navigate out of the tight parki
 
 ## 8. Parking Sequence
 
-add diagrams
+Our parking sequence utilizes the **LD19 D500 Lidar** to precisely detect both the parking walls and the outer black boundary walls. In order to get to a fixed position near the parking lot, the robot follows the black walls using the lidar. 
+
+The code periodically aggregates LIDAR points and tries to fit the inner wall with a least-squares line. It filters points with `filter_wall_points` so that only points expected to belong to the wall are used, then computes slope and a corresponding angle error (the difference between the robot heading and the wall angle). When enough points are found the code nudges the steering to correct alignment using the computed `angle_error`.
+
+```python
+wall_points = filter_wall_points(current_scan_points, x_min=-4, x_max=4, y_min=-100, y_max=-5)
+slope, angle_error, status = calculate_wall_slope_and_error(wall_points)
+servo_angle = MID_SERVO + (angle_error * LIDARPG)
+```
+
+`filter_wall_points` selects points that fall in a fixed box in robot coordinates; `calculate_wall_slope_and_error` uses a least-squares fit to find a line and converts that slope into a small angular correction. The multiplier `LIDARPG` scales that computed correction to a steering command. The result is a closed-loop LIDAR-guided alignment while the robot drives slowly into the parking lot.
+
+---
+
+Our algorithm has a different maneuver based on the last pillar of the straight section.
+
+<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/parking_last_pillar_circled.png" alt="">
+
+In this case, the last pillar (circled) is red. Therefore the robot must pass the pillar on the right. In this case, our robot will follow this procedure:
+
+<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/parking_left_red.png" alt="">
+
+1. After the robot detects the blue line, it checks the colour of the last pillar. If the last pillar is red or there is no last pillar, the robot begins to follow the front wall, becoming perpendicular. 
+2. The robot continues following the front wall until it is detected to be within 15 centimeters or less.
+3. The robot enters a timed 90 degree reverse turn.
+4. The robot follows the right wall until the first parking lot wall is detected.
+5. The robot sets the servo to the straight position and moves forward until the second parking lot wall is detected. Then, the robot takes a timed turn right.
+6. The robot reverses while adjusting to become perpendicular to the wall in front.
+7. Once the distance to the front wall exceeds 65 centimeters, the robot starts a reverse turn to become parallel.
+
+If the last pillar is green, the robot will first pass the green pillar, then turn into the exterior wall and perform the red pillar sequence.
+
+<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/parking_left_green.png" alt="">
+
+This sequence is simply inverted for the opposite track direction if there is no last pillar or it is green. 
+
+<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/parking_right_green.png" alt="">
+
+If the last pillar is red, the robot passes the red pillar and follows the interior wall to become parallel. Then it reverses and makes a 90 degree right turn. Then, it uses the normal parking sequence. 
+
+<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/parking_right_red.png" alt="">
