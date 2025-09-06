@@ -37,10 +37,10 @@ Table of Contents
   </tr>
   <tr>
     <td align="center">
-      <img src="t-photos/TeamPhoto_WRO.jpg" alt="Normal Team Photo" width="80%">
+      <img src="t-photos/TeamPhoto_WRO.jpg" alt="Normal Team Photo" width="100%">
     </td>
     <td align="center">
-      <img src="t-photos/SillyTeamPhoto_WRO.jpg" alt="Silly Team Photo" width="80%">
+      <img src="t-photos/SillyTeamPhoto_WRO.jpg" alt="Silly Team Photo" width="100%">
     </td>
   </tr>
 </table>
