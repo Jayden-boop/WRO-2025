@@ -122,9 +122,24 @@ Our Robot
 
 ## Video Demonstrations
 
-| Open Challenge | Obstacle Challenge |
-|----------------|--------------------|
-| [![Open Challenge](https://img.youtube.com/vi/YOUTUBE_ID1/hqdefault.jpg)](https://www.youtube.com/watch?v=GPGMuM1HHgo) | [![Obstacle Challenge](https://img.youtube.com/vi/hhrCKOZkAMQ/hqdefault.jpg)](https://www.youtube.com/watch?v=hhrCKOZkAMQ) |
+<table>
+  <tr>
+    <th>Open Challenge</th>
+    <th>Obstacle Challenge</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://www.youtube.com/watch?v=GPGMuM1HHgo" target="_blank">
+        <img src="https://img.youtube.com/vi/GPGMuM1HHgo/hqdefault.jpg" alt="Open Challenge" width="480" />
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.youtube.com/watch?v=hhrCKOZkAMQ" target="_blank">
+        <img src="https://img.youtube.com/vi/hhrCKOZkAMQ/hqdefault.jpg" alt="Obstacle Challenge" width="480" />
+      </a>
+    </td>
+  </tr>
+</table>
 
 
 
