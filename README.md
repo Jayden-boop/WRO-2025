@@ -28,37 +28,53 @@ Table of Contents
 
 # The Team
 
-<p align="center">
-  <img src="t-photos/TeamPhoto_WRO.jpg" width="80%">
-</p>
+## Team Photos
+
+<table>
+  <tr>
+    <th>Normal Photo</th>
+    <th>Silly Photo</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="t-photos/TeamPhoto_WRO.jpg" alt="Normal Team Photo" width="80%">
+    </td>
+    <td align="center">
+      <img src="t-photos/SillyTeamPhoto_WRO.jpg" alt="Silly Team Photo" width="80%">
+    </td>
+  </tr>
+</table>
+
+---
 
 ### Jayden
 
 <p align="center">
-  <img src="t-photos/Jayden_WRO.jpg" width="80%">
+  <img src="t-photos/Jayden_WRO.jpg" width="400px">
 </p>
 
-Description: WAAWAAW
+> **WAAWAAW**
 
 ---
 
 ### Arham
 
 <p align="center">
-  <img src="t-photos/Arham_WRO.jpg" width="80%">
-</p> 
-Description: Syed Arham Wasti is a Junior at Anderson CVI with a strong interest in computer science and machine learning. His ambition drives him to address issues he deeply cares about.
+  <img src="t-photos/Arham_WRO.jpg" width="400px">
+</p>
+
+> **Syed Arham Wasti** is a Junior at Anderson CVI with a strong interest in computer science and machine learning. His ambition drives him to address issues he deeply cares about.
 
 ---
 
 ### Trevor
 
 <p align="center">
-  <img src="t-photos/Trevor_WRO.jpg" width="80%">
-</p> 
-Description: WA WA WA
+  <img src="t-photos/Trevor_WRO.jpg" width="400px">
+</p>
 
----
+> **WA WA WA**
+
 
 # JAT | WRO \- Documentation |
 
