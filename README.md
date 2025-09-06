@@ -11,20 +11,53 @@
 Table of Contents
 =====
 
-- [Introduction](#introduction)
 - [The Team](#the-team)
-- [Task](#Task)
-  - [Open Challenge](#OpenChallenge)
-  - [Obstacle Challenge](#ObstacleChallenge)
-- [Engineering Materials](#engineering-materials)
-  - [1. Raspberry Pi 5](#1-raspberry-pi-5)
-  - [2. Raspberry Pi 5 Expansion Board](#2-raspberry-pi-5-expansion-board)
-  - [3. Micro Servo 99 SG90](#3-micro-servo-99-sg90)
-  - [4. K989 1/28 WL Toys Chassis](#4-k989-128-wl-toys-chassis)
-  - [5. Furitek Micro Komodo Motor](#5-furitek-micro-komodo-motor)
-  - [Cost Report](https://github.com/Jayden-boop/WRO-2025/blob/main/README.md#cost-report)
-- [Assembly](#assembly)
-- [Conclusion](#conclusion)
+  - [Team Photos](#team-photos)
+  - [Jayden](#jayden)
+  - [Arham](#arham)
+  - [Trevor](#trevor)
+
+- [JAT | WRO Documentation](#jat-wro-documentation)
+  - [Task](#task)
+  - [Challenge Descriptions](#challenge-descriptions)
+    - [1. Open Challenge](#1-open-challenge)
+    - [2. Obstacle Challenge](#2-obstacle-challenge)
+
+- [Our Robot](#our-robot)
+  - [Video Demonstrations](#video-demonstrations)
+
+- [Engineering Design & Strategy](#engineering-design--strategy)
+  - [Mobility Management](#mobility-management)
+    - [Motor Selection and Implementation](#motor-selection-and-implementation)
+    - [Wheels and Drivetrain Rationale](#wheels-and-drivetrain-rationale)
+  - [Power and Sense Management](#power-and-sense-management)
+    - [Power Source and Distribution](#power-source-and-distribution)
+    - [Sensor Selection and Rationale](#sensor-selection-and-rationale)
+  - [Structural Materials](#structural-materials)
+    - [Custom 3D Printed Chassis (PLA)](#custom-3d-printed-chassis-pla)
+    - [Custom 3D Printed Camera Holder (PLA)](#custom-3d-printed-camera-holder-pla)
+  - [Mechanical Components](#mechanical-components)
+    - [K989 Drivetrain Components](#k989-drivetrain-components)
+    - [Custom Front Wheels](#custom-front-wheels)
+    - [Fasteners and Hardware](#fasteners-and-hardware)
+
+- [Cost Report](#cost-report)
+
+- [Measurements](#measurements)
+
+- [Assembly Guide](#assembly-guide)
+  - [Overview](#overview)
+  - [Required Tools](#required-tools)
+  - [Required Components](#required-components)
+  - [Assembly Steps](#assembly-steps)
+    - [Step 1: Chassis Foundation Assembly](#step-1-chassis-foundation-assembly)
+    - [Step 2: Platform and Electronics Mounting](#step-2-platform-and-electronics-mounting)
+    - [Step 3: Sensor Integration](#step-3-sensor-integration)
+    - [Step 4: Drive System Integration](#step-4-drive-system-integration)
+    - [Step 5: Custom Steering System Assembly](#step-5-custom-steering-system-assembly)
+    - [Step 6: Wheel and Tire Installation](#step-6-wheel-and-tire-installation)
+    - [Step 7: System Wiring and Connections](#step-7-system-wiring-and-connections)
+    - [Step 8: Final Assembly and Testing](#step-8-final-assembly-and-testing)
 
 # The Team
 
