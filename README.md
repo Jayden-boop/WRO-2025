@@ -190,7 +190,7 @@ Our Robot
   </tr>
 </table>
 
-<div align="center"><small><em>Click the image for the video demonstration!</em></small></div>
+<div align="center"><small><em>Click the images for the video demonstrations!</em></small></div>
 
 
 
