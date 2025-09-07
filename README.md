@@ -12,21 +12,25 @@ Table of Contents
 =====
 
 - [The Team](#the-team)
+  
   - [Team Photos](#team-photos)
   - [Jayden](#jayden)
   - [Arham](#arham)
   - [Trevor](#trevor)
 
 - [JAT | WRO Documentation](#jat-wro-documentation)
+  
   - [Task](#task)
   - [Challenge Descriptions](#challenge-descriptions)
     - [1. Open Challenge](#1-open-challenge)
     - [2. Obstacle Challenge](#2-obstacle-challenge)
 
 - [Our Robot](#our-robot)
+  
   - [Video Demonstrations](#video-demonstrations)
 
 - [Engineering Design & Strategy](#engineering-design--strategy)
+  
   - [Mobility Management](#mobility-management)
     - [Motor Selection and Implementation](#motor-selection-and-implementation)
     - [Wheels and Drivetrain Rationale](#wheels-and-drivetrain-rationale)
@@ -46,6 +50,7 @@ Table of Contents
 - [Measurements](#measurements)
 
 - [Assembly Guide](#assembly-guide)
+  
   - [Overview](#overview)
   - [Required Tools](#required-tools)
   - [Required Components](#required-components)
@@ -107,7 +112,6 @@ Table of Contents
 </p>
 
 > **WA WA WA**
-
 
 # JAT | WRO \- Documentation |
 
@@ -192,9 +196,6 @@ Our Robot
 
 <div align="center"><small><em>Click the image for the video demonstration!</em></small></div>
 
-
-
-
 # Engineering Design & Strategy
 
 This section outlines the core engineering principles and strategic decisions that guided the development of our autonomous vehicle. We have broken down our design process into the key categories evaluated in the competition: Mobility, Power & Sensing, and Obstacle Management.
@@ -233,7 +234,7 @@ To eliminate the reliability issues of breadboards and loose wiring, we integrat
 
 ### Wiring Diagram
 
-(Placeholder for Wiring Diagram Image)
+<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/wiring_schematic.png" alt="">
 
 ### Sensor Selection and Rationale
 
@@ -243,28 +244,22 @@ The Raspberry Pi 5 serves as the central processing unit, chosen for its powerfu
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/Diyeeni-Zero-Module-Camera.png" alt="Pi Camera Module" width="100%"> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>Pi Camera Module</h3> <ul> <li><b>Resolution:</b> 5 Megapixels</li> <li><b>Video:</b> 1080p HD</li> <li><b>Interface:</b> Direct CSI</li> <li><b>Features:</b> Color Sensing</li> </ul> </td> </tr> </table>
 The Pi Camera is our primary sensor for the Obstacle Challenge. Its direct CSI interface provides a low-latency video feed essential for high-speed decision-making. We rely entirely on its color-sensing capabilities and OpenCV-based contour detection to accurately identify the pillars and boundary walls. The 175° wide angle lens, combined with a high mounting position on the chassis allows the camera to have an extremely large field of view throughout the challenge.
 
+<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/camera-holder-drawing.jpg" alt="">
+
+The camera mounted to a custom built holder. The holder is fixed to the back of the chassis. This allows for the maximum reaction window for obstacles. 
+
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>LD19 D500 LIDAR</h3> <ul> <li><b>Range:</b> 0.02 - 12m</li> <li><b>Scan Rate:</b> 5-15 Hz</li> <li><b>Angular Resolution:</b> 0.5°</li> <li><b>Interface:</b> UART</li> </ul> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/LD19-D500-LIDAR.png" alt="LD19 D500 LIDAR" width="100%"> </td> </tr> </table>
 For navigation tasks where precision distance measurement is needed, we use the LD19 LIDAR. It is the sole sensor for the parallel parking maneuver. Once the parking sequence is initiated, color data is no longer needed, and the LIDAR's high-accuracy spatial data allows us to precisely detect the parking space and execute the multiple turns required to park.
 
 ## Structural Materials
 
-### Custom 3D Printed Chassis (PLA)
+### Custom 3D Printed Chassis
 
 The main chassis and structural components are 3D printed in PLA plastic. PLA was selected for its excellent dimensional stability, ease of printing complex geometries, and sufficient strength for the application. The material allows for rapid prototyping iterations during development while providing the precision needed for proper component mounting and alignment.
 
 ![Platform Drawing](other/readme-images/platform-drawing.jpg) 
 
-Key printed components include:
 
-- Main chassis baseplate with integrated mounting features
-- Electronics platform with built-in component positioning
-- Camera mount tower optimized for field of view
-- Custom steering linkages designed for precise geometry
-- Front wheel rims sized specifically for our tire selection
-
-### Custom 3D Printed Camera Holder (PLA)
-
-![Camera Holder Drawing](other/readme-images/camera-holder-drawing.jpg)
 
 ### FURITEK LIZARD Pro ESC
 
@@ -307,12 +302,12 @@ Precision ball joints from the K989 system ensure smooth steering operation with
 
 ## Measurements
 
-| Part           | Measurment | Rule Comp |
-| -------------- | ---------- | --------- |
-| Vehicle Length | 18.2cm     | 30cm      |
-| Vehicle Width  | 10.0cm     | 20cm      |
-| Vehicle Height | 22.4cm     | 30cm      |
-| Weight         | 397g       | 1.5kg     |
+| Part           | Measurement | Rule Comp |
+| -------------- | ----------- | --------- |
+| Vehicle Length | 18.2cm      | 30cm      |
+| Vehicle Width  | 10.0cm      | 20cm      |
+| Vehicle Height | 22.4cm      | 30cm      |
+| Weight         | 397g        | 1.5kg     |
 
 # Assembly Guide
 
@@ -376,7 +371,6 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 1. **Print 3D parts**
    - Retrieve STL files found in the `models` folder
    - Print parts on any accesible supported 3D printer
-   - Utilize the print settings specificied in the *Assembly Config Guide*
 2. **Prepare the main chassis baseplate**
    - Ensure all mounting points are clear of support material
    - Test fit all major components before permanent installation
@@ -388,7 +382,7 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 4. **Install custom front gearbox housing**
    - Mount front gearbox assembly to chassis front section
    - Ensure proper alignment with steering geometry
-   - Secure with double-sided tape and mechanical fasteners
+   - Secure with double-sided tape
 
 ### Step 2: Platform and Electronics Mounting
 
@@ -409,9 +403,9 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 ### Step 3: Sensor Integration
 
 1. **Mount LD19 D500 LIDAR**
-   - Position LIDAR on platform for optimal 180-degree front coverage
+   - Position LIDAR on custom holder piece
+   - Attach holder piece to platform using double-sided tape
    - Ensure LIDAR is parallel to ground plane
-   - Secure using high-strength double-sided tape
    - Verify rotation clearance and mounting stability
 2. **Install camera mount tower**
    - Position camera mount at rear of platform
@@ -419,7 +413,7 @@ This guide provides comprehensive step-by-step instructions for assembling our f
    - Verify tower is vertical and stable
    - Test camera field of view clearance
 3. **Mount Pi Camera**
-   - Install Pi Camera in fixed mount position on tower
+   - Install Pi Camera in fixed mount position on tower using double sided tape
    - Connect CSI ribbon cable to Raspberry Pi
    - Route cable carefully to avoid interference with moving parts
    - Verify camera orientation and focus adjustment
@@ -427,7 +421,7 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 ### Step 4: Drive System Integration
 
 1. **Install Furitek Micro Komodo and ESC**
-   - Mount Furitek Micro Komodo controller to chassis
+   - Mount Furitek Micro Komodo controller to custom motor mount
    - Connect drive motor to controller
    - Install FURITEK LIZARD Pro ESC between controller and expansion board
    - Secure all components with appropriate mounting method
@@ -439,7 +433,7 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 ### Step 5: Custom Steering System Assembly
 
 1. **Install steering servo**
-   - Mount steering servo in designated chassis location
+   - Mount steering servo in designated chassis location using double sided tape
    - Connect servo to expansion board using PWM pins
    - Verify servo movement range and centering
 2. **Assemble steering linkage**
@@ -498,21 +492,6 @@ This guide provides comprehensive step-by-step instructions for assembling our f
    - Verify all sensors and actuators respond correctly
    - Check wireless connectivity if applicable
    - Perform initial calibration procedures
-
-## Troubleshooting
-
-**Common Assembly Issues:**
-
-- **Steering binding**: Check track rod clearance with front gearbox; verify ball joint installation
-- **Platform instability**: Ensure platform holders are properly seated and screwed into gearbox mounting points
-- **Sensor mounting**: Verify double-sided tape adhesion; ensure LIDAR has clear rotation path
-- **Electrical connections**: Check jumper wire connections; verify PWM pin assignments on expansion board
-
-**Component Fit Issues:**
-
-- **Wheel alignment**: Check axle nut tightness; verify rim installation on axles
-- **Electronics mounting**: Ensure mounting pins are properly inserted through board holes
-- **Battery fit**: Adjust platform wall spacing if battery is loose or too tight
 
 # Obstacle Avoidance
 
