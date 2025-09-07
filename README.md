@@ -206,9 +206,11 @@ Effective mobility is central to navigating the course quickly and accurately. O
 
 ### Motor Selection and Implementation
 
+
+
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/Furitek-Micro-Komodo-Motor.png" alt="Furitek Micro Komodo Motor" width="100%"/> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>Furitek Micro Komodo Motor</h3> <ul> <li><b>KV:</b> 3450 RPM/Volt</li> <li><b>Power:</b> 120W</li> <li><b>Battery:</b> 2–3S LiPo</li> <li><b>Type:</b> Brushless</li> <li><b>Weight:</b> 17.5 g</li> </ul> </td> </tr> </table>
 
-The Furitek Micro Komodo was selected for its exceptional power-to-weight ratio and precise speed control. As a brushless motor, it offers higher efficiency, a longer lifespan, and superior performance compared to brushed alternatives. Its ability to operate smoothly at both high and very low speeds is a significant advantage, providing the raw acceleration needed for fast laps and the delicate, slow-speed control required for the parallel parking maneuver.
+The Furitek Micro Komodo was selected for its exceptional power-to-weight ratio and precise speed control. As a brushless motor, it offers higher efficiency, a longer lifespan, and superior performance compared to brushed alternatives. Its ability to operate smoothly at both high and very low speeds is a significant advantage, providing the raw acceleration needed for fast laps and the delicate, slow-speed control required for the parallel parking maneuver. 
 
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/HS-5055MG-Servo.png" alt="HS-5055MG Servo" width="100%"/> </td> <td width="400px" style="text-align: left; vertical-align: top; padding: 0;"> <h3>HS-5055MG Servo</h3> <ul> <li><b>Torque (6.0V):</b> 1.4 kg/cm</li> <li><b>Speed (6.0V):</b> 0.14 sec/60°</li> <li><b>Gears:</b> Metal</li> <li><b>Type:</b> Digital</li> <li><b>Weight:</b> 9.5 g</li> </ul> </td> </tr> </table>
 
@@ -216,7 +218,6 @@ Accurate path following is managed by a PID controller, which requires a steerin
 
 The 3D Motor Mount can be found here:
 ![Motor Mount Drawing](other/readme-images/motormount3-drawing.jpg)
-
 
 ### Wheels and Drivetrain Rationale
 
@@ -255,19 +256,25 @@ The camera mounted to a custom built holder. The holder is fixed to the back of 
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>LD19 D500 LIDAR</h3> <ul> <li><b>Range:</b> 0.02 - 12m</li> <li><b>Scan Rate:</b> 5-15 Hz</li> <li><b>Angular Resolution:</b> 0.5°</li> <li><b>Interface:</b> UART</li> </ul> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/LD19-D500-LIDAR.png" alt="LD19 D500 LIDAR" width="100%"> </td> </tr> </table>
 For navigation tasks where precision distance measurement is needed, we use the LD19 LIDAR. It is the sole sensor for the parallel parking maneuver. Once the parking sequence is initiated, color data is no longer needed, and the LIDAR's high-accuracy spatial data allows us to precisely detect the parking space and execute the multiple turns required to park.
 
-## Structural Materials
+A 3d printed lidar holder ensures that the lidar is completely flat and level to the ground. 
 
-### Custom 3D Printed Chassis
+## Custom Chassis Parts
 
-The main chassis and structural components are 3D printed in PLA plastic. PLA was selected for its excellent dimensional stability, ease of printing complex geometries, and sufficient strength for the application. The material allows for rapid prototyping iterations during development while providing the precision needed for proper component mounting and alignment.
+### Custom 3D Printed Platform
 
-![Platform Drawing](other/readme-images/platform-drawing.jpg) 
+The main chassis and structural components are 3D printed in PLA plastic. PLA was selected for its excellent dimensional stability, ease of printing complex geometries, and sufficient strength for the application. 
 
+The material allows for rapid prototyping iterations during development while providing the precision needed for proper component mounting and alignment.<img src="other/readme-images/platform-drawing.jpg" title="" alt="Platform Drawing" data-align="right">The lightweight chassis platform provides housing space for the lidar, battery, Raspberry Pi, expansion board, and camera holder. It is directly attached to the front and back gearboxes through two 3d-printed supports that ensure the platform is secure and level to the ground. 
 
+![Baseplate Drawing](other/readme-images/Baseplate-drawing.jpg)
 
-### FURITEK LIZARD Pro ESC
+A thin and lightweight baseplate houses the dc motor and its mount, the esc, the servo,   the rear gearbox, and the front steering block. The simplistic design allows for easy positioning changes using double-sided tape. 
 
-The ESC provides the interface between our control system and the drive motor, selected for its low weight and small size. 
+ 
+
+![Front_Steering Block](other/readme-images/Front_Steering_Block-drawing.jpg)
+
+The custom-built front steering block allows for adequate clearance for the steering system while securing the front two wheels. 
 
 ## Mechanical Components
 
@@ -291,18 +298,18 @@ Precision ball joints from the K989 system ensure smooth steering operation with
 
 ## Cost Report
 
-| Component                                       | Quantity | Unit Price (CAD) | Total Cost (CAD) |
-| ----------------------------------------------- | -------- | ---------------- | ---------------- |
-| Raspberry Pi 5 (8GB)                            | 1        | $139.99          | $139.99          |
-| Pi 5 Expansion Board                            | 1        | $55.87           | $55.87           |
-| HS-5055MG Servo                                 | 1        | $34.91           | $34.91           |
-| K989 1/28 WL Toys Chassis                       | 1        | $105.68          | $105.68          |
-| Furitek Micro Komodo Motor                      | 1        | $48.88           | $48.88           |
-| LDRobot D500 LiDAR Kit                          | 1        | $99.60           | $99.60           |
-| Texas Instruments TPS22918DBVR Power Switch ICs | 1        | $0.64            | $0.64            |
-| Battery Pack (2S LiPo 7.4V ~2000mAh)            | 2        | $80.35           | $160.70          |
-| Diyeeni Zero Module Camera (5MB, 1080p HD)      | 1        | $46.85           | $46.85           |
-| GT24 M-Sport 2022 Hybrid Rally Wheels & Tires   | 1        | $22.00           | $22.00           |
+| Component                                                             | Quantity | Unit Price (CAD) | Total Cost (CAD) |
+| --------------------------------------------------------------------- | -------- | ---------------- | ---------------- |
+| Raspberry Pi 5 (8GB)                                                  | 1        | $139.99          | $139.99          |
+| Pi 5 Expansion Board                                                  | 1        | $55.87           | $55.87           |
+| HS-5055MG Servo                                                       | 1        | $34.91           | $34.91           |
+| K989 1/28 WL Toys Chassis                                             | 1        | $105.68          | $105.68          |
+| Furitek Micro Komodo Motor and Furitek Lizard Pro Esc (sold together) | 1        | $112.71          | $112.71          |
+| LDRobot D500 LiDAR Kit                                                | 1        | $99.60           | $99.60           |
+| Texas Instruments TPS22918DBVR Power Switch ICs                       | 1        | $0.64            | $0.64            |
+| Battery Pack (2S LiPo 7.4V ~2000mAh)                                  | 2        | $80.35           | $160.70          |
+| Diyeeni Zero Module Camera (5MB, 1080p HD)                            | 1        | $46.85           | $46.85           |
+| GT24 M-Sport 2022 Hybrid Rally Wheels & Tires                         | 1        | $22.00           | $22.00           |
 
 ## Measurements
 
@@ -340,9 +347,6 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 
 
 
-![Baseplate Drawing](other/readme-images/Baseplate-drawing.jpg)
-
-
 ### Drive System Components
 
 - Rear gearbox assembly (K989 reference components)
@@ -351,8 +355,8 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 - Drive motor with Furitek Micro Komodo controller
 - Steering servo motor
 - K989 steering rod components
-  
-![Front_Steering Block](other/readme-images/Front_Steering_Block-drawing.jpg)
+
+
 
 ### Electronics & Control
 
