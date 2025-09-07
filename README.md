@@ -214,6 +214,10 @@ The Furitek Micro Komodo was selected for its exceptional power-to-weight ratio 
 
 Accurate path following is managed by a PID controller, which requires a steering servo capable of making small, precise, and rapid adjustments. The HS-5055MG was chosen for its digital precision and metal gear construction, providing the durability and responsiveness needed to translate the PID controller's outputs into exact steering angles. This ensures the vehicle can hold its line with minimal error.
 
+The 3D Motor Mount can be found here:
+![Motor Mount Drawing](other/readme-images/motormount3-drawing.jpg)
+
+
 ### Wheels and Drivetrain Rationale
 
 We use GT24 Carisma Wheels and Tires for their traction characteristics, ensuring consistent grip and power delivery. Other 1/24 scale RC car wheels and tires can be substituted.
@@ -334,6 +338,11 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 - Custom platform holders and mounting adapters
 - Custom track rod with ball joint connections
 
+
+
+![Baseplate Drawing](other/readme-images/Baseplate-drawing.jpg)
+
+
 ### Drive System Components
 
 - Rear gearbox assembly (K989 reference components)
@@ -342,6 +351,8 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 - Drive motor with Furitek Micro Komodo controller
 - Steering servo motor
 - K989 steering rod components
+  
+![Front_Steering Block](other/readme-images/Front_Steering_Block-drawing.jpg)
 
 ### Electronics & Control
 
