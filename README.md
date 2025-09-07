@@ -234,7 +234,7 @@ To eliminate the reliability issues of breadboards and loose wiring, we integrat
 
 ### Wiring Diagram
 
-<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/wiring_schematic.png" alt="">
+<img title="" src="other/readme-images/wiring_schematic.png" alt="">
 
 ### Sensor Selection and Rationale
 
