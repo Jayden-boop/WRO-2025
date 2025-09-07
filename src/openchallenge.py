@@ -3,28 +3,30 @@ import cv2  # for image processing
 import numpy as np  # for image manipulation
 import time
 import ros_robot_controller_sdk as rrc
-
-
+import sys
+import subprocess
+import threading
+import ros_robot_controller_sdk as rrc
 from picamera2 import Picamera2
 import RPi.GPIO as GPIO
 
 board = rrc.Board()
 # movement constants
-MID_SERVO = 61
+MID_SERVO = 63
 MAX_TURN_DEGREE = 28
 DC_SPEED = 1374
 
 
 # proportion constants for the servo motor angle (PID steering)
-PD = 0.0025
-PG = 0.0025
+PD = 0.002
+PG = 0.002
 # no integral value
 
 
 ROI_LEFT_BOT = [0, 245, 100, 480]
 ROI_RIGHT_BOT = [540, 245, 640, 480]
 
-ROI4 = [270, 370, 370, 390]
+ROI4 = [270, 380, 370, 400]
 
 
 # color threshold constants (in HSV)
@@ -56,7 +58,7 @@ POINTS = [(115, 200), (525, 200), (640, 370), (0, 370)]
 
 # limiting constants
 MAX_TURNS = 12
-ACTIONS_TO_STRAIGHT = 120
+ACTIONS_TO_STRAIGHT = 90
 WALL_THRESHOLD = 50
 NO_WALL_THRESHOLD = 25
 TURN_ITER_LIMIT = 30
@@ -76,7 +78,8 @@ turn_dir = None
 last_difference = 0
 current_difference = 0
 seen_line = False
-
+line_end = False
+button_pressed = False
 # initialize servo angle variable
 servo_angle = 0
 
@@ -93,6 +96,72 @@ picam2.preview_configuration.main.format = "RGB888"
 picam2.preview_configuration.controls.FrameRate = 30
 picam2.configure("preview")
 picam2.start()
+time.sleep(15)
+
+
+def listen_to_button_events():
+    global button_pressed
+    command = (
+        "source /home/ubuntu/.zshrc && ros2 topic echo /ros_robot_controller/button"
+    )
+    process = subprocess.Popen(
+        [
+            "docker",
+            "exec",
+            "-u",
+            "ubuntu",
+            "-w",
+            "/home/ubuntu",
+            "MentorPi",
+            "/bin/zsh",
+            "-c",
+            command,
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+
+    while True:
+        output = process.stdout.readline()
+        if output:
+            line = output.strip()
+            if line.startswith("id:"):
+                button_id = int(line.split(":")[1].strip())
+            elif line.startswith("state:"):
+                state = int(line.split(":")[1].strip())
+
+                if button_id == 1:
+                    if state == 1:
+                        button_pressed = True
+                        print("Button 1 pressed")
+                elif button_id == 2:
+                    if state == 1:
+                        print("Button 2 pressed")
+        else:
+            continue
+
+
+def check_node_status():
+    command = "source /home/ubuntu/.zshrc && ros2 topic list"
+    result = subprocess.run(
+        [
+            "docker",
+            "exec",
+            "-u",
+            "ubuntu",
+            "-w",
+            "/home/ubuntu",
+            "MentorPi",
+            "/bin/zsh",
+            "-c",
+            command,
+        ],
+        capture_output=True,
+        text=True,
+    )
+    res = result.stdout
+    return "/ros_robot_controller/button" in res
 
 
 # utility function for pwm angle calculation
@@ -147,6 +216,12 @@ def stop():
     cv2.destroyAllWindows()
 
 
+if check_node_status():
+    print("ROS2 node detected")
+    listener_thread = threading.Thread(target=listen_to_button_events, daemon=True)
+    listener_thread.start()
+
+
 # setting servo angle to straight and the motor to stationary
 board.pwm_servo_set_position(0.1, [[1, pwm(MID_SERVO)]])
 # turn servo to mid
@@ -156,194 +231,208 @@ time.sleep(0.5)
 
 # main loop
 while True:
+    if button_pressed:
+        # exit if button is pressed
 
-    # exit if button is pressed
-
-    # setup camera frame
-    im = picam2.capture_array()
-    input = np.float32(POINTS)
-    output = np.float32(
-        [(0, 0), (WIDTH - 1, 0), (WIDTH - 1, HEIGHT - 1), (0, HEIGHT - 1)]
-    )
-
-    # convert to hsv
-    img_hsv = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)
-
-    # find black thresholds/mask and store them in a variable
-    img_thresh = cv2.inRange(img_hsv, LOWER_BLACK_THRESHOLD, UPPER_BLACK_THRESHOLD)
-
-    # find black contours in left and right regions
-
-    left_contours_bot, hierarchy = cv2.findContours(
-        img_thresh[
-            ROI_LEFT_BOT[1] : ROI_LEFT_BOT[3], ROI_LEFT_BOT[0] : ROI_LEFT_BOT[2]
-        ],
-        cv2.RETR_EXTERNAL,
-        cv2.CHAIN_APPROX_NONE,
-    )
-    right_contours_bot, hierarchy = cv2.findContours(
-        img_thresh[
-            ROI_RIGHT_BOT[1] : ROI_RIGHT_BOT[3], ROI_RIGHT_BOT[0] : ROI_RIGHT_BOT[2]
-        ],
-        cv2.RETR_EXTERNAL,
-        cv2.CHAIN_APPROX_NONE,
-    )
-
-    # define variables for left and right ROI contour areas
-    left_area_bot = 0
-
-    right_area_bot = 0
-
-    # loop to find largest contours
-
-    for i in range(len(left_contours_bot)):
-        cnt = left_contours_bot[i]
-        area = cv2.contourArea(cnt)
-        left_area_bot = max(area, left_area_bot)
-
-    for i in range(len(right_contours_bot)):
-        cnt = right_contours_bot[i]
-        area = cv2.contourArea(cnt)
-        right_area_bot = max(area, right_area_bot)
-
-    # combine areas on each side
-    right_area = right_area_bot
-    left_area = left_area_bot
-
-    # find blue thresholds/mask and store them in a variable
-    b_mask = cv2.inRange(img_hsv, LOWER_BLUE, UPPER_BLUE)
-
-    # find blue contours to detect the lines on the mat
-    contours_blue = cv2.findContours(
-        b_mask[ROI4[1] : ROI4[3], ROI4[0] : ROI4[2]],
-        cv2.RETR_EXTERNAL,
-        cv2.CHAIN_APPROX_SIMPLE,
-    )[-2]
-
-    # find orange thresholds/mask and store them in a variable
-    o_mask = cv2.bitwise_or(
-        cv2.inRange(img_hsv, LOWER_ORANGE1, UPPER_ORANGE1),
-        cv2.inRange(img_hsv, LOWER_ORANGE2, UPPER_ORANGE2),
-    )
-
-    # find orange contours to detect the lines on the mat
-    contours_orange = cv2.findContours(
-        o_mask[ROI4[1] : ROI4[3], ROI4[0] : ROI4[2]],
-        cv2.RETR_EXTERNAL,
-        cv2.CHAIN_APPROX_SIMPLE,
-    )[-2]
-
-    # iterate through the blue and orange contours and store the maximum area
-    max_blue_area = 0
-    max_orange_area = 0
-
-    for i in range(len(contours_orange)):
-        cnt = contours_orange[i]
-        max_orange_area = max(cv2.contourArea(cnt), max_orange_area)
-        cnt[:, :, 0] += ROI4[0]  # Add X offset
-        cnt[:, :, 1] += ROI4[1]  # Add Y offset
-        cv2.drawContours(
-            im, contours_orange, i, (255, 255, 0), 1
-        )  # draw the contours for debug utility
-    for i in range(len(contours_blue)):
-        cnt = contours_blue[i]
-        max_blue_area = max(cv2.contourArea(cnt), max_blue_area)
-        cnt[:, :, 0] += ROI4[0]  # Add X offset
-        cnt[:, :, 1] += ROI4[1]  # Add Y offset
-        cv2.drawContours(
-            im, contours_blue, i, (255, 255, 0), 1
-        )  # draw the contours for debug utility
-
-    if max_blue_area >= LINE_THRESHOLD and track_dir != "right" and seen_line == False:
-        track_dir = "left"
-        turn_counter += 1
-        seen_line = True
-        track_dir = "left"
-
-        turn_dir = "left"
-
-    if max_orange_area >= LINE_THRESHOLD and track_dir != "left" and seen_line == False:
-        track_dir = "right"
-        turn_counter += 1
-        seen_line = True
-        track_dir = "right"
-
-        turn_dir = "right"
-
-    if turn_dir == "left" and not max_blue_area >= LINE_THRESHOLD:
-        if left_area > WALL_THRESHOLD:
-            turn_dir = None
-            seen_line = False
-
-    if turn_dir == "right" and not max_orange_area >= LINE_THRESHOLD:
-        if right_area > WALL_THRESHOLD:
-            turn_dir = None
-            seen_line = False
-
-    elif turn_dir == None:
-
-        # if in the straight section, calculate the current_difference between the contours in the left and right area
-
-        current_difference = left_area - right_area
-
-        # calculate steering amount using preportional-derivative steering
-        # multiply the current_difference by a constant variable and add the projected error multiplied by another constant
-        # this method gives stable and smooth steering
-
-        servo_angle = MID_SERVO + (
-            current_difference * PG + (current_difference - last_difference) * PD
+        # setup camera frame
+        im = picam2.capture_array()
+        input = np.float32(POINTS)
+        output = np.float32(
+            [(0, 0), (WIDTH - 1, 0), (WIDTH - 1, HEIGHT - 1), (0, HEIGHT - 1)]
         )
 
-    if (
-        turn_counter == MAX_TURNS and not done_turning
-    ):  # if the total turns has surpassed the amount required, increment the action counter by 1
-        action_counter += 1  # this is to ensure that the robot stops in the middle of the straight section
+        # convert to hsv
+        img_hsv = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)
 
-    # set the last current_difference equal to the current current_difference for derivative steering
-    last_difference = current_difference
+        # find black thresholds/mask and store them in a variable
+        img_thresh = cv2.inRange(img_hsv, LOWER_BLACK_THRESHOLD, UPPER_BLACK_THRESHOLD)
 
-    # if the steering variable is higher than the max turn degree for the servo, set it to the max turn degree
-    if (servo_angle) > MID_SERVO + MAX_TURN_DEGREE:
-        servo_angle = MID_SERVO + MAX_TURN_DEGREE
-    if (servo_angle) < MID_SERVO - MAX_TURN_DEGREE:
-        servo_angle = MID_SERVO - MAX_TURN_DEGREE
-    if turn_dir == "right":  # calculate the servo angle for the current turn
-        servo_angle = MID_SERVO + (MAX_TURN_DEGREE / 1.5)
-    elif turn_dir == "left":  # calculate the servo angle for the current turn
-        servo_angle = MID_SERVO - (MAX_TURN_DEGREE / 1.5)
+        # find black contours in left and right regions
 
-    if servo_angle > MID_SERVO:
-        servo_angle = MID_SERVO + (servo_angle - MID_SERVO) * 0.9
+        left_contours_bot, hierarchy = cv2.findContours(
+            img_thresh[
+                ROI_LEFT_BOT[1] : ROI_LEFT_BOT[3], ROI_LEFT_BOT[0] : ROI_LEFT_BOT[2]
+            ],
+            cv2.RETR_EXTERNAL,
+            cv2.CHAIN_APPROX_NONE,
+        )
+        right_contours_bot, hierarchy = cv2.findContours(
+            img_thresh[
+                ROI_RIGHT_BOT[1] : ROI_RIGHT_BOT[3], ROI_RIGHT_BOT[0] : ROI_RIGHT_BOT[2]
+            ],
+            cv2.RETR_EXTERNAL,
+            cv2.CHAIN_APPROX_NONE,
+        )
 
-    # move the motors using the variables
-    pw = pwm(servo_angle)
-    board.pwm_servo_set_position(0.1, [[2, DC_SPEED]])
+        # define variables for left and right ROI contour areas
+        left_area_bot = 0
 
-    board.pwm_servo_set_position(0.1, [[1, pw]])
+        right_area_bot = 0
 
-    # draw the ROIs
-    drawROI(ROI_LEFT_BOT)
-    drawROI(ROI_RIGHT_BOT)
-    drawROI(ROI4)
+        # loop to find largest contours
 
-    # display the camera
-    print(
-        str(turn_dir)
-        + " "
-        + str(servo_angle)
-        + " "
-        + str(turn_counter)
-        + " "
-        + str(left_area)
-        + " "
-        + str(right_area)
-    )
+        for i in range(len(left_contours_bot)):
+            cnt = left_contours_bot[i]
+            area = cv2.contourArea(cnt)
+            left_area_bot = max(area, left_area_bot)
 
-    cv2.imshow("Camera", im)
+        for i in range(len(right_contours_bot)):
+            cnt = right_contours_bot[i]
+            area = cv2.contourArea(cnt)
+            right_area_bot = max(area, right_area_bot)
 
-    # if the number of actions to the straight section has been met, stop the car
-    if cv2.waitKey(1) == ord("q") or action_counter >= ACTIONS_TO_STRAIGHT:
-        stop()
-        break
+        # combine areas on each side
+        right_area = right_area_bot
+        left_area = left_area_bot
+
+        # find blue thresholds/mask and store them in a variable
+        b_mask = cv2.inRange(img_hsv, LOWER_BLUE, UPPER_BLUE)
+
+        # find blue contours to detect the lines on the mat
+        contours_blue = cv2.findContours(
+            b_mask[ROI4[1] : ROI4[3], ROI4[0] : ROI4[2]],
+            cv2.RETR_EXTERNAL,
+            cv2.CHAIN_APPROX_SIMPLE,
+        )[-2]
+
+        # find orange thresholds/mask and store them in a variable
+        o_mask = cv2.bitwise_or(
+            cv2.inRange(img_hsv, LOWER_ORANGE1, UPPER_ORANGE1),
+            cv2.inRange(img_hsv, LOWER_ORANGE2, UPPER_ORANGE2),
+        )
+
+        # find orange contours to detect the lines on the mat
+        contours_orange = cv2.findContours(
+            o_mask[ROI4[1] : ROI4[3], ROI4[0] : ROI4[2]],
+            cv2.RETR_EXTERNAL,
+            cv2.CHAIN_APPROX_SIMPLE,
+        )[-2]
+
+        # iterate through the blue and orange contours and store the maximum area
+        max_blue_area = 0
+        max_orange_area = 0
+
+        for i in range(len(contours_orange)):
+            cnt = contours_orange[i]
+            max_orange_area = max(cv2.contourArea(cnt), max_orange_area)
+            cnt[:, :, 0] += ROI4[0]  # Add X offset
+            cnt[:, :, 1] += ROI4[1]  # Add Y offset
+            cv2.drawContours(
+                im, contours_orange, i, (255, 255, 0), 1
+            )  # draw the contours for debug utility
+        for i in range(len(contours_blue)):
+            cnt = contours_blue[i]
+            max_blue_area = max(cv2.contourArea(cnt), max_blue_area)
+            cnt[:, :, 0] += ROI4[0]  # Add X offset
+            cnt[:, :, 1] += ROI4[1]  # Add Y offset
+            cv2.drawContours(
+                im, contours_blue, i, (255, 255, 0), 1
+            )  # draw the contours for debug utility
+
+        if (
+            max_blue_area >= LINE_THRESHOLD
+            and track_dir != "right"
+            and seen_line == False
+        ):
+            track_dir = "left"
+            turn_counter += 1
+            seen_line = True
+            track_dir = "left"
+
+            turn_dir = "left"
+
+        if (
+            max_orange_area >= LINE_THRESHOLD
+            and track_dir != "left"
+            and seen_line == False
+        ):
+            track_dir = "right"
+            turn_counter += 1
+            seen_line = True
+            track_dir = "right"
+
+            turn_dir = "right"
+
+        if turn_dir == "left" and not max_blue_area >= LINE_THRESHOLD and line_end:
+            if left_area > WALL_THRESHOLD:
+                turn_dir = None
+                seen_line = False
+                line_end = False
+
+        if turn_dir == "right" and not max_orange_area >= LINE_THRESHOLD and line_end:
+            if right_area > WALL_THRESHOLD:
+                turn_dir = None
+                seen_line = False
+                line_end = False
+        if turn_dir == "left" and max_orange_area >= LINE_THRESHOLD:
+            line_end = True
+        elif turn_dir == "right" and max_blue_area >= LINE_THRESHOLD:
+            line_end = True
+
+        elif turn_dir == None:
+
+            # if in the straight section, calculate the current_difference between the contours in the left and right area
+
+            current_difference = left_area - right_area
+
+            # calculate steering amount using preportional-derivative steering
+            # multiply the current_difference by a constant variable and add the projected error multiplied by another constant
+            # this method gives stable and smooth steering
+
+            servo_angle = MID_SERVO + (
+                current_difference * PG + (current_difference - last_difference) * PD
+            )
+
+        if (
+            turn_counter == MAX_TURNS and not done_turning
+        ):  # if the total turns has surpassed the amount required, increment the action counter by 1
+            action_counter += 1  # this is to ensure that the robot stops in the middle of the straight section
+
+        # set the last current_difference equal to the current current_difference for derivative steering
+        last_difference = current_difference
+
+        # if the steering variable is higher than the max turn degree for the servo, set it to the max turn degree
+        if (servo_angle) > MID_SERVO + MAX_TURN_DEGREE:
+            servo_angle = MID_SERVO + MAX_TURN_DEGREE
+        if (servo_angle) < MID_SERVO - MAX_TURN_DEGREE:
+            servo_angle = MID_SERVO - MAX_TURN_DEGREE
+        if turn_dir == "right":  # calculate the servo angle for the current turn
+            servo_angle = MID_SERVO + (MAX_TURN_DEGREE / 3)
+        elif turn_dir == "left":  # calculate the servo angle for the current turn
+            servo_angle = MID_SERVO - (MAX_TURN_DEGREE / 3)
+
+        if servo_angle > MID_SERVO:
+            servo_angle = MID_SERVO + (servo_angle - MID_SERVO) * 0.95
+
+        # move the motors using the variables
+        pw = pwm(servo_angle)
+        board.pwm_servo_set_position(0.1, [[2, DC_SPEED]])
+
+        board.pwm_servo_set_position(0.1, [[1, pw]])
+
+        # draw the ROIs
+        drawROI(ROI_LEFT_BOT)
+        drawROI(ROI_RIGHT_BOT)
+        drawROI(ROI4)
+
+        # display the camera
+        print(
+            str(turn_dir)
+            + " "
+            + str(servo_angle)
+            + " "
+            + str(turn_counter)
+            + " "
+            + str(left_area)
+            + " "
+            + str(right_area)
+        )
+        if len(sys.argv) > 1 and sys.argv[1] == "Debug":
+            cv2.imshow("Camera", im)
+
+        # if the number of actions to the straight section has been met, stop the car
+        if cv2.waitKey(1) == ord("q") or action_counter >= ACTIONS_TO_STRAIGHT:
+            stop()
+            break
 
 cv2.destroyAllWindows()
