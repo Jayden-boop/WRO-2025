@@ -212,6 +212,9 @@ Effective mobility is central to navigating the course quickly and accurately. O
 
 The Furitek Micro Komodo was selected for its exceptional power-to-weight ratio and precise speed control. As a brushless motor, it offers higher efficiency, a longer lifespan, and superior performance compared to brushed alternatives. Its ability to operate smoothly at both high and very low speeds is a significant advantage, providing the raw acceleration needed for fast laps and the delicate, slow-speed control required for the parallel parking maneuver. 
 
+A 3D motor mount secures the motor to the chassis, allowing for full transfer of energy to the rear gearbox. It is screwed into the motor and chassis using M3 screws. 
+![Motor Mount Drawing](other/readme-images/motormount3-drawing.jpg)
+
 <table width="800px">
   <tr>
     <td width="400px" style="text-align: left; vertical-align: top;">
@@ -236,8 +239,7 @@ The ESC was selected for its light weight and small frame. It allows for simple 
 
 Accurate path following is managed by a PID controller, which requires a steering servo capable of making small, precise, and rapid adjustments. The HS-5055MG was chosen for its digital precision and metal gear construction, providing the durability and responsiveness needed to translate the PID controller's outputs into exact steering angles. This ensures the vehicle can hold its line with minimal error.
 
-The 3D Motor Mount can be found here:
-![Motor Mount Drawing](other/readme-images/motormount3-drawing.jpg)
+
 
 ### Wheels and Drivetrain Rationale
 
