@@ -22,12 +22,12 @@ DC_SPEED = 1375
 PILLAR_SIZE = 400
 PD = 0.0025
 PG = 0.0025
-LIDARPG = 1
+LIDARPG = 0.8
 ROI_LEFT = [0, 210, 100, 470]
 ROI_RIGHT = [540, 210, 640, 470]
 ROI_LINE = [240, 370, 400, 400]
 ROI_MIDDLE = [0, 200, 640, 400]
-ROI_FRONT = [280, 240, 360, 280]
+ROI_FRONT = [280, 240, 360, 270]
 LOWER_BLACK_THRESHOLD = np.array([0, 0, 0])
 UPPER_BLACK_THRESHOLD = np.array([180, 255, 90])
 
@@ -36,23 +36,24 @@ UPPER_RED_THRESHOLD1 = np.array([6, 255, 255])
 LOWER_RED_THRESHOLD2 = np.array([175, 180, 50])
 UPPER_RED_THRESHOLD2 = np.array([180, 255, 255])
 
-LOWER_GREEN_THRESHOLD = np.array([65, 90, 35])
+# LOWER_GREEN_THRESHOLD = np.array([65, 90, 35])
+# UPPER_GREEN_THRESHOLD = np.array([85, 255, 185])
+LOWER_GREEN_THRESHOLD = np.array([65, 90, 60])
 UPPER_GREEN_THRESHOLD = np.array([85, 255, 185])
-
 LOWER_ORANGE_THRESHOLD1 = np.array([180, 80, 120])
 UPPER_ORANGE_THRESHOLD1 = np.array([180, 255, 255])
 LOWER_ORANGE_THRESHOLD2 = np.array([5, 156, 120])
 UPPER_ORANGE_THRESHOLD2 = np.array([20, 255, 255])
+# LOWER_BLUE_THRESHOLD = np.array([105, 45, 60])
+# UPPER_BLUE_THRESHOLD = np.array([130, 255, 200])
 
-LOWER_BLUE_THRESHOLD = np.array([105, 45, 60])
+LOWER_BLUE_THRESHOLD = np.array([105, 60, 60])
 UPPER_BLUE_THRESHOLD = np.array([130, 255, 200])
-
-
 WIDTH = 640
 HEIGHT = 480
 POINTS = [(115, 200), (525, 200), (640, 370), (0, 370)]
 
-MAX_TURNS = 4
+MAX_TURNS = 8
 ACTIONS_TO_STRAIGHT = 120
 WALL_THRESHOLD = 200
 NO_WALL_THRESHOLD = 200
@@ -511,7 +512,7 @@ while True:
         pw = pwm(MID_SERVO + MAX_TURN_DEGREE)
         board.pwm_servo_set_position(0.04, [[1, pw]])
 
-        board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 7]])
+        board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 5]])
         time.sleep(1.2)
 
         pw = pwm(MID_SERVO)
@@ -879,14 +880,18 @@ while True:
     if parking_left:
         print("parking")
         if clear == False and not last_green_left_track:
+            """
             servo_angle = MID_SERVO + (MAX_TURN_DEGREE)
             board.pwm_servo_set_position(0.04, [[2, DC_SPEED]])
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
-            time.sleep(0.2)
+            time.sleep(0.1)
+
+            """
+
             servo_angle = MID_SERVO
             board.pwm_servo_set_position(0.04, [[2, DC_SPEED]])
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
-            time.sleep(0.8)
+            time.sleep(0.9)
 
             clear = True
             board.pwm_servo_set_position(0.04, [[2, DC_SPEED]])
@@ -929,8 +934,8 @@ while True:
 
                                     wall_points = filter_wall_points(
                                         current_scan_points,
-                                        x_min=-4,
-                                        x_max=4,
+                                        x_min=-6,
+                                        x_max=6,
                                         y_min=-100,
                                         y_max=-5,
                                     )
@@ -969,7 +974,7 @@ while True:
                                 x = dist * math.cos(angle_rad) / 10.0
                                 y = dist * math.sin(angle_rad) / 10.0
 
-                                if y > -16 and y < -14 and x > -3 and x < 3:
+                                if y > -18 and y < -16 and x > -3 and x < 3:
                                     close_to_wall = True
 
                                 current_scan_points.append((x, y))
@@ -1006,7 +1011,7 @@ while True:
             board.pwm_servo_set_position(0.04, [[2, 1625]])
 
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
-            time.sleep(0.9)
+            time.sleep(0.8)
             board.pwm_servo_set_position(0.04, [[2, 1500]])
 
             turn_to_parking_section = True
@@ -1059,8 +1064,8 @@ while True:
                                             current_scan_points,
                                             x_min=5,
                                             x_max=100,
-                                            y_min=-14,
-                                            y_max=-2,
+                                            y_min=-13,
+                                            y_max=-1,
                                         )
 
                                         if len(wall_points) >= 4:
@@ -1070,7 +1075,7 @@ while True:
                                                 )
                                             )
                                             if angle_error != None:
-                                                angle_error += 4
+                                                angle_error += 6
                                             if slope is not None:
                                                 # This is the main output for the test
                                                 print(
@@ -1086,41 +1091,9 @@ while True:
                                                     f"Rotation #{rotation_count}: Could not calculate angle."
                                                 )
                                         else:
-                                            servo_angle = MID_SERVO + 20
                                             print(
                                                 f"Rotation #{rotation_count}: Insufficient wall points.aaaaa"
                                             )
-
-                                            wall_points = filter_wall_points(
-                                                current_scan_points,
-                                                x_min=5,
-                                                x_max=100,
-                                                y_min=-10,
-                                                y_max=-1,
-                                            )
-
-                                            if len(wall_points) >= 4:
-                                                slope, angle_error, status = (
-                                                    calculate_wall_slope_and_error(
-                                                        wall_points
-                                                    )
-                                                )
-                                                if slope is not None:
-                                                    # This is the main output for the test
-                                                    print(
-                                                        f"Rotation #{rotation_count}: Angle Error = {angle_error:.2f}°"
-                                                    )
-                                                    print(servo_angle)
-                                                    servo_angle = MID_SERVO - (
-                                                        angle_error * LIDARPG
-                                                    )
-
-                                                else:
-                                                    print(
-                                                        f"Rotation #{rotation_count}: Could not calculate angle."
-                                                    )
-                                            else:
-                                                print("inssuficient again")
 
                                     current_scan_points = []
 
@@ -1129,7 +1102,7 @@ while True:
                                     x = dist * math.cos(angle_rad) / 10.0
                                     y = dist * math.sin(angle_rad) / 10.0
 
-                                    if y < 0 and y > -15 and x < 30 and x > 10:
+                                    if y < 0 and y > -14 and x < 30 and x > 10:
                                         print(
                                             f"RIGHT SIDE DETECTION: x={x:.1f}, y={y:.1f}, right_reading updated from {right_reading} to {x}"
                                         )
@@ -1228,7 +1201,7 @@ while True:
                                     x = dist * math.cos(angle_rad) / 10.0
                                     y = dist * math.sin(angle_rad) / 10.0
 
-                                    if y < -19 and y > -21 and x < 24 and x > 10:
+                                    if y < -17 and y > -19 and x < 24 and x > 10:
                                         print(
                                             f"RIGHT SIDE DETECTION: x={x:.1f}, y={y:.1f}, right_reading updated from {right_reading} to {x}"
                                         )
@@ -1258,14 +1231,14 @@ while True:
                     board.pwm_servo_set_position(0.04, [[1, pwm(MID_SERVO)]])
                     ser.close()
                     break
-            time.sleep(0.2)
             at_parking_lot = True
+            board.pwm_servo_set_position(0.04, [[2, 1500]])
+            time.sleep(2)
+            board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 7]])
 
-            board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 15]])
-
-            servo_angle = 0
+            servo_angle = 10
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
-            time.sleep(2.8)
+            time.sleep(1.9)
 
             board.pwm_servo_set_position(0.04, [[2, 1595]])
 
@@ -1573,7 +1546,7 @@ while True:
                     servo_angle = MID_SERVO - MAX_TURN_DEGREE
                 time.sleep(0.02)
                 board.pwm_servo_set_position(0.02, [[1, pwm(servo_angle)]])
-                time.sleep(0.02)
+                # time.sleep(0.02)
 
             except Exception as e:
                 print(f"An error occurred: {e}")
