@@ -212,6 +212,26 @@ Effective mobility is central to navigating the course quickly and accurately. O
 
 The Furitek Micro Komodo was selected for its exceptional power-to-weight ratio and precise speed control. As a brushless motor, it offers higher efficiency, a longer lifespan, and superior performance compared to brushed alternatives. Its ability to operate smoothly at both high and very low speeds is a significant advantage, providing the raw acceleration needed for fast laps and the delicate, slow-speed control required for the parallel parking maneuver. 
 
+<table width="800px">
+  <tr>
+    <td width="400px" style="text-align: left; vertical-align: top;">
+      <img src="other/readme-images/esc.png" alt="Furitek Lizard Pro ESC" width="100%"/>
+    </td>
+    <td width="400px" style="text-align: left; vertical-align: top;">
+      <h3>Furitek Lizard Pro ESC</h3>
+      <ul>
+        <li><b>Current:</b> 30A Constant / 50A Burst</li>
+        <li><b>Battery:</b> 2–3S LiPo</li>
+        <li><b>BEC:</b> 5V or 6.5V @ 2.5A</li>
+        <li><b>Type:</b> Brushed/Brushless</li>
+        <li><b>Weight:</b> 3.7 g</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+The ESC was selected for its light weight and small frame. It allows for simple calibration using the FURITEK app and supports the BLDC motor we selected. 
+
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/HS-5055MG-Servo.png" alt="HS-5055MG Servo" width="100%"/> </td> <td width="400px" style="text-align: left; vertical-align: top; padding: 0;"> <h3>HS-5055MG Servo</h3> <ul> <li><b>Torque (6.0V):</b> 1.4 kg/cm</li> <li><b>Speed (6.0V):</b> 0.14 sec/60°</li> <li><b>Gears:</b> Metal</li> <li><b>Type:</b> Digital</li> <li><b>Weight:</b> 9.5 g</li> </ul> </td> </tr> </table>
 
 Accurate path following is managed by a PID controller, which requires a steering servo capable of making small, precise, and rapid adjustments. The HS-5055MG was chosen for its digital precision and metal gear construction, providing the durability and responsiveness needed to translate the PID controller's outputs into exact steering angles. This ensures the vehicle can hold its line with minimal error.
