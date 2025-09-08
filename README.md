@@ -280,13 +280,21 @@ A 3d printed lidar holder ensures that the lidar is completely flat and level to
 
 ### Custom 3D Printed Platform
 
-The main chassis and structural components are 3D printed in PLA plastic. PLA was selected for its excellent dimensional stability, ease of printing complex geometries, and sufficient strength for the application. 
+The main chassis and structural components are 3D printed in PLA plastic. PLA was selected for its excellent dimensional stability, ease of printing complex geometries, and sufficient strength for the application.  The material allows for rapid prototyping iterations during development while providing the precision needed for proper component mounting and alignment.
 
-The material allows for rapid prototyping iterations during development while providing the precision needed for proper component mounting and alignment.<img src="other/readme-images/platform-drawing.jpg" title="" alt="Platform Drawing" data-align="right">The lightweight chassis platform provides housing space for the lidar, battery, Raspberry Pi, expansion board, and camera holder. It is directly attached to the front and back gearboxes through two 3d-printed supports that ensure the platform is secure and level to the ground. 
+
+
+<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/platform.png" alt="">
+
+The lightweight chassis platform provides housing space for the lidar, battery, Raspberry Pi, expansion board, and camera holder. It is directly attached to the front and back gearboxes through two 3d-printed supports that ensure the platform is secure and level to the ground. 
+
+
 
 ![Baseplate Drawing](other/readme-images/Baseplate-drawing.jpg)
 
 A thin and lightweight baseplate houses the dc motor and its mount, the esc, the servo,   the rear gearbox, and the front steering block. The simplistic design allows for easy positioning changes using double-sided tape. 
+
+
 
 ![Front_Steering Block](other/readme-images/Front_Steering_Block-drawing.jpg)
 
@@ -305,6 +313,8 @@ All mechanical connections use standard M3 screws and fasteners for reliability 
 ### Ball Joint Steering Links
 
 Precision ball joints from the K989 system ensure smooth steering operation with minimal backlash, critical for accurate autonomous navigation.
+
+
 
 ## Cost Report
 
