@@ -91,7 +91,7 @@ Table of Contents
   <img src="t-photos/Jayden_WRO.jpg" width="400px">
 </p>
 
-> **WAAWAAW**
+> **Jayden Li** is a Grade 11 Student at Anderson CVI who loves programming, math, and robotics. In his free time, he plays and watches basketball. 
 
 ---
 
@@ -101,7 +101,7 @@ Table of Contents
   <img src="t-photos/Arham_WRO.jpg" width="400px">
 </p>
 
-> **Syed Arham Wasti** is a Junior at Anderson CVI with a strong interest in computer science and machine learning. His ambition drives him to address issues he deeply cares about.
+> **Syed Arham Wasti** is a Grade 11 Student at Anderson CVI with a strong interest in computer science and machine learning. His ambition drives him to address issues he deeply cares about.
 
 ---
 
