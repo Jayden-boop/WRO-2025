@@ -113,7 +113,7 @@ Table of Contents
 
 > **Trevor Mcaskin** is a Grade 11 Student at Anderson who loves problem-solving. He enjoys working hands-on with robotics and mechanical systems. One of his hobbies is playing video games.
 
-# JAT | WRO \- Documentation |
+# JAT WRO Documentation
 
 ## Task
 
