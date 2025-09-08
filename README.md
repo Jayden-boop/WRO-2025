@@ -334,6 +334,8 @@ Precision ball joints from the K989 system ensure smooth steering operation with
 | Vehicle Height | 22.4cm      | 30cm      |
 | Weight         | 397g        | 1.5kg     |
 
+We opted to create a chassis based on a 1/28 sized car. This allows us to maneuver between obstacles and parallel park with ease. Our low weight contributes to smooth and consistent movement. 
+
 # Assembly Guide
 
 ## Overview
@@ -831,13 +833,9 @@ last_difference = current_difference
 
 This PD on areas effectively centers the vehicle between walls. PD avoids long-term drift while being responsive to changes in wall proximity.
 
-
-
 ### Turn counting
 
 After 12 turns, the robot transitions to parking in the obstacle challenge. In the open challenge, the number of actions is counted after the last turn and once it reaches a certain number, the robot stops. This is to ensure the robot fully stops in the straight section. 
-
-
 
 No pillar flowchart:
 
