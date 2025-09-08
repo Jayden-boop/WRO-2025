@@ -268,6 +268,7 @@ To eliminate the reliability issues of breadboards and loose wiring, we integrat
 The Raspberry Pi 5 serves as the central processing unit, chosen for its powerful quad-core processor that can simultaneously handle real-time data streams from the camera and LiDAR without performance bottlenecks. The mature Python ecosystem and extensive GPIO interface were ideal for rapid algorithm development and direct control over all hardware.
 
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/Diyeeni-Zero-Module-Camera.png" alt="Pi Camera Module" width="100%"> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>Pi Camera Module</h3> <ul> <li><b>Resolution:</b> 5 Megapixels</li> <li><b>Video:</b> 1080p HD</li> <li><b>Interface:</b> Direct CSI</li> <li><b>Features:</b> Color Sensing</li> </ul> </td> </tr> </table>
+
 The Pi Camera is our primary sensor for the Obstacle Challenge. Its direct CSI interface provides a low-latency video feed essential for high-speed decision-making. We rely entirely on its color-sensing capabilities and OpenCV-based contour detection to accurately identify the pillars and boundary walls. The 175° wide angle lens, combined with a high mounting position on the chassis allows the camera to have an extremely large field of view throughout the challenge.
 
 <img title="" src="other/readme-images/camera-holder-drawing.jpg" alt="">
