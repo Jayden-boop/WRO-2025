@@ -261,7 +261,7 @@ To eliminate the reliability issues of breadboards and loose wiring, we integrat
 
 ### Wiring Diagram
 
-<img title="" src="other/readme-images/wiring.png" alt="">
+<img title="" src="other/readme-images/wiring_schematic.png" alt="">
 
 ### Sensor Selection and Rationale
 
