@@ -37,6 +37,7 @@ Table of Contents
   - [Power and Sense Management](#power-and-sense-management)
     - [Power Source and Distribution](#power-source-and-distribution)
     - [Sensor Selection and Rationale](#sensor-selection-and-rationale)
+    - [Wiring Diagram](#wiring-diagram)
   - [Custom Chassis Parts](#custom-chassis-parts)
   - [Mechanical Components](#mechanical-components)
 
