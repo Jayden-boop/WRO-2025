@@ -143,10 +143,11 @@ In this challenge, the vehicle must autonomously complete three laps on a racetr
 
 **Key Elements:**
 
-- Randomized Layouts: The track may feature randomized corridor widths (narrow or wide sections) and varying starting positions.
-  Dynamic configurations:  The track configuration (e.g., wall placements, starting zones) is determined by a randomization process (e.g., coin tosses, dice rolls) before each round.
+-  The track may feature randomized corridor widths (narrow or wide sections) and varying starting positions.
 
-- Adaptability requirement: The navigation algorithms of the vehicle are critical, having to adapt in real time to an unseen wall and course arrangement without human intervention.
+- The track configuration (e.g., wall placements, starting zones) is determined by a randomization process before each round.
+
+-  The navigation algorithms of the vehicle are critical, having to adapt in real time to an unseen wall and course arrangement without human intervention.
 
 **Performance Goal:**
 The goal is to maximize the consistency and speed of laps under unknown track conditions.
@@ -157,8 +158,8 @@ In this challenge, the vehicle must complete three complete laps on a track with
 
 **Key Elements:**
 
-- Traffic Signs: Red and green pillars indicate required driving lanes (red = keep right, green = keep left). The vehicle must obey these rules without displacing the signs.
-- Parking Task: After completing laps, the vehicle must park within a narrow, variable-sized parking space. Starting inside the parking lot and achieving parallel alignment earns bonus points.
+- Red and green pillars indicate required driving lanes (red = keep right, green = keep left). The vehicle must obey these rules without displacing the signs.
+- After completing laps, the vehicle must park within a narrow, variable-sized parking space. Starting inside the parking lot and achieving parallel alignment earns bonus points.
 
 **Randomization factors:**
 
