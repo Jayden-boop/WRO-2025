@@ -521,7 +521,7 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 
 # Obstacle Avoidance
 
-This section explains the **pillar detection and obstacle avoidance algorithm** implemented for the obstacle challenge. It covers detection, filtering, steering control, emergency handling, edge cases, parking exit logic, and the parallel parking process.
+This section explains the **pillar detection and obstacle avoidance algorithm** implemented for the obstacle and open challenge. It covers detection, filtering, steering control, emergency handling, edge cases, parking exit logic, and the parallel parking process.
 
 ---
 
@@ -786,6 +786,8 @@ The forced correction only occurs if both the left wall ROI and the front ROI de
 
 This logic transitions the vehicle between straight sections and turns and is essential for lap counting. When there is no pillars that need to be avoided, the logic allows the robot to stay within the middle of each section to prepare for future pillars.
 
+Additionally, this code is used for the complete logic in the open challenge. 
+
 ### Blue & Orange Line Detection (turn triggers)
 
 Short ROI-based detections detect corners based on the first coloured line:
@@ -828,6 +830,14 @@ last_difference = current_difference
 ```
 
 This PD on areas effectively centers the vehicle between walls. PD avoids long-term drift while being responsive to changes in wall proximity.
+
+
+
+### Turn counting
+
+After 12 turns, the robot transitions to parking in the obstacle challenge. In the open challenge, the number of actions is counted after the last turn and once it reaches a certain number, the robot stops. This is to ensure the robot fully stops in the straight section. 
+
+
 
 No pillar flowchart:
 
