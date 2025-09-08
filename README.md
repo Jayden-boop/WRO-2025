@@ -13,7 +13,7 @@ Table of Contents
 
 - [The Team](#the-team)
   
-  - [Team Photos](#team-photos)
+  - [Team Photos](#team-photo)
   - [Jayden](#jayden)
   - [Arham](#arham)
   - [Trevor](#trevor)
@@ -72,16 +72,8 @@ Table of Contents
 
 # The Team
 
-## Team Photos
+## Team Photo
 
-<table align="center">
-  <tr>
-    <td align="center" style="border: 2px solid #ccc; padding: 10px;">
-      <img src="t-photos/TeamPhoto_WRO.jpg" alt="Normal Team Photo" width="100%"><br>
-      <strong><em>Left: Jayden, Middle: Arham, Right: Trevor</em></strong>
-    </td>
-  </tr>
-</table>
 <table align="center">
   <tr>
     <td align="center" style="border: 2px solid #ccc; padding: 10px;">
@@ -90,16 +82,10 @@ Table of Contents
     </td>
   </tr>
 </table>
-<table align="center">
-  <tr>
-    <td align="center" style="border: 2px solid #ccc; padding: 10px;">
-      <img src="t-photos/TeamPhoto_WRO.jpg" alt="Normal Team Photo" width="80%"><br>
-      <strong><em>Left: Jayden, Middle: Arham, Right: Trevor</em></strong>
-    </td>
-  </tr>
-</table>
+
 
 ---
+
 
 ### Jayden
 
