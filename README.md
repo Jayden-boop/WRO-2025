@@ -330,6 +330,8 @@ Precision ball joints from the K989 system ensure smooth steering operation with
 | Battery Pack (2S LiPo 7.4V ~2000mAh)                                  | 2        | $80.35           | $160.70          |
 | Diyeeni Zero Module Camera (5MB, 1080p HD)                            | 1        | $46.85           | $46.85           |
 | GT24 M-Sport 2022 Hybrid Rally Wheels & Tires                         | 1        | $22.00           | $22.00           |
+| USB to USBC adapter                                                   | 1        | $4.99            | $4.99            |
+| USBC to USBC wire                                                     | 1        | $5.64            | $5.64            |
 
 ## Measurements
 
@@ -349,7 +351,7 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 ## Required Tools
 
 - Phillips head screwdrivers (various sizes)
-- Soldering iron and solder (optional for secure connections)
+- Soldering iron and solder
 - Wire strippers
 - Digital calipers (for precise positioning)
 
@@ -364,6 +366,8 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 - Custom front wheel rims
 - Custom platform holders and mounting adapters
 - Custom track rod with ball joint connections
+- Custom Lidar holder
+- Custom wheel clearance support
 
 ### Drive System Components
 
@@ -408,12 +412,14 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 3. **Install rear gearbox assembly**
    - Position K989 rear gearbox in chassis mounting location
    - Secure using double-sided tape for primary attachment
-   - Install custom 3D-printed platform holders onto K989 body mounting points
-   - Connect platform holders to chassis using vertical M3 screws
+   - Screw in K989 body mounting holes into front gearbox
+   - Install custom 3D-printed platform holders onto K989 body mounting points 
 4. **Install custom front gearbox housing**
    - Mount front gearbox assembly to chassis front section
    - Ensure proper alignment with steering geometry
    - Secure with double-sided tape
+   - Screw in K989 wheel connector parts from stock front gearbox
+   - Screw in custom wheel holder piece to ensure optimal clearance between ground and chassis
 
 ### Step 2: Platform and Electronics Mounting
 
@@ -426,6 +432,8 @@ This guide provides comprehensive step-by-step instructions for assembling our f
    - Press Pi onto pins through standard mounting holes
    - Install expansion board using same pin mounting method
    - Ensure both boards are seated securely
+   - Connect two USBC ports of the boards
+   - Connect one USBC port of the expansion board with a USBA port of the raspberry pi
 3. **Install LiPo battery**
    - Place rectangular LiPo battery on its side (long edge down)
    - Position between platform sidewalls for friction fit
@@ -460,6 +468,7 @@ This guide provides comprehensive step-by-step instructions for assembling our f
    - Connect ESC to expansion board using PWM signal pins
    - Ensure proper power distribution from battery
    - Verify all electrical connections are secure
+   - Use FURITEK app to calibrate motor
 
 ### Step 5: Custom Steering System Assembly
 
@@ -480,15 +489,10 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 
 ### Step 6: Wheel and Tire Installation
 
-1. **Install front wheels**
-   - Mount custom 3D-printed front rims to axles
-   - Secure with axle nuts
-   - Install K989 tires onto rims (stretched fit, no adhesive required)
-   - Verify wheel alignment and rotation
-2. **Install rear wheels**
+1. **Install wheels**
    - Mount rear wheels to rear axles
    - Install GT24 Carisma tires or any compatible 1/24 scale tires
-   - Secure with appropriate fasteners
+   - Secure with stock fasteners from Carisma GT24 or K989
    - Verify proper clearance and alignment
 
 ### Step 7: System Wiring and Connections
@@ -499,13 +503,12 @@ This guide provides comprehensive step-by-step instructions for assembling our f
    - Connect VCC and data signal to appropriate GPIO pins
    - Verify UART communication setup
 2. **Power distribution**
-   - Connect LiPo battery to main power distribution
-   - Verify all components receive proper voltage
-   - Check polarity on all connections
-3. **Final wiring organization**
-   - Route all cables to avoid mechanical interference
-   - Secure loose wiring with appropriate methods
-   - Verify no wires interfere with steering or drive systems
+   - Solder rocker switch into battery wire
+   - Solder both the wires for expansion board and esc according to diagram
+   - Screw in the wire to the expansion board
+   - Use voltmeter to validate correct wiring.
+
+<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/wiring.png" alt="">
 
 ### Step 8: Final Assembly and Testing
 
