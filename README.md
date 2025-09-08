@@ -214,6 +214,7 @@ Effective mobility is central to navigating the course quickly and accurately. O
 The Furitek Micro Komodo was selected for its exceptional power-to-weight ratio and precise speed control. As a brushless motor, it offers higher efficiency, a longer lifespan, and superior performance compared to brushed alternatives. Its ability to operate smoothly at both high and very low speeds is a significant advantage, providing the raw acceleration needed for fast laps and the delicate, slow-speed control required for the parallel parking maneuver. 
 
 A 3D motor mount secures the motor to the chassis, allowing for full transfer of energy to the rear gearbox. It is screwed into the motor and chassis using M3 screws. 
+
 ![Motor Mount Drawing](other/readme-images/motormount3-drawing.jpg)
 
 <table width="800px">
@@ -265,6 +266,7 @@ To eliminate the reliability issues of breadboards and loose wiring, we integrat
 ### Sensor Selection and Rationale
 
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/Raspberry-Pi-5.png" alt="Raspberry Pi 5" width="100%"> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>Raspberry Pi 5</h3> <ul> <li><b>CPU:</b> Quad-core 64-bit Arm Cortex-A76 @ 2.4GHz</li> <li><b>RAM:</b> 8GB LPDDR4X</li> <li><b>Connectivity:</b> Wi-Fi, Bluetooth 5.0, Gigabit Ethernet</li> <li><b>I/O:</b> 40-pin GPIO, 2x MIPI DSI/CSI</li> </ul> </td> </tr> </table>
+
 The Raspberry Pi 5 serves as the central processing unit, chosen for its powerful quad-core processor that can simultaneously handle real-time data streams from the camera and LiDAR without performance bottlenecks. The mature Python ecosystem and extensive GPIO interface were ideal for rapid algorithm development and direct control over all hardware.
 
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/Diyeeni-Zero-Module-Camera.png" alt="Pi Camera Module" width="100%"> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>Pi Camera Module</h3> <ul> <li><b>Resolution:</b> 5 Megapixels</li> <li><b>Video:</b> 1080p HD</li> <li><b>Interface:</b> Direct CSI</li> <li><b>Features:</b> Color Sensing</li> </ul> </td> </tr> </table>
