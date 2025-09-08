@@ -269,11 +269,11 @@ The Raspberry Pi 5 serves as the central processing unit, chosen for its powerfu
 
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/Diyeeni-Zero-Module-Camera.png" alt="Pi Camera Module" width="100%"> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>Pi Camera Module</h3> <ul> <li><b>Resolution:</b> 5 Megapixels</li> <li><b>Video:</b> 1080p HD</li> <li><b>Interface:</b> Direct CSI</li> <li><b>Features:</b> Color Sensing</li> </ul> </td> </tr> </table>
 
-The Pi Camera is our primary sensor for the Obstacle Challenge. Its direct CSI interface provides a low-latency video feed essential for high-speed decision-making. We rely entirely on its color-sensing capabilities and OpenCV-based contour detection to accurately identify the pillars and boundary walls. The 175° wide angle lens, combined with a high mounting position on the chassis allows the camera to have an extremely large field of view throughout the challenge.
+The Pi Camera is our primary sensor for the Obstacle Challenge. Its direct CSI interface provides a low-latency video feed essential for high-speed decision-making. We rely entirely on its color-sensing capabilities and OpenCV-based contour detection to accurately identify the pillars and boundary walls. The 175° wide angle lens, combined with a high mounting position on the chassis, allows the camera to have an extremely large field of view throughout the challenge.
 
 <img title="" src="other/readme-images/camera-holder-drawing.jpg" alt="">
 
-The camera mounted to a custom built holder. The holder is fixed to the back of the chassis. This allows for the maximum reaction window for obstacles. 
+The camera is mounted to a custom-built holder. The holder is fixed to the back of the chassis. This allows for the maximum reaction window for obstacles. 
 
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>LD19 D500 LIDAR</h3> <ul> <li><b>Range:</b> 0.02 - 12m</li> <li><b>Scan Rate:</b> 5-15 Hz</li> <li><b>Angular Resolution:</b> 0.5°</li> <li><b>Interface:</b> UART</li> </ul> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/LD19-D500-LIDAR.png" alt="LD19 D500 LIDAR" width="100%"> </td> </tr> </table>
 For navigation tasks where precision distance measurement is needed, we use the LD19 LIDAR. It is the sole sensor for the parallel parking maneuver. Once the parking sequence is initiated, color data is no longer needed, and the LIDAR's high-accuracy spatial data allows us to precisely detect the parking space and execute the multiple turns required to park.
@@ -292,7 +292,7 @@ The lightweight chassis platform provides housing space for the lidar, battery, 
 
 ![Baseplate Drawing](other/readme-images/Baseplate-drawing.jpg)
 
-A thin and lightweight baseplate houses the dc motor and its mount, the esc, the servo,   the rear gearbox, and the front steering block. The simplistic design allows for easy positioning changes using double-sided tape. 
+A thin and lightweight baseplate houses the DC motor and its mount, the ESC, the servo,   the rear gearbox, and the front steering block. The simplistic design allows for easy positioning changes using double-sided tape. 
 
 ![Front_Steering Block](other/readme-images/Front_Steering_Block-drawing.jpg)
 
@@ -302,7 +302,7 @@ The custom-built front steering block allows for adequate clearance for the stee
 
 ### K989 Drivetrain Components
 
-The design adapted select components from the K989 platform including the rear gearbox assembly and steering linkage ball joints. These parts provide proven reliability and appropriate gear ratios for the scale and performance requirements while maintaining cost effectiveness.
+The design adapted select components from the K989 platform, including the rear gearbox assembly and steering linkage ball joints. These parts provide proven reliability and appropriate gear ratios for the scale and performance requirements while maintaining cost effectiveness.
 
 ### Standard Metric Hardware
 
@@ -403,83 +403,83 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 
 1. **Print 3D parts**
    - Retrieve STL files found in the `models` folder
-   - Print parts on any accesible supported 3D printer
+   - Print parts on any accessible supported 3D printer
 2. **Prepare the main chassis baseplate**
    - Ensure all mounting points are clear of support material
    - Test fit all major components before permanent installation
 3. **Install rear gearbox assembly**
    - Position K989 rear gearbox in chassis mounting location
    - Secure using double-sided tape for primary attachment
-   - Screw in K989 body mounting holes into front gearbox
+   - Screw in the K989 body mounting holes into the front gearbox
    - Install custom 3D-printed platform holders onto K989 body mounting points 
 4. **Install custom front gearbox housing**
-   - Mount front gearbox assembly to chassis front section
+   - Mount the front gearbox assembly to the chassis front section
    - Ensure proper alignment with steering geometry
    - Secure with double-sided tape
-   - Screw in K989 wheel connector parts from stock front gearbox
-   - Screw in custom wheel holder piece to ensure optimal clearance between ground and chassis
+   - Screw in the K989 wheel connector parts from the stock front gearbox
+   - Screw in the custom wheel holder piece to ensure optimal clearance between the ground and the chassis
 
 ### Step 2: Platform and Electronics Mounting
 
 1. **Install main electronics platform**
    - Align platform with front and rear mounting points
-   - Insert platform into custom holders through designed holes
-   - Verify platform is level and secure
+   - Insert the platform into the custom holders through the designed holes
+   - Verify the platform is level and secure
 2. **Mount Raspberry Pi 5 and expansion board**
-   - Align Raspberry Pi with integrated mounting pins on platform
+   - Align the Raspberry Pi with the integrated mounting pins on the platform
    - Press Pi onto pins through standard mounting holes
-   - Install expansion board using same pin mounting method
+   - Install the expansion board using the same pin mounting method
    - Ensure both boards are seated securely
    - Connect two USBC ports of the boards
-   - Connect one USBC port of the expansion board with a USBA port of the raspberry pi
+   - Connect one USBC port of the expansion board with a USB-A port of the Raspberry Pi
 3. **Install LiPo battery**
    - Place rectangular LiPo battery on its side (long edge down)
-   - Position between platform sidewalls for friction fit
+   - Position between platform sidewalls for a friction fit
    - Verify battery is held securely by platform walls
 
 ### Step 3: Sensor Integration
 
 1. **Mount LD19 D500 LIDAR**
-   - Position LIDAR on custom holder piece
-   - Attach holder piece to platform using double-sided tape
-   - Ensure LIDAR is parallel to ground plane
+   - Position LIDAR on the custom holder piece
+   - Attach the holder piece to the platform using double-sided tape
+   - Ensure LIDAR is parallel to the ground plane
    - Verify rotation clearance and mounting stability
 2. **Install camera mount tower**
-   - Position camera mount at rear of platform
-   - Insert rectangular mounting beams into platform holes for friction fit
+   - Position the camera mount at the rear of the platform
+   - Insert rectangular mounting beams into platform holes for a friction fit
    - Verify tower is vertical and stable
    - Test camera field of view clearance
 3. **Mount Pi Camera**
-   - Install Pi Camera in fixed mount position on tower using double sided tape
-   - Connect CSI ribbon cable to Raspberry Pi
+   - Install Pi Camera in fixed mount position on tower using double-sided tape
+   - Connect the CSI ribbon cable to the Raspberry Pi
    - Route cable carefully to avoid interference with moving parts
    - Verify camera orientation and focus adjustment
 
 ### Step 4: Drive System Integration
 
 1. **Install Furitek Micro Komodo and ESC**
-   - Mount Furitek Micro Komodo controller to custom motor mount
-   - Connect drive motor to controller
-   - Install FURITEK LIZARD Pro ESC between controller and expansion board
-   - Secure all components with appropriate mounting method
+   - Mount the Furitek Micro Komodo controller to the custom motor mount
+   - Connect the drive motor to the controller
+   - Install FURITEK LIZARD Pro ESC between the controller and the expansion board
+   - Secure all components with an appropriate mounting method
 2. **Connect drive system wiring**
-   - Connect ESC to expansion board using PWM signal pins
-   - Ensure proper power distribution from battery
+   - Connect the ESC to the expansion board using the PWM signal pins
+   - Ensure proper power distribution from the battery
    - Verify all electrical connections are secure
-   - Use FURITEK app to calibrate motor
+   - Use the FURITEK app to calibrate the motor
 
 ### Step 5: Custom Steering System Assembly
 
 1. **Install steering servo**
-   - Mount steering servo in designated chassis location using double sided tape
-   - Connect servo to expansion board using PWM pins
+   - Mount the steering servo in the designated chassis location using double-sided tape
+   - Connect the servo to the expansion board using the PWM pins
    - Verify servo movement range and centering
 2. **Assemble steering linkage**
    - Attach K989 steering rod to servo horn
-   - Connect custom track rod with ball joints to steering rod
+   - Connect the custom track rod with ball joints to the steering rod
    - Install ball joint connections to front wheel assemblies
    - Verify Ackermann steering geometry implementation
-   - Test steering range - track rod should contact front gearbox at maximum turns
+   - Test steering range - track rod should contact the front gearbox at maximum turns
 3. **Verify steering operation**
    - Check full steering range without binding
    - Ensure proper return to center position
