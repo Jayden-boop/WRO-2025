@@ -206,8 +206,6 @@ Effective mobility is central to navigating the course quickly and accurately. O
 
 ### Motor Selection and Implementation
 
-
-
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/Furitek-Micro-Komodo-Motor.png" alt="Furitek Micro Komodo Motor" width="100%"/> </td> <td width="400px" style="text-align: left; vertical-align: top;"> <h3>Furitek Micro Komodo Motor</h3> <ul> <li><b>KV:</b> 3450 RPM/Volt</li> <li><b>Power:</b> 120W</li> <li><b>Battery:</b> 2–3S LiPo</li> <li><b>Type:</b> Brushless</li> <li><b>Weight:</b> 17.5 g</li> </ul> </td> </tr> </table>
 
 The Furitek Micro Komodo was selected for its exceptional power-to-weight ratio and precise speed control. As a brushless motor, it offers higher efficiency, a longer lifespan, and superior performance compared to brushed alternatives. Its ability to operate smoothly at both high and very low speeds is a significant advantage, providing the raw acceleration needed for fast laps and the delicate, slow-speed control required for the parallel parking maneuver. 
@@ -238,8 +236,6 @@ The ESC was selected for its light weight and small frame. It allows for simple 
 <table width="800px"> <tr> <td width="400px" style="text-align: left; vertical-align: top;"> <img src="other/readme-images/HS-5055MG-Servo.png" alt="HS-5055MG Servo" width="100%"/> </td> <td width="400px" style="text-align: left; vertical-align: top; padding: 0;"> <h3>HS-5055MG Servo</h3> <ul> <li><b>Torque (6.0V):</b> 1.4 kg/cm</li> <li><b>Speed (6.0V):</b> 0.14 sec/60°</li> <li><b>Gears:</b> Metal</li> <li><b>Type:</b> Digital</li> <li><b>Weight:</b> 9.5 g</li> </ul> </td> </tr> </table>
 
 Accurate path following is managed by a PID controller, which requires a steering servo capable of making small, precise, and rapid adjustments. The HS-5055MG was chosen for its digital precision and metal gear construction, providing the durability and responsiveness needed to translate the PID controller's outputs into exact steering angles. This ensures the vehicle can hold its line with minimal error.
-
-
 
 ### Wheels and Drivetrain Rationale
 
@@ -292,8 +288,6 @@ The material allows for rapid prototyping iterations during development while pr
 
 A thin and lightweight baseplate houses the dc motor and its mount, the esc, the servo,   the rear gearbox, and the front steering block. The simplistic design allows for easy positioning changes using double-sided tape. 
 
- 
-
 ![Front_Steering Block](other/readme-images/Front_Steering_Block-drawing.jpg)
 
 The custom-built front steering block allows for adequate clearance for the steering system while securing the front two wheels. 
@@ -303,12 +297,6 @@ The custom-built front steering block allows for adequate clearance for the stee
 ### K989 Drivetrain Components
 
 The design adapted select components from the K989 platform including the rear gearbox assembly and steering linkage ball joints. These parts provide proven reliability and appropriate gear ratios for the scale and performance requirements while maintaining cost effectiveness.
-
-### Custom Front Wheels
-
-Front wheels are 3D printed to exact specifications needed for our steering geometry, paired with stretched 1/28 scale tires that provide optimal grip without requiring adhesive mounting.
-
-## Fasteners and Hardware
 
 ### Standard Metric Hardware
 
@@ -367,8 +355,6 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 - Custom platform holders and mounting adapters
 - Custom track rod with ball joint connections
 
-
-
 ### Drive System Components
 
 - Rear gearbox assembly (K989 reference components)
@@ -377,8 +363,6 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 - Drive motor with Furitek Micro Komodo controller
 - Steering servo motor
 - K989 steering rod components
-
-
 
 ### Electronics & Control
 
