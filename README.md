@@ -835,7 +835,7 @@ No pillar flowchart:
 flowchart TD
     A[Start] --> B{Do we see a blue or orange line ahead?}
 
-    B -->|Blue line & turn & first time| C[Start a LEFT turn<br/>Mark line as seen<br/>Increase turn counter]
+    B -->|Blue line & not turn & first time| C[Start a LEFT turn<br/>Mark line as seen<br/>Increase turn counter]
     B -->|Orange line & not turn & first time| D[Start a RIGHT turn<br/>Mark line as seen<br/>Increase turn counter]
     B -->|No line detected| E[Check if turning]
 
