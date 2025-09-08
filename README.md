@@ -39,9 +39,6 @@ Table of Contents
     - [Sensor Selection and Rationale](#sensor-selection-and-rationale)
   - [Custom Chassis Parts](#custom-chassis-parts)
   - [Mechanical Components](#mechanical-components)
-    - [K989 Drivetrain Components](#k989-drivetrain-components)
-    - [Custom Front Wheels](#custom-front-wheels)
-    - [Fasteners and Hardware](#fasteners-and-hardware)
 
 - [Cost Report](#cost-report)
 
