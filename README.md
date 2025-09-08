@@ -282,19 +282,13 @@ A 3d printed lidar holder ensures that the lidar is completely flat and level to
 
 The main chassis and structural components are 3D printed in PLA plastic. PLA was selected for its excellent dimensional stability, ease of printing complex geometries, and sufficient strength for the application.  The material allows for rapid prototyping iterations during development while providing the precision needed for proper component mounting and alignment.
 
-
-
 <img title="" src="other/readme-images/platform.png" alt="">
 
 The lightweight chassis platform provides housing space for the lidar, battery, Raspberry Pi, expansion board, and camera holder. It is directly attached to the front and back gearboxes through two 3d-printed supports that ensure the platform is secure and level to the ground. 
 
-
-
 ![Baseplate Drawing](other/readme-images/Baseplate-drawing.jpg)
 
 A thin and lightweight baseplate houses the dc motor and its mount, the esc, the servo,   the rear gearbox, and the front steering block. The simplistic design allows for easy positioning changes using double-sided tape. 
-
-
 
 ![Front_Steering Block](other/readme-images/Front_Steering_Block-drawing.jpg)
 
@@ -313,8 +307,6 @@ All mechanical connections use standard M3 screws and fasteners for reliability 
 ### Ball Joint Steering Links
 
 Precision ball joints from the K989 system ensure smooth steering operation with minimal backlash, critical for accurate autonomous navigation.
-
-
 
 ## Cost Report
 
@@ -843,15 +835,15 @@ No pillar flowchart:
 flowchart TD
     A[Start] --> B{Do we see a blue or orange line ahead?}
 
-    B -->|Blue line & we're not turning right & it's the first time seeing it| C[Start a LEFT turn<br/>Mark line as seen<br/>Increase turn counter]
-    B -->|Orange line & we're not turning left & it's the first time seeing it| D[Start a RIGHT turn<br/>Mark line as seen<br/>Increase turn counter]
-    B -->|No line detected| E[Check if we are currently turning]
+    B -->|Blue line & turn & first time| C[Start a LEFT turn<br/>Mark line as seen<br/>Increase turn counter]
+    B -->|Orange line & not turn & first time| D[Start a RIGHT turn<br/>Mark line as seen<br/>Increase turn counter]
+    B -->|No line detected| E[Check if turning]
 
     C --> E
     D --> E
 
-    E -->|Turning LEFT & see an orange line| F[End of the LEFT turn]
-    E -->|Turning RIGHT & see a blue line| F[End of the RIGHT turn]
+    E -->|Turning LEFT & orange line| F[End of the LEFT turn]
+    E -->|Turning RIGHT & blue line| F[End of the RIGHT turn]
     E -->|Still in turn or going straight| G[Keep turning or go straight]
 
     F --> H[Turn is finished<br/>Reset turn direction<br/>Allow new line detection]
@@ -859,13 +851,13 @@ flowchart TD
 
     G --> I
 
-    I --> J{Are there any pillars to follow?}
+    I --> J{Any pillars to follow?}
     J -->|Yes| K[Avoid pillars]
-    J -->|No| L[Use wall-following to stay centered]
+    J -->|No| L[Use wall-following]
 
-    L --> M[Compare left and right wall areas]
-    M --> N[Adjust steering to stay in the middle]
-    N --> O[Remember this difference for smoother steering]
+    L --> M[Compare left & right walls]
+    M --> N[Adjust steering]
+    N --> O[Remember this difference]
 ```
 
 ---
