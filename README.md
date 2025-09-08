@@ -111,7 +111,7 @@ Table of Contents
   <img src="t-photos/Trevor_WRO.jpg" width="400px">
 </p>
 
-> **WA WA WA**
+> **Trevor Mckaskin** is a Grade 11 Student at Anderson who loves problem-solving. He enjoys working hands-on with robotics and mechanical systems. One of his hobbies is playing video games.
 
 # JAT | WRO \- Documentation |
 
