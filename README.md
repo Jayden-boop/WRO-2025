@@ -440,7 +440,7 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 ### Step 3: Sensor Integration
 
 1. **Mount LD19 D500 LIDAR**
-   - Position LIDAR on the custom holder piece
+   - Position the LIDAR on the custom holder piece
    - Attach the holder piece to the platform using double-sided tape
    - Ensure LIDAR is parallel to the ground plane
    - Verify rotation clearance and mounting stability
@@ -498,13 +498,13 @@ This guide provides comprehensive step-by-step instructions for assembling our f
 1. **LIDAR connections**
    - Connect 3-wire harness (VCC, GND, Data) using male-to-female jumpers
    - Connect GND to any GPIO ground pin
-   - Connect VCC and data signal to appropriate GPIO pins
+   - Connect VCC and data signal to the appropriate GPIO pins
    - Verify UART communication setup
 2. **Power distribution**
-   - Solder rocker switch into battery wire
-   - Solder both the wires for expansion board and esc according to diagram
+   - Solder the rocker switch into the battery wire
+   - Solder both the wires for the expansion board and esc according to the diagram
    - Screw in the wire to the expansion board
-   - Use voltmeter to validate correct wiring.
+   - Use a voltmeter to validate correct wiring.
 
 <img title="" src="other/readme-images/wiring.png" alt="">
 
@@ -515,11 +515,11 @@ This guide provides comprehensive step-by-step instructions for assembling our f
    - Verify steering range and drive system operation
    - Ensure no mechanical binding or interference
 2. **Electrical testing**
-   - Power on system and verify all components initialize
+   - Power on the system and verify all components are initialized
    - Test LIDAR rotation and data output
    - Verify camera image capture
    - Test steering servo response
-   - Verify drive motor operation through ESC
+   - Verify drive motor operation through the ESC
 3. **Software preperation**
    - Flash the custom Raspberry Pi 5 Bookworm OS onto a micro SSD, insert it into your Pi, and power on the device
    - Connect to the HW-{numbers & letters} access point that appears using the password hiwonder
@@ -535,7 +535,7 @@ This section explains the **pillar detection and obstacle avoidance algorithm** 
 
 ### Color Thresholding
 
-The camera frame is converted to HSV and color thresholds are applied to isolate pillar colors. Red uses two hue ranges to handle hue wrap-around and lighting changes; green uses a single calibrated range. The thresholds are tuned to avoid false positives from track lines and printed textures.
+The camera frame is converted to HSV, and color thresholds are applied to isolate pillar colors. Red uses two hue ranges to handle hue wrap-around and lighting changes; green uses a single calibrated range. The thresholds are tuned to avoid false positives from track lines and printed textures.
 
 ```python
 img_hsv = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)
@@ -565,7 +565,7 @@ contours_green, _ = cv2.findContours(img_thresh_green, cv2.RETR_EXTERNAL, cv2.CH
 
 ### Bounding Rectangles and Simple Distance Proxy
 
-Each contour is approximated and bounded to compute the center, area and a quick pixel-distance estimate.
+Each contour is approximated and bounded to compute the center, area, and a quick pixel-distance estimate.
 
 ```python
 approx = cv2.approxPolyDP(cnt, 0.01 * cv2.arcLength(cnt, True), True)
@@ -575,7 +575,7 @@ pillar_area = w * h
 pillar_distance = math.dist([pillar_cx, pillar_cy], [WIDTH//2, HEIGHT])  # e.g., [320,480]
 ```
 
-This pixel euclidean distance is not a true metric distance but works well for prioritizing the closest. It is a simplistic measurement that avoids the complexity of depth calculations.
+This pixel Euclidean distance is not a true metric distance, but it works well for prioritizing the closest. It is a simplistic measurement that avoids the complexity of depth calculations.
 
 **Debugging helper:** the code draws bounding boxes and a centroid point during development to validate thresholds:
 
@@ -604,7 +604,7 @@ if area <= PILLAR_SIZE:
 
 ### Distance Threshold
 
-Very distant detections are ignored so the control logic only reacts to immediate obstacles:
+Very distant detections are ignored, so the control logic only reacts to immediate obstacles:
 
 ```python
 if pillar_distance >= 500:
@@ -615,7 +615,7 @@ This window balances early reaction with false-trigger reduction. Too large a wi
 
 ### Top/Bottom Edge Rejection
 
-Exclude contours where bounding box sits too close to the top or bottom of the frame (unreliable zones):
+Exclude contours where the bounding box sits too close to the top or bottom of the frame (unreliable zones):
 
 ```python
 if y + h > 450 or y + h < 125:
@@ -623,11 +623,11 @@ if y + h > 450 or y + h < 125:
 ```
 
 - Bottom zone (>450 px) often means the robot has already passed the pillar or the contour is partially out of frame.
-- Top zone (<125 px) indicates the pillar is far and area/centroid estimation is noisy.
+- Top zone (<125 px) indicates the pillar is far, and area/centroid estimation is noisy.
 
 ### Closest-First Prioritization
 
-From the remaining candidates, the closest pillar by pixel-distance is stored as the active avoidance target:
+From the remaining candidates, the closest pillar by pixel distance is stored as the active avoidance target:
 
 ```python
 if pillar_distance < closest_pillar_distance:
@@ -662,7 +662,7 @@ This section explains how the chosen pillar is converted to steering commands us
 
 ### Target Alignment — color-specific targets
 
-Targets are fixed X-coordinates that represent where a pillar should appear in the camera frame when the robot will pass it on the correct side:
+Targets are fixed X-coordinates that represent where a pillar should appear in the camera frame when the robot passes it on the correct side:
 
 ```python
 red_target = 120   # desired x for red pillars (left side of camera)
@@ -680,7 +680,7 @@ Using fixed pixel targets is a simple heuristic that ensures the pillar is pushe
 
 ### Error computation and PD steering
 
-Calculate horizontal error based on the target-x and pillar-x and apply PD control:
+Calculate horizontal error based on the target-x and pillar-x, and apply PD control:
 
 ```python
 error = target - closest_pillar_x
@@ -724,7 +724,7 @@ Enabling `YAXISPG` can make the robot steer more aggressively for near pillars w
 
 ## 4. Emergency Collision Handling
 
-When a pillar fills the frame (large area), it means that the pillar is very close. If the pillar is not on the correct side of the robot, we must avoid pushing forward into a collision. This triggers an emergency maneuver where the robot reverses in order to avoid the pillar.
+When a pillar fills the frame (a large area), it means that the pillar is very close. If the pillar is not on the correct side of the robot, we must avoid pushing forward into a collision. This triggers an emergency maneuver where the robot reverses in order to avoid the pillar.
 
 Example red pillar:
 
@@ -777,20 +777,20 @@ if front_area_black > 250 and turn_counter == 0 and target == None:
 
 ![Exterior pillar override](other/readme-images/diagram_exterior.png)
 
-In this pillar combination, the robot must first avoid the green pillar. This results in the position being closer to the interior wall. Then, the robot follows the red pillar target, becoming roughly perpendicular to the exterior wall. As the robot drives forward while attempting to correct the pillar-x, the pillar will leave the camera field of view. In this case, a manual override must be made to avoid the pillar while turning into the next straight section. 
+In this pillar combination, the robot must first avoid the green pillar. This results in the position being closer to the interior wall. Then, the robot follows the red pillar target, becoming roughly perpendicular to the exterior wall. As the robot drives forward while attempting to correct the pillar-x, the pillar will leave the camera's field of view. In this case, a manual override must be made to avoid the pillar while turning into the next straight section. 
 
 ```python
 if front_area_black > 250 and turn_counter > 0 and left_wall > 1000 and target == None:
     servo_angle = MID_SERVO - MAX_TURN_DEGREE
 ```
 
-The forced correction only occurs if both the left wall ROI and the front ROI detects a black area, allowing the override to selectively occur if the wall is not on the correct side of the robot.
+The forced correction only occurs if both the left wall ROI and the front ROI detect a black area, allowing the override to selectively occur if the wall is not on the correct side of the robot.
 
 ---
 
 ## 6. Turn Handling, Line Detection, and Lap Counting
 
-This logic transitions the vehicle between straight sections and turns and is essential for lap counting. When there is no pillars that need to be avoided, the logic allows the robot to stay within the middle of each section to prepare for future pillars.
+This logic transitions the vehicle between straight sections and turns and is essential for lap counting. When there are no pillars that need to be avoided, the logic allows the robot to stay within the middle of each section to prepare for future pillars.
 
 Additionally, this code is used for the complete logic in the open challenge. 
 
@@ -880,7 +880,7 @@ The robot must exit the parking lot safely and deterministically. The code sets 
 
 ### Deciding Direction
 
-At start, the robot measures left and right wall areas and chooses an exit direction:
+At the start, the robot measures the left and right wall areas and chooses an exit direction:
 
 ```python
 if startFromParkingLot:
@@ -915,7 +915,7 @@ The timed DC burst allows the robot to precisely navigate out of the tight parki
 
 Our parking sequence utilizes the **LD19 D500 Lidar** to precisely detect both the parking walls and the outer black boundary walls. In order to get to a fixed position near the parking lot, the robot follows the black walls using the lidar. 
 
-The code periodically aggregates LIDAR points and tries to fit the inner wall with a least-squares line. It filters points with `filter_wall_points` so that only points expected to belong to the wall are used, then computes slope and a corresponding angle error (the difference between the robot heading and the wall angle). When enough points are found the code nudges the steering to correct alignment using the computed `angle_error`.
+The code periodically aggregates LIDAR points and tries to fit the inner wall with a least-squares line. It filters points with `filter_wall_points` so that only points expected to belong to the wall are used, then computes slope and a corresponding angle error (the difference between the robot heading and the wall angle). When enough points are found, the code nudges the steering to correct alignment using the computed `angle_error`.
 
 ```python
 wall_points = filter_wall_points(current_scan_points, x_min=-4, x_max=4, y_min=-100, y_max=-5)
@@ -931,13 +931,13 @@ Our algorithm has a different maneuver based on the last pillar of the straight 
 
 <img title="" src="other/readme-images/parking_last_pillar_circled.png" alt="">
 
-In this case, the last pillar (circled) is red. Therefore the robot must pass the pillar on the right. In this case, our robot will follow this procedure:
+In this case, the last pillar (circled) is red. Therefore, the robot must pass the pillar on the right. In this case, our robot will follow this procedure:
 
 <img title="" src="other/readme-images/parking_left_red.png" alt="">
 
 1. After the robot detects the blue line, it checks the colour of the last pillar. If the last pillar is red or there is no last pillar, the robot begins to follow the front wall, becoming perpendicular. 
 2. The robot continues following the front wall until it is detected to be within 15 centimeters or less.
-3. The robot enters a timed 90 degree reverse turn.
+3. The robot enters a timed 90-degree reverse turn.
 4. The robot follows the right wall until the first parking lot wall is detected.
 5. The robot sets the servo to the straight position and moves forward until the second parking lot wall is detected. Then, the robot takes a timed turn right.
 6. The robot reverses while adjusting to become perpendicular to the wall in front.
@@ -947,10 +947,10 @@ If the last pillar is green, the robot will first pass the green pillar, then tu
 
 <img title="" src="other/readme-images/parking_left_green.png" alt="">
 
-This sequence is simply inverted for the opposite track direction if there is no last pillar or it is green. 
+This sequence is simply inverted for the opposite track direction if there is no last pillar or if it is green. 
 
 <img title="" src="other/readme-images/parking_right_green.png" alt="">
 
-If the last pillar is red, the robot passes the red pillar and follows the interior wall to become parallel. Then it reverses and makes a 90 degree right turn. Then, it uses the normal parking sequence. 
+If the last pillar is red, the robot passes the red pillar and follows the interior wall to become parallel. Then it reverses and makes a 90-degree right turn. Then, it uses the normal parking sequence. 
 
 <img title="" src="other/readme-images/parking_right_red.png" alt="">
