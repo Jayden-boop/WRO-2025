@@ -284,7 +284,7 @@ The main chassis and structural components are 3D printed in PLA plastic. PLA wa
 
 
 
-<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/platform.png" alt="">
+<img title="" src="other/readme-images/platform.png" alt="">
 
 The lightweight chassis platform provides housing space for the lidar, battery, Raspberry Pi, expansion board, and camera holder. It is directly attached to the front and back gearboxes through two 3d-printed supports that ensure the platform is secure and level to the ground. 
 
