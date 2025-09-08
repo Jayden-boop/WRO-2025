@@ -13,7 +13,7 @@ Table of Contents
 
 - [The Team](#the-team)
   
-  - [Team Photos](#team-photos)
+  - [Team Photos](#team-photo)
   - [Jayden](#jayden)
   - [Arham](#arham)
   - [Trevor](#trevor)
@@ -72,7 +72,7 @@ Table of Contents
 
 # The Team
 
-## Team Photos
+## Team Photo
 
 <table align="center">
   <tr>
