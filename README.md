@@ -139,26 +139,26 @@ The WRO 2025 Future Engineers Self-Driving Cars Challenge tasks teams with desig
 
 #### 1\. Open Challenge
 
-Objective: The vehicle must autonomously complete three laps on a racetrack whose layout randomizes each round.
+In this challenge, the vehicle must autonomously complete three laps on a racetrack whose layout randomizes each round. The run must be completed within the 3-minute time limit; otherwise, the attempt is terminated.
 
 **Key Elements:**
 
-- **Randomized Layouts:** The track may feature randomized corridor widths (narrow or wide sections) and varying starting positions.
+- Randomized Layouts: The track may feature randomized corridor widths (narrow or wide sections) and varying starting positions.
   Dynamic configurations:  The track configuration (e.g., wall placements, starting zones) is determined by a randomization process (e.g., coin tosses, dice rolls) before each round.
 
-- **Adaptability requirement:** The navigation algorithms of the vehicle are critical, having to adapt in real time to an unseen wall and course arrangement without human intervention.
+- Adaptability requirement: The navigation algorithms of the vehicle are critical, having to adapt in real time to an unseen wall and course arrangement without human intervention.
 
 **Performance Goal:**
-Maximize the consistency and speed of laps under unknown track conditions.
+The goal is to maximize the consistency and speed of laps under unknown track conditions.
 
 #### 2\. Obstacle Challenge
 
-Objective: The vehicle must complete three laps on a track with randomly placed traffic signs and then perform a parallel parking maneuver in a designated area.
+In this challenge, the vehicle must complete three complete laps on a track with randomly placed traffic signs and then perform a parallel parking maneuver in a designated area. If the vehicle collides with a traffic sign and knocks it out of the designated zone, the run is considered unsuccessful.
 
 **Key Elements:**
 
-- **Traffic Signs:** Red and green pillars indicate required driving lanes (red = keep right, green = keep left). The vehicle must obey these rules without displacing the signs.
-- **Parking Task:** After completing laps, the vehicle must park within a narrow, variable-sized parking space. Starting inside the parking lot and achieving parallel alignment earns bonus points.
+- Traffic Signs: Red and green pillars indicate required driving lanes (red = keep right, green = keep left). The vehicle must obey these rules without displacing the signs.
+- Parking Task: After completing laps, the vehicle must park within a narrow, variable-sized parking space. Starting inside the parking lot and achieving parallel alignment earns bonus points.
 
 **Randomization factors:**
 
