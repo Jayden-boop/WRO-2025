@@ -74,17 +74,27 @@ Table of Contents
 
 ## Team Photos
 
-<table>
+<table align="center">
   <tr>
-    <th>Normal Photo</th>
-    <th>Silly Photo</th>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="t-photos/TeamPhoto_WRO.jpg" alt="Normal Team Photo" width="100%">
+    <td align="center" style="border: 2px solid #ccc; padding: 10px;">
+      <img src="t-photos/TeamPhoto_WRO.jpg" alt="Normal Team Photo" width="100%"><br>
+      <strong><em>Left: Jayden, Middle: Arham, Right: Trevor</em></strong>
     </td>
-    <td align="center">
-      <img src="t-photos/SillyTeamPhoto_WRO.jpg" alt="Silly Team Photo" width="100%">
+  </tr>
+</table>
+<table align="center">
+  <tr>
+    <td align="center" style="border: 2px solid #ccc; padding: 10px;">
+      <img src="t-photos/TeamPhoto_WRO.jpg" alt="Normal Team Photo" width="90%"><br>
+      <strong><em>Left: Jayden, Middle: Arham, Right: Trevor</em></strong>
+    </td>
+  </tr>
+</table>
+<table align="center">
+  <tr>
+    <td align="center" style="border: 2px solid #ccc; padding: 10px;">
+      <img src="t-photos/TeamPhoto_WRO.jpg" alt="Normal Team Photo" width="80%"><br>
+      <strong><em>Left: Jayden, Middle: Arham, Right: Trevor</em></strong>
     </td>
   </tr>
 </table>
