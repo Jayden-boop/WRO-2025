@@ -37,13 +37,8 @@ Table of Contents
   - [Power and Sense Management](#power-and-sense-management)
     - [Power Source and Distribution](#power-source-and-distribution)
     - [Sensor Selection and Rationale](#sensor-selection-and-rationale)
-  - [Structural Materials](#structural-materials)
-    - [Custom 3D Printed Chassis (PLA)](#custom-3d-printed-chassis-pla)
-    - [Custom 3D Printed Camera Holder (PLA)](#custom-3d-printed-camera-holder-pla)
+  - [Custom Chassis Parts](#custom-chassis-parts)
   - [Mechanical Components](#mechanical-components)
-    - [K989 Drivetrain Components](#k989-drivetrain-components)
-    - [Custom Front Wheels](#custom-front-wheels)
-    - [Fasteners and Hardware](#fasteners-and-hardware)
 
 - [Cost Report](#cost-report)
 
