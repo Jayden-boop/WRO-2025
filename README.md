@@ -508,7 +508,7 @@ This guide provides comprehensive step-by-step instructions for assembling our f
    - Screw in the wire to the expansion board
    - Use voltmeter to validate correct wiring.
 
-<img title="" src="file:///C:/Users/jayde/OneDrive/Documents/GitHub/WRO-2025/other/readme-images/wiring.png" alt="">
+<img title="" src="other/readme-images/wiring.png" alt="">
 
 ### Step 8: Final Assembly and Testing
 
