@@ -63,6 +63,15 @@ Table of Contents
     - [Step 6: Wheel and Tire Installation](#step-6-wheel-and-tire-installation)
     - [Step 7: System Wiring and Connections](#step-7-system-wiring-and-connections)
     - [Step 8: Final Assembly and Testing](#step-8-final-assembly-and-testing)
+- [Obstacle Avoidance](#obstacle-avoidance)
+  - [1. Pillar Detection](#1-pillar-detection)
+  - [2. Pillar Filtering and Prioritization](#2-pillar-filtering-and-prioritization)
+  - [3. Steering and Control](#3-steering-and-control)
+  - [4. Emergency Collision Handling](#4-emergency-collision-handling)
+  - [5. Edge Case Handling](#5-edge-case-handling)
+  - [6. Turn Handling, Line Detection, and Lap Counting](#6-turn-handling-line-detection-and-lap-counting)
+  - [7. Exiting the Parking Lot](#7-exiting-the-parking-lot)
+  - [8. Parking Sequence](#8-parking-sequence)
 
 # The Team
 
