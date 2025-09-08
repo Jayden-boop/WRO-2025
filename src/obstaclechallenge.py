@@ -53,7 +53,7 @@ WIDTH = 640
 HEIGHT = 480
 POINTS = [(115, 200), (525, 200), (640, 370), (0, 370)]
 
-MAX_TURNS = 8
+MAX_TURNS = 4
 ACTIONS_TO_STRAIGHT = 120
 WALL_THRESHOLD = 200
 NO_WALL_THRESHOLD = 200
@@ -509,11 +509,11 @@ while True:
         print("aaaa" + str(closest_pillar_area) + " " + str(closest_pillar_distance))
 
     if exit_parking_lot_right:
-        pw = pwm(MID_SERVO + MAX_TURN_DEGREE)
+        pw = pwm(MID_SERVO + MAX_TURN_DEGREE - 7)
         board.pwm_servo_set_position(0.04, [[1, pw]])
 
-        board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 5]])
-        time.sleep(1.2)
+        board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 20]])
+        time.sleep(1.5)
 
         pw = pwm(MID_SERVO)
         board.pwm_servo_set_position(0.04, [[1, pw]])
@@ -1201,7 +1201,7 @@ while True:
                                     x = dist * math.cos(angle_rad) / 10.0
                                     y = dist * math.sin(angle_rad) / 10.0
 
-                                    if y < -17 and y > -19 and x < 24 and x > 10:
+                                    if y < -21 and y > -23 and x < 24 and x > 10:
                                         print(
                                             f"RIGHT SIDE DETECTION: x={x:.1f}, y={y:.1f}, right_reading updated from {right_reading} to {x}"
                                         )
@@ -1234,9 +1234,9 @@ while True:
             at_parking_lot = True
             board.pwm_servo_set_position(0.04, [[2, 1500]])
             time.sleep(2)
-            board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 7]])
+            board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 6]])
 
-            servo_angle = 10
+            servo_angle = 5
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
             time.sleep(1.9)
 
@@ -1532,7 +1532,7 @@ while True:
                                 x = dist * math.cos(angle_rad) / 10.0
                                 y = dist * math.sin(angle_rad) / 10.0
 
-                                if y > -13 and y < -11 and x > -3 and x < 3:
+                                if y > -10 and y < -8 and x > -3 and x < 3:
                                     close_to_wall = True
 
                                 current_scan_points.append((x, y))
@@ -1634,6 +1634,7 @@ while True:
                                                     wall_points
                                                 )
                                             )
+
                                             if slope is not None:
                                                 # This is the main output for the test
                                                 print(
@@ -1732,7 +1733,7 @@ while True:
                                     x = dist * math.cos(angle_rad) / 10.0
                                     y = dist * math.sin(angle_rad) / 10.0
 
-                                    if y < -11 and y > -13 and x > -22 and x < -10:
+                                    if y < -13 and y > -15 and x > -22 and x < -10:
                                         print(
                                             f"RIGHT SIDE DETECTION: x={x:.1f}, y={y:.1f}, right_reading updated from {right_reading} to {x}"
                                         )
@@ -1765,10 +1766,13 @@ while True:
 
             at_parking_lot = True
 
-            board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 25]])
-            servo_angle = MID_SERVO + MAX_TURN_DEGREE
+            board.pwm_servo_set_position(0.04, [[2, 1500]])
+            time.sleep(2)
+            board.pwm_servo_set_position(0.04, [[2, DC_SPEED + 5]])
+
+            servo_angle = MID_SERVO + MAX_TURN_DEGREE - 7
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
-            time.sleep(2.2)
+            time.sleep(1.7)
 
             servo_angle = MID_SERVO
             board.pwm_servo_set_position(0.04, [[1, pwm(servo_angle)]])
