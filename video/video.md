@@ -1,4 +1,4 @@
-Open Challenge Video: https://youtu.be/GPGMuM1HHgo
+[Open Challenge Video](https://youtu.be/GPGMuM1HHgo) 
 
-Obstacle Challenge Video: https://youtu.be/hhrCKOZkAMQ
+[Obstacle Challenge Video](https://youtu.be/hhrCKOZkAMQ) 
 <br>
