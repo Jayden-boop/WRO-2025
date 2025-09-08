@@ -36,7 +36,9 @@ Table of Contents
     - [Wheels and Drivetrain Rationale](#wheels-and-drivetrain-rationale)
   - [Power and Sense Management](#power-and-sense-management)
     - [Power Source and Distribution](#power-source-and-distribution)
+    - [Wiring Diagram](#wiring-diagram)
     - [Sensor Selection and Rationale](#sensor-selection-and-rationale)
+
   - [Custom Chassis Parts](#custom-chassis-parts)
   - [Mechanical Components](#mechanical-components)
 
