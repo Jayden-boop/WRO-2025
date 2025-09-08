@@ -319,20 +319,20 @@ Precision ball joints from the K989 system ensure smooth steering operation with
 
 ## Cost Report
 
-| Component                                                             | Quantity | Unit Price (CAD) | Total Cost (CAD) |
-| --------------------------------------------------------------------- | -------- | ---------------- | ---------------- |
-| Raspberry Pi 5 (8GB)                                                  | 1        | $139.99          | $139.99          |
-| Pi 5 Expansion Board                                                  | 1        | $55.87           | $55.87           |
-| HS-5055MG Servo                                                       | 1        | $34.91           | $34.91           |
-| K989 1/28 WL Toys Chassis                                             | 1        | $105.68          | $105.68          |
-| Furitek Micro Komodo Motor and Furitek Lizard Pro Esc (sold together) | 1        | $112.71          | $112.71          |
-| LDRobot D500 LiDAR Kit                                                | 1        | $99.60           | $99.60           |
-| Texas Instruments TPS22918DBVR Power Switch ICs                       | 1        | $0.64            | $0.64            |
-| Battery Pack (2S LiPo 7.4V ~2000mAh)                                  | 2        | $80.35           | $160.70          |
-| Diyeeni Zero Module Camera (5MB, 1080p HD)                            | 1        | $46.85           | $46.85           |
-| GT24 M-Sport 2022 Hybrid Rally Wheels & Tires                         | 1        | $22.00           | $22.00           |
-| USB to USBC adapter                                                   | 1        | $4.99            | $4.99            |
-| USBC to USBC wire                                                     | 1        | $5.64            | $5.64            |
+| Component                                                             | Quantity | Unit Price (CAD) | Total Cost (CAD) | Link |
+| --------------------------------------------------------------------- | -------- | ---------------- | ---------------- | ---- |
+| Raspberry Pi 5 (8GB)                                                  | 1        | $139.99          | $139.99          | [Link](https://www.canakit.com/raspberry-pi-5-16gb.html?cid=CAD&src=raspberrypi) |
+| Pi 5 Expansion Board                                                  | 1        | $55.87           | $55.87           | [Link](https://www.hiwonder.com/products/expansion-board-for-raspberry-pi-5?variant=40831025807447&srsltid=AfmBOoqIRHMz7In0J2-uPMDxV1Fx_18TWxJYhPTPAGBEt_B5f0A5Jbh-) |
+| HS-5055MG Servo                                                       | 1        | $34.91           | $34.91           | [Link](https://ca.robotshop.com/products/hs-5055mg-metal-gear-micro-servo-motor) |
+| K989 1/28 WL Toys Chassis                                             | 1        | $105.68          | $105.68          | [Link](https://www.amazon.ca/Baugger-Drift-Speed-Sport-Racing/dp/B09YM6YGZF) |
+| Furitek Micro Komodo Motor and Furitek Lizard Pro Esc (sold together) | 1        | $112.71          | $112.71          | [Link](https://furitek.com/products/furitek-micro-komodo-brushless-motor) |
+| LDRobot D500 LiDAR Kit                                                | 1        | $99.60           | $99.60           | [Link](https://www.amazon.ca/LDROBOT-Outdoor-Navigation-Scanning-Support/dp/B0DDKXQ23R) |
+| Snap-in Boat Rocker Switch Toggle Power                               | 1        | $1.62            | $1.62            | [Link](https://www.aliexpress.com/item/1005008317476851.html?src=google&snps=y&snpsid=1&src=google&albch=shopping&acnt=752-015-9270&isdl=y&slnk=&plac=&mtctp=&albbt=Google_7_shopping&aff_platform=google&aff_short_key=_oDeeeiG&&albagn=888888&&ds_e_adid=765470668236&ds_e_matchtype=search&ds_e_device=c&ds_e_network=g&ds_e_product_group_id=2432726605827&ds_e_product_id=en1005008317476851&ds_e_product_merchant_id=5551326180&ds_e_product_country=CA&ds_e_product_language=en&ds_e_product_channel=online&ds_e_product_store_id=&ds_url_v=2&albcp=22819011339&albag=184504361924&isSmbAutoCall=false&needSmbHouyi=false&gad_campaignid=22819011339) |
+| Gens Ace 2S LiPo Battery (2S LiPo 7.4V ~2000mAh)                      | 2        | $80.35           | $160.70          | [Link](https://www.greathobbies.com/productinfo/?prod_id=GEA132S45DGT&srsltid=AfmBOort4SCRN6p5zmldpHb1-qTRzn_HcyCmmf791LLOHJlHKQXIIOxaekM) |
+| Diyeeni Zero Module Camera (5MB, 1080p HD)                            | 1        | $46.85           | $46.85           | [Link](https://www.amazon.ca/Raspberry-Camera-Module-OV5647-Sensor/dp/B0D324RKRZ) | 
+| GT24 M-Sport 2022 Hybrid Rally Wheels & Tires                         | 1        | $22.00           | $22.00           | [Link](https://carisma-shop.com/products/gt24-m-sport-2022-puma-hybrid-rally1-wheels-tires-set) |
+| USB to USBC adapter                                                   | 1        | $4.99            | $4.99            | [Link](https://www.amazon.ca/Charging-Compatible-Samsung-OnePlus-Stations/dp/B09XXNDP6F/ref=sr_1_1_sspa?dib=eyJ2IjoiMSJ9.DQOg5aZI7SvEJLlLdRQqRZfQg7tZxN_0M8UA5kVHle2hJJJLmbSLYQpGAApDuFhVXussX_dGHe1TBYCFkEGdDDpZhfBey5YihYkxOHW8R21IxCH1vSgNUzN28vxGsFzOjybo1TEMnxpD3EAzP5bkOaqiNAIwlaMxqiw1O3988AtGsP9fPh6DiWvbcxf7I0IcVpddrzWutXIK9Af2N-NOH3w2XMOcMySefj3bWsDtO4sAh_Y4X6E2mfhYdulS11F9Pqlyue1zS_GA7nn9Ay3Y604M_ZXxtBZSHGyrfw_q1sY.eK59tKdg_PHQlyV6eqQr1np0lWsCVA8mB3uP5OSm47c&dib_tag=se&gad_source=1&hvadid=604664806262&hvdev=c&hvexpln=0&hvlocphy=9000758&hvnetw=g&hvocijid=2092967321680829883--&hvqmt=e&hvrand=2092967321680829883&hvtargid=kwd-367805625268&hydadcr=27654_14575656&keywords=short+usb+to+c+cable&mcid=7bf733fa36d63d7db22d420ec2a87d21&qid=1757295351&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1) |
+| USBC to USBC wire                                                     | 1        | $5.64            | $5.64            | [Link](https://www.amazon.ca/Earphones-Headphones-Smartphones-PowerBanks-Portable/dp/B08X365B5Y?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&psc=1&smid=A3MKUS9HNOL3E4) |
 
 ## Measurements
 
